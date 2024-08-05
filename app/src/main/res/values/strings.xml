@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">EasApp</string>
+    <string name="titulo_app">Energía, Ambiente y Sostenibilidad</string>
+    <string name="titulo_login">Inicio de sesión</string>
+    <string name="error_login_obligatorio">Ingrese DNI y Clave</string>
+    <string name="login_hint_dni">DNI</string>
+    <string name="login_hint_clave">Clave</string>
+    <string name="login_btn_entrar">Entrar</string>
+    <string name="login_btn_registro">Registrar usuario</string>
+    <string name="login_btn_olvido">Olvidé contraseña</string>
 </resources>

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primaryColor">#006D5B</color> <!-- Verde agua oscuro -->
+    <color name="primaryLightColor">#00BFA5</color> <!-- Verde agua claro -->
+    <color name="primaryDarkColor">#004D40</color> <!-- Verde agua muy oscuro -->
+    <color name="accentColor">#009688</color> <!-- Verde agua acentuado -->
+    <color name="backgroundColor">#FFFFFF</color> <!-- Blanco para fondo -->
+    <color name="secondaryTextColor">#1D1D1D</color> <!-- Texto secundario oscuro -->
+    <color name="editTextBackgroundColor">#E0F2F1</color> <!-- Fondo claro para EditText -->
+    <color name="editTextTextColor">#004D40</color> <!-- Texto oscuro para EditText -->
+    <color name="buttonBackgroundColor">#00796B</color> <!-- Fondo de botón verde agua oscuro -->
+    <color name="buttonTextColor">#FFFFFF</color> <!-- Texto blanco para botones -->
+    <color name="errorColor">#B00020</color> <!-- Rojo oscuro para errores -->
 </resources>
+
