@@ -5,13 +5,13 @@ plugins {
 android {
     signingConfigs {
         getByName("debug") {
-            storeFile = file("/home/megatron/Projects/eas/eas-key.keystore")
+            storeFile = file("keys/eas-key.keystore")
             storePassword = "ongeas"
             keyAlias = "eas"
             keyPassword = "ongeas"
         }
         create("release") {
-            storeFile = file("/home/megatron/Projects/eas/eas-key.keystore")
+            storeFile = file("keys/eas-key.keystore")
             storePassword = "ongeas"
             keyAlias = "eas"
             keyPassword = "ongeas"
