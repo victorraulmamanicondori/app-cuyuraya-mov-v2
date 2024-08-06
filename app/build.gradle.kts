@@ -3,6 +3,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("/home/megatron/Projects/eas/eas-key.keystore")
+            storePassword = "ongeas"
+            keyAlias = "eas"
+            keyPassword = "ongeas"
+        }
+        create("release") {
+            storeFile = file("/home/megatron/Projects/eas/eas-key.keystore")
+            storePassword = "ongeas"
+            keyAlias = "eas"
+            keyPassword = "ongeas"
+        }
+    }
     namespace = "com.eas.app"
     compileSdk = 34
 
