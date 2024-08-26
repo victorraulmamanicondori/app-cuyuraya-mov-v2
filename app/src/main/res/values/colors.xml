@@ -10,6 +10,22 @@
     <color name="editTextTextColor">#004D40</color> <!-- Texto oscuro para EditText -->
     <color name="buttonBackgroundColor">#00796B</color> <!-- Fondo de botón verde agua oscuro -->
     <color name="buttonTextColor">#FFFFFF</color> <!-- Texto blanco para botones -->
-    <color name="errorColor">#B00020</color> <!-- Rojo oscuro para errores -->
+    <color name="errorColor">#B00020</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color> <!-- Rojo oscuro para errores -->
+
+
+
+    <color name="stepview_line_done">@android:color/white</color>
+    <color name="stepview_line_next">#26ffffff</color>
+    <color name="stepview_text_next">#40ffffff</color>
+    <color name="stepview_text_done">#40ffffff</color>
+    <color name="stepview_text_selected">@android:color/white</color>
+    <color name="stepview_circle_done">@android:color/white</color>
+    <color name="stepview_circle_selected">@android:color/white</color>
+    <color name="stepview_selected_number">#25448a</color>
+    <color name="stepview_mark">@color/stepview_selected_number</color>
 </resources>
 
