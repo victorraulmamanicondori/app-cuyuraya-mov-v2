@@ -17,4 +17,19 @@
         <item>End</item>
         <item>Post step</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ingrese_nombres">Ingrese nombres</string>
+    <string name="nombres">Nombres:</string>
+    <string name="apellido_paterno">Apellido Paterno:</string>
+    <string name="ingrese_apellido_paterno">Ingrese apellido paterno</string>
+    <string name="dni">DNI:</string>
+    <string name="ingrese_dni">Ingrese DNI</string>
+    <string name="apellido_materno">Apellido Materno:</string>
+    <string name="ingrese_apellido_materno">Ingrese apellido materno</string>
+    <string name="este_campo_es_obligatorio">Este campo es obligatorio</string>
+    <string name="datos_personales">Datos Personales</string>
+    <string name="datos_adicionales">Datos Adicionales</string>
+    <string name="ubigeo">Ubigeo</string>
+    <string name="credenciales">Credenciales</string>
 </resources>

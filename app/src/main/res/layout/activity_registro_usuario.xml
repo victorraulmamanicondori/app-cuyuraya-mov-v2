@@ -19,7 +19,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:sv_animationType="All"
         app:sv_stepPadding="12dp"
-        app:sv_typeface="@font/iran_sans_mobile"/>
+        app:sv_typeface="@font/iran_sans_mobile"
+        app:sv_stepLineWidth="5dp"
+        app:sv_nextStepLineColor="#c3c3c3"
+        app:sv_nextTextColor="#c3c3c3"
+        app:sv_nextStepCircleColor="#c3c3c3"
+        app:sv_stepNumberTextSize="10pt"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -36,6 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/nextButtonTitle"
+        android:background="@color/buttonBackgroundColor"
+        android:textColor="@color/buttonTextColor"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/back"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -46,6 +53,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/backButtonTitle"
+        android:background="@color/buttonBackgroundColor"
+        android:textColor="@color/buttonTextColor"
         app:layout_constraintRight_toLeftOf="@+id/next"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

@@ -1,20 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="15dp"
     tools:context=".PasoDatosPersonalesFragment">
 
-    <!-- Añade tus elementos de formulario aquí -->
-    <EditText
-        android:id="@+id/nombres"
+    <TextView
+        android:id="@+id/lblNombres"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:hint="First Name"
+        android:layout_height="wrap_content"
+        android:text="@string/nombres"
+        app:layout_constraintBottom_toTopOf="@id/txtNombres"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtNombres"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:hint="@string/ingrese_nombres"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorNombres"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblNombres" />
+
+    <TextView
+        android:id="@+id/tvErrorNombres"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/txtNombres"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lblPaterno"/>
+
+    <TextView
+        android:id="@+id/lblPaterno"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/apellido_paterno"
+        app:layout_constraintBottom_toTopOf="@id/txtPaterno"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvErrorNombres" />
+
+    <EditText
+        android:id="@+id/txtPaterno"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:hint="@string/ingrese_apellido_paterno"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorPaterno"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblPaterno" />
+
+    <TextView
+        android:id="@+id/tvErrorPaterno"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/txtPaterno"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lblMaterno"/>
+
+    <TextView
+        android:id="@+id/lblMaterno"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/apellido_materno"
+        app:layout_constraintBottom_toTopOf="@id/txtMaterno"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvErrorPaterno" />
+
+    <EditText
+        android:id="@+id/txtMaterno"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:hint="@string/ingrese_apellido_materno"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorMaterno"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblMaterno" />
+
+    <TextView
+        android:id="@+id/tvErrorMaterno"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/txtMaterno"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lblDni"/>
+
+    <TextView
+        android:id="@+id/lblDni"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/dni"
+        app:layout_constraintBottom_toTopOf="@id/txtDni"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvErrorMaterno" />
+
+    <EditText
+        android:id="@+id/txtDni"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:hint="@string/ingrese_dni"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorDni"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblDni" />
+
+    <TextView
+        android:id="@+id/tvErrorDni"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/txtDni"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

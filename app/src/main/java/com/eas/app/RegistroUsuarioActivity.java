@@ -35,9 +35,19 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+                if (currentFragment instanceof PasoDatosPersonalesFragment) {
+                    if (!((PasoDatosPersonalesFragment) currentFragment).validateFields()) {
+                        // Si la validación falla, no avanzar
+                        return;
+                    }
+                }
+
                 if (currentStep < stepView.getStepCount() - 1) {
                     currentStep++;
                     stepView.go(currentStep, true);
+                    loadFragment(currentStep);
                 } else {
                     stepView.done(true);
                 }
@@ -56,23 +66,40 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         });
 
         List<String> steps = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            steps.add("Step " + (i + 1));
-        }
-        steps.set(steps.size() - 1, steps.get(steps.size() - 1) + " last one");
+        steps.add(getString(R.string.datos_personales));
+        steps.add(getString(R.string.datos_adicionales));
+        steps.add(getString(R.string.ubigeo));
+        steps.add(getString(R.string.credenciales));
+
         stepView.setSteps(steps);
 
         loadFragment(currentStep);
     }
 
     private void loadFragment(int step) {
-        Fragment fragment = new PasoDatosPersonalesFragment();
+        Fragment fragment;
+
+        switch(step) {
+            case 0:
+                fragment = new PasoDatosPersonalesFragment();
+                break;
+            case 1:
+                fragment = new PasoDatosAdicionalesFragment();
+                break;
+            case 2:
+                fragment = new PasoUbigeoFragment();
+                break;
+            case 3:
+                fragment = new PasoCredencialesFragment();
+                break;
+            default:
+                fragment = new PasoDatosPersonalesFragment();
+                break;
+        }
+
         FragmentManager firstFragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = firstFragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment, "pasoDatosPersonalesFragment");
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
-
-        System.out.println("Llego....");
     }
 }
