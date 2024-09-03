@@ -32,4 +32,10 @@
     <string name="datos_adicionales">Datos Adicionales</string>
     <string name="ubigeo">Ubigeo</string>
     <string name="credenciales">Credenciales</string>
+    <string name="telefono">Telefono:</string>
+    <string name="ingrese_telefono">Ingrese telefono:</string>
+    <string name="direccion">Direccion:</string>
+    <string name="ingrese_direccion">Ingrese direccion</string>
+    <string name="numero_contrato">Numero contrato:</string>
+    <string name="ingrese_numero_contrato">Ingrese numero de contrato</string>
 </resources>
