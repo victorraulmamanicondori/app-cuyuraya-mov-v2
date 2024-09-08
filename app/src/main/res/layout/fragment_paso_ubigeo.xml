@@ -1,14 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PasoUbigeoFragment">
+    android:layout_margin="15dp"
+    tools:context=".PasoDatosPersonalesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/lblDepartamento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/departamento"
+        app:layout_constraintBottom_toTopOf="@id/spinnerDepartamento"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <Spinner
+        android:id="@+id/spinnerDepartamento"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorDepartamento"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblDepartamento" />
+
+    <TextView
+        android:id="@+id/tvErrorDepartamento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/lblProvincia"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerDepartamento" />
+
+    <TextView
+        android:id="@+id/lblProvincia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/provincia"
+        app:layout_constraintBottom_toTopOf="@id/spinnerProvincia"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvErrorDepartamento" />
+
+    <Spinner
+        android:id="@+id/spinnerProvincia"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorProvincia"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblProvincia" />
+
+    <TextView
+        android:id="@+id/tvErrorProvincia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/lblDistrito"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerProvincia" />
+
+    <TextView
+        android:id="@+id/lblDistrito"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/distrito"
+        app:layout_constraintBottom_toTopOf="@id/spinnerDistrito"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvErrorProvincia" />
+
+    <Spinner
+        android:id="@+id/spinnerDistrito"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorDistrito"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblDistrito" />
+
+    <TextView
+        android:id="@+id/tvErrorDistrito"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/lblCentroPoblado"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerDistrito" />
+
+    <TextView
+        android:id="@+id/lblCentroPoblado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/centroPoblado"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerCentroPoblado"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvErrorDistrito" />
+
+    <Spinner
+        android:id="@+id/spinnerCentroPoblado"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorCentroPoblado"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblCentroPoblado" />
+
+    <TextView
+        android:id="@+id/tvErrorCentroPoblado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCentroPoblado" />
+
+    <TextView
+        android:id="@+id/lblComunidadParcialidad"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/comunidadParcialidad"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerComunidadParcialidad"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvErrorCentroPoblado" />
+
+    <Spinner
+        android:id="@+id/spinnerComunidadParcialidad"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorComunidadParcialidad"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblComunidadParcialidad" />
+
+    <TextView
+        android:id="@+id/tvErrorComunidadParcialidad"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/lblSector"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerComunidadParcialidad" />
+
+    <TextView
+        android:id="@+id/lblSector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sector"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerSector"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvErrorComunidadParcialidad" />
+
+    <Spinner
+        android:id="@+id/spinnerSector"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorSector"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblSector" />
+
+    <TextView
+        android:id="@+id/tvErrorSector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerSector" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

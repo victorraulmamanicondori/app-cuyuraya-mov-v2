@@ -38,4 +38,12 @@
     <string name="ingrese_direccion">Ingrese direccion</string>
     <string name="numero_contrato">Numero contrato:</string>
     <string name="ingrese_numero_contrato">Ingrese numero de contrato</string>
+    <string name="departamento">Departamento:</string>
+    <string name="provincia">Pronvicia:</string>
+    <string name="distrito">Distrito:</string>
+    <string name="centroPoblado">Centro Poblado:</string>
+    <string name="comunidadParcialidad">Comunidad/Parcialidad:</string>
+    <string name="sector">Sector:</string>
+    <string name="contrasenia">Contraseña:</string>
+    <string name="ingrese_contrasenia">Ingrese contraseña</string>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="distrito">Distrito:</string>
+    <string name="centroPoblado">Centro Poblado:</string>
+    <string name="comunidadParcialidad">Comunidad/Parcialidad:</string>
+    <string name="sector">Sector:</string>
+    <string name="contrasenia">Contraseña:</string>
+    <string name="ingrese_contrasenia">Ingrese contraseña</string>
+</resources>
