@@ -1,48 +1,37 @@
 package com.eas.app.api;
 
-import org.json.JSONObject;
+import androidx.annotation.NonNull;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
+import com.eas.app.api.request.LoginRequest;
+import com.eas.app.api.response.LoginResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BaseApi {
+    private BaseApiService apiService;
 
-    public static class TokenResponse {
-        public String accessToken;
-        public String refreshToken;
+    public BaseApi(String token) {
+        apiService = ApiClient.getClient(token).create(BaseApiService.class);
     }
 
-    public TokenResponse peticionPOST(String endpoint, String... params) throws Exception {
-        URL url = new URL("https://tuapi.com" + endpoint);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/json; utf-8");
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setDoOutput(true);
+    public void login(LoginRequest requestData, BaseApiCallback<LoginResponse> callback) {
+        Call<LoginResponse> call = apiService.login(requestData);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError(new Throwable("Error: " + response.message()));
+                }
+            }
 
-        JSONObject jsonInput = new JSONObject();
-        if (params.length == 2) {
-            jsonInput.put("dni", params[0]);
-            jsonInput.put("clave", params[1]);
-        } else if (params.length == 1) {
-            jsonInput.put("refreshToken", params[0]);
-        }
-
-        try (OutputStream os = conn.getOutputStream()) {
-            byte[] input = jsonInput.toString().getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-
-        try (Scanner scanner = new Scanner(conn.getInputStream())) {
-            String jsonResponse = scanner.useDelimiter("\\A").next();
-            JSONObject jsonObject = new JSONObject(jsonResponse);
-
-            TokenResponse tokenResponse = new TokenResponse();
-            tokenResponse.accessToken = jsonObject.getString("accessToken");
-            tokenResponse.refreshToken = jsonObject.getString("refreshToken");
-            return tokenResponse;
-        }
+            @Override
+            public void onFailure(@NonNull Call<LoginResponse> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
     }
 }

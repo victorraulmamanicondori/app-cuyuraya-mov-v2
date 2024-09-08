@@ -2,8 +2,7 @@ package com.eas.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +13,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.eas.app.api.BaseApi;
+import com.eas.app.api.BaseApiCallback;
+import com.eas.app.api.request.LoginRequest;
+import com.eas.app.api.response.LoginResponse;
 import com.eas.app.utils.Almacenamiento;
 
 import java.util.concurrent.ExecutorService;
@@ -25,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView errorText;
     private ProgressBar progressBar;
     private ExecutorService executorService;
-    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,40 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         olvideButton.setOnClickListener(v -> handleOlvidoContrasena());
 
         executorService = Executors.newSingleThreadExecutor();
-        handler = new Handler(Looper.getMainLooper());
-
-        verificarInicioSesion();
-    }
-
-    private void verificarInicioSesion() {
-        executorService.execute(() -> {
-            boolean result = false;
-            try {
-                String antiguoAccessToken = Almacenamiento.obtener(getApplicationContext(), "accessToken");
-                String antiguoRefreshToken = Almacenamiento.obtener(getApplicationContext(), "refreshToken");
-
-                if (antiguoAccessToken != null && antiguoRefreshToken != null) {
-                    BaseApi api = new BaseApi();
-                    BaseApi.TokenResponse tokenResponse = api.peticionPOST("/login/refreshToken", antiguoRefreshToken);
-
-                    if (tokenResponse != null) {
-                        Almacenamiento.guardar(getApplicationContext(), "accessToken", tokenResponse.accessToken);
-                        Almacenamiento.guardar(getApplicationContext(), "refreshToken", tokenResponse.refreshToken);
-                        result = true;
-                    }
-                }
-            } catch (Exception e) {
-                Almacenamiento.eliminar(getApplicationContext(), "accessToken");
-                Almacenamiento.eliminar(getApplicationContext(), "refreshToken");
-            }
-
-            boolean finalResult = result;
-            handler.post(() -> {
-                if (finalResult) {
-                    navigateToPrincipal();
-                }
-            });
-        });
     }
 
     private void handleLogin() {
@@ -97,27 +64,48 @@ public class LoginActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
 
             executorService.execute(() -> {
-                boolean result = false;
                 try {
-                    BaseApi api = new BaseApi();
-                    BaseApi.TokenResponse tokenResponse = api.peticionPOST("/login", dni, clave);
+                    BaseApi loginApi = new BaseApi(null);
+                    LoginRequest loginRequest = new LoginRequest(dni, clave); // Usa los valores ingresados
 
-                    if (tokenResponse != null) {
-                        Almacenamiento.guardar(getApplicationContext(), "accessToken", tokenResponse.accessToken);
-                        Almacenamiento.guardar(getApplicationContext(), "refreshToken", tokenResponse.refreshToken);
-                        result = true;
-                    }
+                    loginApi.login(loginRequest, new BaseApiCallback<LoginResponse>() {
+                        @Override
+                        public void onSuccess(LoginResponse response) {
+                            String accessToken = response.getAccessToken();
+                            String refreshToken = response.getRefreshToken();
+
+                            // Guardar los tokens
+                            Almacenamiento.guardar(getApplicationContext(), "accessToken", accessToken);
+                            Almacenamiento.guardar(getApplicationContext(), "refreshToken", refreshToken);
+
+                            // Actualizar la UI en el hilo principal
+                            runOnUiThread(() -> {
+                                progressBar.setVisibility(View.GONE);
+                                navigateToPrincipal();
+                            });
+
+                            Log.d("Login", "Login exitoso: ");
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                            // Manejar el error y actualizar la UI en el hilo principal
+                            runOnUiThread(() -> {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(), "Error en el login: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                            Log.e("Login", "Error en el login: " + t.getMessage());
+                        }
+                    });
+
                 } catch (Exception e) {
-                    handler.post(() -> Toast.makeText(getApplicationContext(), "Error en el inicio de sesión", Toast.LENGTH_SHORT).show());
+                    // Manejo de excepciones
+                    runOnUiThread(() -> {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Error en el inicio de sesión: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+                    Log.e("Login", "Excepción en el inicio de sesión", e);
                 }
-
-                boolean finalResult = result;
-                handler.post(() -> {
-                    progressBar.setVisibility(View.GONE);
-                    if (finalResult) {
-                        navigateToPrincipal();
-                    }
-                });
             });
         }
     }
