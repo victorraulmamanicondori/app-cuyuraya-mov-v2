@@ -59,9 +59,10 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (currentStep > 0) {
                     currentStep--;
+                    stepView.go(currentStep, true);
+                    loadFragment(currentStep);
                 }
                 stepView.done(false);
-                stepView.go(currentStep, true);
             }
         });
 
