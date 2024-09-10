@@ -60,7 +60,7 @@
         android:hint="@string/login_hint_dni"
         android:inputType="number"
         android:autofillHints="username"
-        android:padding="10dp"
+        android:paddingHorizontal="10dp"
         android:textColor="@color/editTextTextColor"/>
 
     <EditText
@@ -73,7 +73,7 @@
         android:hint="@string/login_hint_clave"
         android:inputType="textPassword"
         android:autofillHints="password"
-        android:padding="10dp"
+        android:paddingHorizontal="10dp"
         android:textColor="@color/editTextTextColor"/>
 
     <Button

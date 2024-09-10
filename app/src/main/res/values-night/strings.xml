@@ -6,4 +6,11 @@
     <string name="sector">Sector:</string>
     <string name="contrasenia">Contraseña:</string>
     <string name="ingrese_contrasenia">Ingrese contraseña</string>
+    <string name="registrar_usuario">Registrar Usuario</string>
+    <string name="registrar_lectura">Registrar Lectura</string>
+    <string name="asignar_medidor">Asignar Medidor</string>
+    <string name="registrar_egreso">Registrar Egreso</string>
+    <string name="registrar_ingreso">Registrar Ingreso</string>
+    <string name="gestion_de_lecturas">Gestion de Lecturas</string>
+    <string name="reportes">Reportes</string>
 </resources>

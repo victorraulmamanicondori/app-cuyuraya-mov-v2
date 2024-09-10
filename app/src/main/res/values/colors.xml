@@ -16,7 +16,8 @@
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color> <!-- Rojo oscuro para errores -->
 
-
+    <color name="gray">#D7D7D7</color>
+    <color name="white">#FFFFFF</color>
 
     <color name="stepview_line_done">@android:color/white</color>
     <color name="stepview_line_next">#26ffffff</color>
