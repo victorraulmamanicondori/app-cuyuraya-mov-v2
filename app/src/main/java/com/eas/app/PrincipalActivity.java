@@ -14,13 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class PrincipalActivity extends AppCompatActivity {
 
-    private CardView cardRegistrarUsuario;
-    private CardView cardAsignarMedidor;
-    private CardView cardRegistrarLectura;
-    private CardView cardRegistrarEgreso;
-    private CardView cardRegistrarIngreso;
-    private CardView cardGestionLecturas;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +28,66 @@ public class PrincipalActivity extends AppCompatActivity {
             return insets;
         });
 
-        cardRegistrarUsuario = findViewById(R.id.cardRegistrarUsuario);
+        CardView cardRegistrarUsuario = findViewById(R.id.cardRegistrarUsuario);
         cardRegistrarUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(PrincipalActivity.this, RegistroUsuarioActivity.class);
-                //startActivity(intent);
-                Toast.makeText(PrincipalActivity.this, "Card clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PrincipalActivity.this, RegistroUsuarioActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView cardAsignarMedidor = findViewById(R.id.cardAsignarMedidor);
+        cardAsignarMedidor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PrincipalActivity.this, AsignarMedidorActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView cardRegistrarLectura = findViewById(R.id.cardRegistrarLectura);
+        cardRegistrarLectura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PrincipalActivity.this, RegistrarLecturaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView cardRegistrarEgreso = findViewById(R.id.cardRegistrarEgreso);
+        cardRegistrarEgreso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PrincipalActivity.this, RegistrarEgresoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView cardRegistrarIngreso = findViewById(R.id.cardRegistrarIngreso);
+        cardRegistrarIngreso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PrincipalActivity.this, RegistrarIngresoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView cardGestionLecturas = findViewById(R.id.cardGestionLecturas);
+        cardGestionLecturas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PrincipalActivity.this, GestionLecturasActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView cardReportes = findViewById(R.id.cardReportes);
+        cardReportes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PrincipalActivity.this, ReportesActivity.class);
+                startActivity(intent);
             }
         });
     }

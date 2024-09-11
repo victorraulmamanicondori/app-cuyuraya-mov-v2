@@ -53,4 +53,20 @@
     <string name="registrar_ingreso">Registrar Ingreso</string>
     <string name="gestion_de_lecturas">Gestion de Lecturas</string>
     <string name="reportes">Reportes</string>
+    <string name="tipo_ingreso">Tipo Ingreso:</string>
+    <string name="monto">Monto:</string>
+    <string name="ingrese_monto">Ingrese monto</string>
+    <string name="descripcion">Descripcion:</string>
+    <string name="ingrese_descripcion">Ingrese descripcion</string>
+    <string name="tipo_egreso">Egreso:</string>
+    <string name="codigo_medidor">Codigo medidor:</string>
+    <string name="lectura_actual">Lectura actual:</string>
+    <string name="ingrese_lectura_actual">Ingrese lectura actual</string>
+    <string name="ingrese_codigo_medidor" />
+    <string name="btn_registrar_lectura">Registrar Lectura</string>
+    <string name="btn_registrar_egreso">Registrar Egreso</string>
+    <string name="btn_registrar_ingreso">Registrar Ingreso</string>
+    <string name="btn_asignar_medidor">Asignar Medidor</string>
+    <string name="ingrese_dni_usuario">Ingrese DNI del usuario</string>
+    <string name="dni_usuario">DNI del Usuario:</string>
 </resources>

@@ -15,9 +15,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasApp"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
-
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".ReportesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GestionLecturasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarIngresoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarEgresoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarLecturaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AsignarMedidorActivity"
+            android:exported="false" />
         <activity
             android:name=".PrincipalActivity"
             android:exported="false" />
