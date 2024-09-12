@@ -37,12 +37,12 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
-                if (currentFragment instanceof PasoDatosPersonalesFragment) {
+                /*if (currentFragment instanceof PasoDatosPersonalesFragment) {
                     if (!((PasoDatosPersonalesFragment) currentFragment).validateFields()) {
                         // Si la validación falla, no avanzar
                         return;
                     }
-                }
+                }*/
 
                 if (currentStep < stepView.getStepCount() - 1) {
                     currentStep++;

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class Almacenamiento {
 
-    private static final String PREFS_NAME = "MyAppPrefs";
+    private static final String PREFS_NAME = "EasAppPrefer";
 
     public static void guardar(Context context, String key, String value) {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
