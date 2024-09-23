@@ -1,6 +1,6 @@
 package com.eas.app.model;
 
-public class Departamento {
+public class Provincia {
     private String codigo;
     private String nombre;
 

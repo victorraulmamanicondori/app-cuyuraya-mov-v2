@@ -1,8 +1,13 @@
-package com.eas.app.model;
+package com.eas.componentes;
 
-public class Departamento {
+public class SpinnerItem {
     private String codigo;
     private String nombre;
+
+    public SpinnerItem(String codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
 
     public String getCodigo() {
         return codigo;
@@ -18,5 +23,10 @@ public class Departamento {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

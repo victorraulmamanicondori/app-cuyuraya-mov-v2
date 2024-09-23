@@ -69,4 +69,5 @@
     <string name="btn_asignar_medidor">Asignar Medidor</string>
     <string name="ingrese_dni_usuario">Ingrese DNI del usuario</string>
     <string name="dni_usuario">DNI del Usuario:</string>
+    <string name="comunidadNativa">Comunidad Nativa:</string>
 </resources>
