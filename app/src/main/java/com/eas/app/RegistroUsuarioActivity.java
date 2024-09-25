@@ -151,7 +151,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     }
 
     private void navigateToPrincipal() {
-        startActivity(new Intent(RegistroUsuarioActivity.this, PrincipalActivity.class));
+        startActivity(new Intent(RegistroUsuarioActivity.this, LoginActivity.class));
         finish();
     }
 }

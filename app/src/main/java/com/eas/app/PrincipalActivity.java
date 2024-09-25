@@ -12,6 +12,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.eas.app.utils.Almacenamiento;
+import com.eas.app.utils.Constantes;
+
 public class PrincipalActivity extends AppCompatActivity {
 
     @Override
@@ -32,6 +35,8 @@ public class PrincipalActivity extends AppCompatActivity {
         cardRegistrarUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Almacenamiento.eliminar(getApplicationContext(), Constantes.KEY_ACCESS_TOKEN);
+                Almacenamiento.eliminar(getApplicationContext(), Constantes.KEY_REFRESH_TOKEN);
                 Intent intent = new Intent(PrincipalActivity.this, RegistroUsuarioActivity.class);
                 startActivity(intent);
             }

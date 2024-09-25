@@ -4,7 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.request.LoginRequest;
+import com.eas.app.api.response.AsignarMedidorResponse;
+import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LoginResponse;
 import com.eas.app.model.CentroPoblado;
 import com.eas.app.model.ComunidadCampesina;
@@ -13,7 +16,9 @@ import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
 import com.eas.app.model.Usuario;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -181,4 +186,39 @@ public class BaseApi {
             }
         });
     }
+
+    public void asignarMedidor(AsignarMedidorRequest asignarMedidorRequest, BaseApiCallback<BaseResponse<AsignarMedidorResponse>> callback) {
+        Call<BaseResponse<AsignarMedidorResponse>> call = apiService.asignarMedidor(asignarMedidorRequest);
+        call.enqueue(new Callback<BaseResponse<AsignarMedidorResponse>>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse<AsignarMedidorResponse>> call, @NonNull Response<BaseResponse<AsignarMedidorResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    BaseResponse<AsignarMedidorResponse> respuesta = response.body();
+                    if (respuesta.getCodigo() == 200) {
+                        // Éxito
+                        callback.onSuccess(respuesta);
+                    } else {
+                        // Error del servidor con código 200 pero mensaje de error
+                        callback.onError(new Throwable(respuesta.getMensaje()));
+                    }
+                } else {
+                    try {
+                        // Deserializar el cuerpo del error usando Gson u otro convertidor
+                        Gson gson = new Gson();
+                        BaseResponse<AsignarMedidorResponse> errorResponse = gson.fromJson(response.errorBody().string(),
+                                BaseResponse.class);
+                        callback.onError(new Throwable(errorResponse.getMensaje()));
+                    } catch (IOException e) {
+                        callback.onError(new Throwable("Error HTTP " + response.code() + ": " + response.message()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<AsignarMedidorResponse>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
 }
