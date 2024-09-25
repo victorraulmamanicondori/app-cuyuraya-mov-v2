@@ -12,6 +12,7 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
+import com.eas.app.model.Usuario;
 
 import java.util.List;
 
@@ -157,6 +158,25 @@ public class BaseApi {
 
             @Override
             public void onFailure(@NonNull Call<List<ComunidadNativa>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void registrarUsuario(Usuario usuario, BaseApiCallback<Usuario> callback) {
+        Call<Usuario> call = apiService.registrarUsuario(usuario);
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(@NonNull Call<Usuario> call, @NonNull Response<Usuario> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError(new Throwable("Error: " + response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
                 callback.onError(t);
             }
         });

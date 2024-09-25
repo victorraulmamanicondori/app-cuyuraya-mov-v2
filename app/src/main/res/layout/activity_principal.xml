@@ -31,8 +31,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/ic_body"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/registrar_usuario" />
@@ -71,8 +71,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/ic_key"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/asignar_medidor" />
@@ -112,8 +112,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/ic_speedometer_outline"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/registrar_lectura" />
@@ -152,8 +152,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/ic_card_outline"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/registrar_egreso" />
@@ -193,8 +193,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/ic_cash_outline"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/registrar_ingreso" />
@@ -233,8 +233,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/ic_stats_chart"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/gestion_de_lecturas" />
@@ -273,8 +273,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/ic_print"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/reportes" />

@@ -17,6 +17,7 @@ import com.eas.app.api.BaseApiCallback;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.response.LoginResponse;
 import com.eas.app.utils.Almacenamiento;
+import com.eas.app.utils.Constantes;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -75,8 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                             String refreshToken = response.getRefreshToken();
 
                             // Guardar los tokens
-                            Almacenamiento.guardar(getApplicationContext(), "accessToken", accessToken);
-                            Almacenamiento.guardar(getApplicationContext(), "refreshToken", refreshToken);
+                            Almacenamiento.guardar(getApplicationContext(), Constantes.KEY_ACCESS_TOKEN, accessToken);
+                            Almacenamiento.guardar(getApplicationContext(), Constantes.KEY_REFRESH_TOKEN, refreshToken);
 
                             // Actualizar la UI en el hilo principal
                             runOnUiThread(() -> {

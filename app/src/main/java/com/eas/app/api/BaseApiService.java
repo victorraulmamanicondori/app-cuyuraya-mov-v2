@@ -8,6 +8,7 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
+import com.eas.app.model.Usuario;
 
 import java.util.List;
 
@@ -39,4 +40,7 @@ public interface BaseApiService {
 
     @GET("comunidades-nativas/distrito/{codigoDistrito}")
     Call<List<ComunidadNativa>> getComunidadesNativas(@Path("codigoDistrito") String codigoDistrito);
+
+    @POST("usuarios")
+    Call<Usuario> registrarUsuario(@Body Usuario usuario);
 }

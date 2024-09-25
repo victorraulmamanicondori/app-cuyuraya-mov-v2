@@ -117,21 +117,10 @@
         android:layout_height="50dp"
         android:paddingHorizontal="10dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/tvErrorCentroPoblado"
+        app:layout_constraintBottom_toTopOf="@id/lblComunidadParcialidad"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lblCentroPoblado" />
-
-    <TextView
-        android:id="@+id/tvErrorCentroPoblado"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerCentroPoblado" />
 
     <TextView
         android:id="@+id/lblComunidadParcialidad"
@@ -142,7 +131,7 @@
         app:layout_constraintBottom_toTopOf="@+id/spinnerComunidadParcialidad"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvErrorCentroPoblado" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCentroPoblado" />
 
     <Spinner
         android:id="@+id/spinnerComunidadParcialidad"
@@ -150,54 +139,10 @@
         android:layout_height="50dp"
         android:paddingHorizontal="10dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/tvErrorComunidadParcialidad"
+        app:layout_constraintBottom_toTopOf="@id/lblComunidadNativa"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lblComunidadParcialidad" />
-
-    <TextView
-        android:id="@+id/tvErrorComunidadParcialidad"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/lblSector"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerComunidadParcialidad" />
-
-    <TextView
-        android:id="@+id/lblSector"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/sector"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerSector"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvErrorComunidadParcialidad" />
-
-    <Spinner
-        android:id="@+id/spinnerSector"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:paddingHorizontal="10dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/tvErrorSector"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblSector" />
-
-    <TextView
-        android:id="@+id/tvErrorSector"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerSector" />
 
     <TextView
         android:id="@+id/lblComunidadNativa"
@@ -208,7 +153,7 @@
         app:layout_constraintBottom_toTopOf="@+id/spinnerComunidadNativa"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvErrorSector" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerComunidadParcialidad" />
 
     <Spinner
         android:id="@+id/spinnerComunidadNativa"

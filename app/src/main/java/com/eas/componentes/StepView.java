@@ -36,11 +36,6 @@ import java.util.List;
 public class StepView extends View {
 
     public interface OnStepClickListener {
-        /**
-         * Index of the first step is 0.
-         *
-         * @param step index of the step clicked.
-         */
         void onStepClick(int step);
     }
 
@@ -128,7 +123,7 @@ public class StepView extends View {
     private boolean done;
     private StaticLayout[] textLayouts;
 
-    private Rect bounds = new Rect();
+    private final Rect bounds = new Rect();
 
     public StepView(Context context) {
         this(context, null);
@@ -453,7 +448,6 @@ public class StepView extends View {
         return max;
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private boolean isRtl() {
         return ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
     }

@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.eas.app.model.Usuario;
+
 public class PasoDatosPersonalesFragment extends Fragment {
 
     private EditText etNombres;
@@ -39,6 +41,20 @@ public class PasoDatosPersonalesFragment extends Fragment {
         tvErrorDni = view.findViewById(R.id.tvErrorDni);
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        RegistroUsuarioActivity activity = (RegistroUsuarioActivity) getActivity();
+        if (activity != null) {
+            Usuario usuario = activity.getUsuario();
+            usuario.setNombres(etNombres.getText().toString().trim());
+            usuario.setPaterno(etPaterno.getText().toString().trim());
+            usuario.setMaterno(etMaterno.getText().toString().trim());
+            usuario.setDni(etDni.getText().toString().trim());
+        }
     }
 
     public boolean validateFields() {

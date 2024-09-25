@@ -23,7 +23,8 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
-import com.eas.app.utils.Almacenamiento;
+import com.eas.app.model.Usuario;
+import com.eas.app.utils.Constantes;
 import com.eas.componentes.SpinnerItem;
 
 import java.util.ArrayList;
@@ -35,64 +36,44 @@ public class PasoUbigeoFragment extends Fragment {
 
     private View view;
 
-    private TextView lblCentroPoblado;
-    private TextView lblComunidadParcialidad;
-    private TextView lblSector;
-    private TextView lblComunidadNativa;
-
     private Spinner spinnerDepartamento;
     private Spinner spinnerProvincia;
     private Spinner spinnerDistrito;
+
+    private TextView lblCentroPoblado;
+    private TextView lblComunidadParcialidad;
+    private TextView lblComunidadNativa;
+
     private Spinner spinnerCentroPoblado;
     private Spinner spinnerComunidadParcialidad;
-    private Spinner spinnerSector;
     private Spinner spinnerComunidadNativa;
 
     private TextView tvErrorDepartamento;
     private TextView tvErrorProvincia;
     private TextView tvErrorDistrito;
-    private TextView tvErrorCentroPoblado;
-    private TextView tvErrorComunidadCampesina;
-    private TextView tvErrorSector;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_paso_ubigeo, container, false);
 
-        // Inicializar el Spinner
         spinnerDepartamento = view.findViewById(R.id.spinnerDepartamento);
         spinnerProvincia = view.findViewById(R.id.spinnerProvincia);
         spinnerDistrito = view.findViewById(R.id.spinnerDistrito);
-        spinnerCentroPoblado = view.findViewById(R.id.spinnerCentroPoblado);
-        spinnerComunidadParcialidad = view.findViewById(R.id.spinnerComunidadParcialidad);
-        spinnerSector = view.findViewById(R.id.spinnerSector);
-        spinnerComunidadNativa = view.findViewById(R.id.spinnerComunidadNativa);
 
         lblCentroPoblado = view.findViewById(R.id.lblCentroPoblado);
         lblComunidadParcialidad = view.findViewById(R.id.lblComunidadParcialidad);
-        lblSector = view.findViewById(R.id.lblSector);
         lblComunidadNativa = view.findViewById(R.id.lblComunidadNativa);
 
-        // Inicializar TextViews de error
+        spinnerCentroPoblado = view.findViewById(R.id.spinnerCentroPoblado);
+        spinnerComunidadParcialidad = view.findViewById(R.id.spinnerComunidadParcialidad);
+        spinnerComunidadNativa = view.findViewById(R.id.spinnerComunidadNativa);
+
         tvErrorDepartamento = view.findViewById(R.id.tvErrorDepartamento);
         tvErrorProvincia = view.findViewById(R.id.tvErrorProvincia);
         tvErrorDistrito = view.findViewById(R.id.tvErrorDistrito);
-        tvErrorCentroPoblado = view.findViewById(R.id.tvErrorCentroPoblado);
-        tvErrorComunidadCampesina = view.findViewById(R.id.tvErrorComunidadParcialidad);
-        tvErrorSector = view.findViewById(R.id.tvErrorSector);
 
-        // Inicializar BaseApi con token (puedes obtenerlo de SharedPreferences o donde lo almacenes)
-        String token = Almacenamiento.obtener(getContext(), "accessToken");
-
-        if (token == null) {
-            // Manejar el caso en que el token no está disponible
-            Toast.makeText(getContext(), "Token no disponible", Toast.LENGTH_LONG).show();
-            return view;
-        }
-
-        baseApi = new BaseApi(token);
+        baseApi = new BaseApi(null);
 
         // Cargar departamentos
         loadDepartamentos();
@@ -101,6 +82,31 @@ public class PasoUbigeoFragment extends Fragment {
         configurarListeners();
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        RegistroUsuarioActivity activity = (RegistroUsuarioActivity) getActivity();
+        if (activity != null) {
+            Usuario usuario = activity.getUsuario();
+            usuario.setCodigoDepartamento(((SpinnerItem)spinnerDepartamento.getSelectedItem()).getCodigo());
+            usuario.setCodigoProvincia(((SpinnerItem)spinnerProvincia.getSelectedItem()).getCodigo());
+            usuario.setCodigoDistrito(((SpinnerItem)spinnerDistrito.getSelectedItem()).getCodigo());
+
+            if (spinnerCentroPoblado.getSelectedItemPosition() != 0) {
+                usuario.setCodigoCentroPoblado(((SpinnerItem)spinnerCentroPoblado.getSelectedItem()).getCodigo());
+            }
+
+            if (spinnerComunidadParcialidad.getSelectedItemPosition() != 0) {
+                usuario.setCodigoComunidadCampesina(((SpinnerItem)spinnerComunidadParcialidad.getSelectedItem()).getCodigo());
+            }
+
+            if (spinnerComunidadNativa.getSelectedItemPosition() != 0) {
+                usuario.setCodigoComunidadNativa(((SpinnerItem)spinnerComunidadNativa.getSelectedItem()).getCodigo());
+            }
+        }
     }
 
     private void configurarListeners() {
@@ -296,5 +302,33 @@ public class PasoUbigeoFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al cargar comunidades nativas: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public boolean validateFields() {
+        boolean isValid = true;
+
+        tvErrorDepartamento.setVisibility(View.GONE);
+        tvErrorProvincia.setVisibility(View.GONE);
+        tvErrorDistrito.setVisibility(View.GONE);
+
+        if (spinnerDepartamento.getSelectedItemPosition() == 0) {
+            tvErrorDepartamento.setText(R.string.este_campo_es_obligatorio);
+            tvErrorDepartamento.setVisibility(View.VISIBLE);
+            isValid = false;
+        }
+
+        if (spinnerProvincia.getSelectedItemPosition() == 0) {
+            tvErrorProvincia.setText(R.string.este_campo_es_obligatorio);
+            tvErrorProvincia.setVisibility(View.VISIBLE);
+            isValid = false;
+        }
+
+        if (spinnerDistrito.getSelectedItemPosition() == 0) {
+            tvErrorDistrito.setText(R.string.este_campo_es_obligatorio);
+            tvErrorDistrito.setVisibility(View.VISIBLE);
+            isValid = false;
+        }
+
+        return isValid;
     }
 }
