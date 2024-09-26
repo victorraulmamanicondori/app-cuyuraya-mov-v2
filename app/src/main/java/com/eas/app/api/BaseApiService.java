@@ -4,6 +4,7 @@ import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.request.MovimientoCajaRequest;
+import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
@@ -63,4 +64,7 @@ public interface BaseApiService {
 
     @POST("cajas")
     Call<BaseResponse<MovimientoCajaResponse>> registrarMovimientoCaja(@Body MovimientoCajaRequest movimientoCajaRequest);
+
+    @GET("medidores/detectar-anomalias/{codigoMedidor}")
+    Call<BaseResponse<List<AnomaliaResponse>>> detectarAnomalias(@Path("codigoMedidor") String codigoMedidor);
 }

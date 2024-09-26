@@ -107,9 +107,14 @@ public class RegistrarIngresoActivity extends AppCompatActivity {
             @Override
             public void onSuccess(BaseResponse<List<TipoMovimiento>> result) {
                 List<SpinnerItem> tiposMovimientos = new ArrayList<>();
-                for (TipoMovimiento tipoMovimiento : result.getDatos()) {
-                    tiposMovimientos.add(new SpinnerItem(tipoMovimiento.getIdTipoMovimiento(), tipoMovimiento.getConcepto()));
+                tiposMovimientos.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
+
+                if (result.getDatos() != null && !result.getDatos().isEmpty()) {
+                    for (TipoMovimiento tipoMovimiento : result.getDatos()) {
+                        tiposMovimientos.add(new SpinnerItem(tipoMovimiento.getIdTipoMovimiento(), tipoMovimiento.getConcepto()));
+                    }
                 }
+
                 ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(RegistrarIngresoActivity.this,
                         android.R.layout.simple_spinner_item, tiposMovimientos);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -140,21 +145,22 @@ public class RegistrarIngresoActivity extends AppCompatActivity {
             baseApi.registrarMovimientoCaja(movimientoCajaRequest, new BaseApiCallback<BaseResponse<MovimientoCajaResponse>>() {
                 @Override
                 public void onSuccess(BaseResponse<MovimientoCajaResponse> response) {
-                    runOnUiThread(() -> DialogUtils.showAlertDialog(
-                            RegistrarIngresoActivity.this,
-                            Constantes.TITULO_REGISTRO_EXITOSO,
-                            response.getMensaje(),
-                            Constantes.BOTON_TEXTO_ACEPTAR,
-                            (dialog, which) -> {
-                                dialog.dismiss();
-                                navigateToPrincipal();
-                            },
-                            Constantes.BOTON_TEXTO_CANCELAR,
-                            (dialog, which) -> {
-                                dialog.dismiss();
-                                navigateToPrincipal();
-                            }
-                    ));
+                    runOnUiThread(() -> {
+                        DialogUtils.showAlertDialog(
+                                RegistrarIngresoActivity.this,
+                                Constantes.TITULO_REGISTRO_EXITOSO,
+                                response.getMensaje(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> {
+                                    dialog.dismiss();
+                                    spinnerTipoIngreso.setSelection(0);
+                                    txtMonto.setText("");
+                                    txaDescripcion.setText("");
+                                },
+                                null,
+                                null
+                        );
+                    });
                 }
 
                 @Override
@@ -165,8 +171,8 @@ public class RegistrarIngresoActivity extends AppCompatActivity {
                             t.getMessage(),
                             Constantes.BOTON_TEXTO_ACEPTAR,
                             (dialog, which) -> dialog.dismiss(),
-                            Constantes.BOTON_TEXTO_CANCELAR,
-                            (dialog, which) -> dialog.dismiss()
+                            null,
+                            null
                     ));
                     Log.e("RegistroIngreso", "Error en el registro de movimiento ingreso en caja: " + t.getMessage());
                 }
@@ -178,8 +184,8 @@ public class RegistrarIngresoActivity extends AppCompatActivity {
                     ex.getMessage(),
                     Constantes.BOTON_TEXTO_ACEPTAR,
                     (dialog, which) -> dialog.dismiss(),
-                    Constantes.BOTON_TEXTO_CANCELAR,
-                    (dialog, which) -> dialog.dismiss()
+                    null,
+                    null
             ));
         }
     }
@@ -206,10 +212,5 @@ public class RegistrarIngresoActivity extends AppCompatActivity {
         }
 
         return isValid;
-    }
-
-    private void navigateToPrincipal() {
-        startActivity(new Intent(RegistrarIngresoActivity.this, PrincipalActivity.class));
-        finish();
     }
 }

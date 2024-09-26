@@ -95,15 +95,15 @@ public class PasoUbigeoFragment extends Fragment {
             usuario.setCodigoProvincia(((SpinnerItem)spinnerProvincia.getSelectedItem()).getCodigo());
             usuario.setCodigoDistrito(((SpinnerItem)spinnerDistrito.getSelectedItem()).getCodigo());
 
-            if (spinnerCentroPoblado.getSelectedItemPosition() != 0) {
+            if (spinnerCentroPoblado != null && spinnerCentroPoblado.getSelectedItemPosition() != -1 && spinnerCentroPoblado.getSelectedItemPosition() != 0) {
                 usuario.setCodigoCentroPoblado(((SpinnerItem)spinnerCentroPoblado.getSelectedItem()).getCodigo());
             }
 
-            if (spinnerComunidadParcialidad.getSelectedItemPosition() != 0) {
+            if (spinnerComunidadParcialidad != null && spinnerComunidadParcialidad.getSelectedItemPosition() != -1 && spinnerComunidadParcialidad.getSelectedItemPosition() != 0) {
                 usuario.setCodigoComunidadCampesina(((SpinnerItem)spinnerComunidadParcialidad.getSelectedItem()).getCodigo());
             }
 
-            if (spinnerComunidadNativa.getSelectedItemPosition() != 0) {
+            if (spinnerComunidadNativa != null && spinnerComunidadNativa.getSelectedItemPosition() != -1 && spinnerComunidadNativa.getSelectedItemPosition() != 0) {
                 usuario.setCodigoComunidadNativa(((SpinnerItem)spinnerComunidadNativa.getSelectedItem()).getCodigo());
             }
         }
@@ -117,6 +117,7 @@ public class PasoUbigeoFragment extends Fragment {
                 if (departamentoSeleccionado != null) {
                     loadProvincias(departamentoSeleccionado.getCodigo());
                 }
+                tvErrorDepartamento.setVisibility(View.GONE);
             }
 
             @Override
@@ -130,6 +131,7 @@ public class PasoUbigeoFragment extends Fragment {
                 if (provinciaSeleccionada != null) {
                     loadDistritos(provinciaSeleccionada.getCodigo());
                 }
+                tvErrorProvincia.setVisibility(View.GONE);
             }
 
             @Override
@@ -145,6 +147,7 @@ public class PasoUbigeoFragment extends Fragment {
                     loadComunidadCampesina(distritoSeleccionado.getCodigo());
                     loadComunidadNativa(distritoSeleccionado.getCodigo());
                 }
+                tvErrorDistrito.setVisibility(View.GONE);
             }
 
             @Override
@@ -157,9 +160,14 @@ public class PasoUbigeoFragment extends Fragment {
             @Override
             public void onSuccess(List<Departamento> result) {
                 List<SpinnerItem> departamentos = new ArrayList<>();
-                for (Departamento dep : result) {
-                    departamentos.add(new SpinnerItem(dep.getCodigo(), dep.getNombre()));
+                departamentos.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
+
+                if (result != null && !result.isEmpty()) {
+                    for (Departamento dep : result) {
+                        departamentos.add(new SpinnerItem(dep.getCodigo(), dep.getNombre()));
+                    }
                 }
+
                 ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(getContext(),
                         android.R.layout.simple_spinner_item, departamentos);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -174,15 +182,28 @@ public class PasoUbigeoFragment extends Fragment {
     }
 
     private void loadProvincias(String codigoDepartamento) {
-        Log.d("PasoUbigeoFragment", "Cargando provincias para el departamento: " + codigoDepartamento);
+        if (codigoDepartamento.isEmpty()) {
+            List<SpinnerItem> provincias = new ArrayList<>();
+            provincias.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
+            ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(getContext(),
+                    android.R.layout.simple_spinner_item, provincias);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerProvincia.setAdapter(adapter);
+            return;
+        }
 
         baseApi.getProvincias(codigoDepartamento, new BaseApiCallback<List<Provincia>>() {
             @Override
             public void onSuccess(List<Provincia> result) {
                 List<SpinnerItem> provincias = new ArrayList<>();
-                for (Provincia prov : result) {
-                    provincias.add(new SpinnerItem(prov.getCodigo(), prov.getNombre()));
+                provincias.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
+
+                if (result != null && !result.isEmpty()) {
+                    for (Provincia prov : result) {
+                        provincias.add(new SpinnerItem(prov.getCodigo(), prov.getNombre()));
+                    }
                 }
+
                 ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(getContext(),
                         android.R.layout.simple_spinner_item, provincias);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -197,13 +218,28 @@ public class PasoUbigeoFragment extends Fragment {
     }
 
     private void loadDistritos(String codigoProvincia) {
+        if (codigoProvincia.isEmpty()) {
+            List<SpinnerItem> distritos = new ArrayList<>();
+            distritos.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
+            ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(getContext(),
+                    android.R.layout.simple_spinner_item, distritos);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerDistrito.setAdapter(adapter);
+            return;
+        }
+
         baseApi.getDistritos(codigoProvincia, new BaseApiCallback<List<Distrito>>() {
             @Override
             public void onSuccess(List<Distrito> result) {
                 List<SpinnerItem> distritos = new ArrayList<>();
-                for (Distrito distrito : result) {
-                    distritos.add(new SpinnerItem(distrito.getCodigo(), distrito.getNombre()));
+                distritos.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
+
+                if (result != null && !result.isEmpty()) {
+                    for (Distrito distrito : result) {
+                        distritos.add(new SpinnerItem(distrito.getCodigo(), distrito.getNombre()));
+                    }
                 }
+
                 ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(getContext(),
                         android.R.layout.simple_spinner_item, distritos);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -218,21 +254,28 @@ public class PasoUbigeoFragment extends Fragment {
     }
 
     private void loadCentroPoblado(String codigoDistrito) {
+        if (codigoDistrito.isEmpty()) {
+            view.findViewById(R.id.lblCentroPoblado).setVisibility(View.GONE);
+            spinnerCentroPoblado.setVisibility(View.GONE);
+            return;
+        }
+
         baseApi.getCentroPoblado(codigoDistrito, new BaseApiCallback<List<CentroPoblado>>() {
             @Override
             public void onSuccess(List<CentroPoblado> result) {
-                if (result.isEmpty()) {
-                    // Ocultar Spinner y etiqueta
+                if (result == null || result.isEmpty()) {
                     spinnerCentroPoblado.setVisibility(View.GONE);
                     view.findViewById(R.id.lblCentroPoblado).setVisibility(View.GONE);
                 } else {
-                    // Mostrar Spinner y llenar datos
                     lblCentroPoblado.setVisibility(View.VISIBLE);
                     spinnerCentroPoblado.setVisibility(View.VISIBLE);
                     List<SpinnerItem> centros = new ArrayList<>();
+                    centros.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
+
                     for (CentroPoblado cp : result) {
                         centros.add(new SpinnerItem(cp.getCodigo(), cp.getNombre()));
                     }
+
                     ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(getContext(),
                             android.R.layout.simple_spinner_item, centros);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -242,23 +285,29 @@ public class PasoUbigeoFragment extends Fragment {
 
             @Override
             public void onError(Throwable t) {
-                // Manejar error si es necesario
                 Toast.makeText(getContext(), "Error al cargar centros poblados: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void loadComunidadCampesina(String codigoDistrito) {
+        if (codigoDistrito.isEmpty()) {
+            spinnerComunidadParcialidad.setVisibility(View.GONE);
+            view.findViewById(R.id.lblComunidadParcialidad).setVisibility(View.GONE);
+            return;
+        }
+
         baseApi.getComunidadCampesina(codigoDistrito, new BaseApiCallback<List<ComunidadCampesina>>() {
             @Override
             public void onSuccess(List<ComunidadCampesina> result) {
-                if (result.isEmpty()) {
+                if (result == null || result.isEmpty()) {
                     spinnerComunidadParcialidad.setVisibility(View.GONE);
                     view.findViewById(R.id.lblComunidadParcialidad).setVisibility(View.GONE);
                 } else {
                     lblComunidadParcialidad.setVisibility(View.VISIBLE);
                     spinnerComunidadParcialidad.setVisibility(View.VISIBLE);
                     List<SpinnerItem> comunidades = new ArrayList<>();
+                    comunidades.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
                     for (ComunidadCampesina cc : result) {
                         comunidades.add(new SpinnerItem(cc.getCodigo(), cc.getNombre()));
                     }
@@ -277,16 +326,23 @@ public class PasoUbigeoFragment extends Fragment {
     }
 
     private void loadComunidadNativa(String codigoDistrito) {
+        if (codigoDistrito.isEmpty()) {
+            spinnerComunidadNativa.setVisibility(View.GONE);
+            view.findViewById(R.id.lblComunidadNativa).setVisibility(View.GONE);
+            return;
+        }
+
         baseApi.getComunidadNativa(codigoDistrito, new BaseApiCallback<List<ComunidadNativa>>() {
             @Override
             public void onSuccess(List<ComunidadNativa> result) {
-                if (result.isEmpty()) {
+                if (result == null || result.isEmpty()) {
                     spinnerComunidadNativa.setVisibility(View.GONE);
                     view.findViewById(R.id.lblComunidadNativa).setVisibility(View.GONE);
                 } else {
                     lblComunidadNativa.setVisibility(View.VISIBLE);
                     spinnerComunidadNativa.setVisibility(View.VISIBLE);
                     List<SpinnerItem> comunidades = new ArrayList<>();
+                    comunidades.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
                     for (ComunidadNativa cn : result) {
                         comunidades.add(new SpinnerItem(cn.getCodigo(), cn.getNombre()));
                     }
@@ -311,19 +367,25 @@ public class PasoUbigeoFragment extends Fragment {
         tvErrorProvincia.setVisibility(View.GONE);
         tvErrorDistrito.setVisibility(View.GONE);
 
-        if (spinnerDepartamento.getSelectedItemPosition() == 0) {
+        int selectedItemPosition = spinnerDepartamento.getSelectedItemPosition();
+
+        if (selectedItemPosition == -1 || selectedItemPosition == 0) {
             tvErrorDepartamento.setText(R.string.este_campo_es_obligatorio);
             tvErrorDepartamento.setVisibility(View.VISIBLE);
             isValid = false;
         }
 
-        if (spinnerProvincia.getSelectedItemPosition() == 0) {
+        selectedItemPosition = spinnerProvincia.getSelectedItemPosition();
+
+        if (selectedItemPosition == -1 || selectedItemPosition == 0) {
             tvErrorProvincia.setText(R.string.este_campo_es_obligatorio);
             tvErrorProvincia.setVisibility(View.VISIBLE);
             isValid = false;
         }
 
-        if (spinnerDistrito.getSelectedItemPosition() == 0) {
+        selectedItemPosition = spinnerDistrito.getSelectedItemPosition();
+
+        if (selectedItemPosition == -1 || selectedItemPosition == 0) {
             tvErrorDistrito.setText(R.string.este_campo_es_obligatorio);
             tvErrorDistrito.setVisibility(View.VISIBLE);
             isValid = false;

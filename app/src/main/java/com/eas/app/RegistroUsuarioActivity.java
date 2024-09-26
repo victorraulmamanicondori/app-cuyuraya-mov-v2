@@ -16,6 +16,7 @@ import com.eas.app.model.Usuario;
 import com.eas.app.utils.Almacenamiento;
 import com.eas.app.utils.Constantes;
 import com.eas.componentes.StepView;
+import com.eas.util.DialogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,22 +136,54 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Usuario response) {
                 if (response.getId() != null)  {
-                    Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
-                    navigateToPrincipal();
+                    DialogUtils.showAlertDialog(
+                            RegistroUsuarioActivity.this,
+                            Constantes.TITULO_REGISTRO_EXITOSO,
+                            "Registro exitoso del usuario",
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                                navigateToLogin();
+                            },
+                            null,
+                            null
+                    );
                 } else {
-                    Toast.makeText(getApplicationContext(), "Error en el registro", Toast.LENGTH_SHORT).show();
+                    DialogUtils.showAlertDialog(
+                            RegistroUsuarioActivity.this,
+                            Constantes.TITULO_ASIGNACION_FALLIDA,
+                            "Error en el registro, intente nuevamente",
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> dialog.dismiss(),
+                            Constantes.BOTON_TEXTO_CANCELAR,
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                                navigateToLogin();
+                            }
+                    );
                 }
             }
 
             @Override
             public void onError(Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error en el registro de usuario: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                DialogUtils.showAlertDialog(
+                        RegistroUsuarioActivity.this,
+                        Constantes.TITULO_ERROR,
+                        t.getMessage(),
+                        Constantes.BOTON_TEXTO_ACEPTAR,
+                        (dialog, which) -> dialog.dismiss(),
+                        Constantes.BOTON_TEXTO_CANCELAR,
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            navigateToLogin();
+                        }
+                );
                 Log.e("Registro Usuario", "Error en el registro de usuario: " + t.getMessage());
             }
         });
     }
 
-    private void navigateToPrincipal() {
+    private void navigateToLogin() {
         startActivity(new Intent(RegistroUsuarioActivity.this, LoginActivity.class));
         finish();
     }

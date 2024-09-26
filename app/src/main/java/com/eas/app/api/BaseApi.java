@@ -8,6 +8,7 @@ import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.request.MovimientoCajaRequest;
+import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
@@ -327,6 +328,46 @@ public class BaseApi {
 
             @Override
             public void onFailure(Call<BaseResponse<MovimientoCajaResponse>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void detectarAnomalias(String codigoMedidor, BaseApiCallback<BaseResponse<List<AnomaliaResponse>>> callback) {
+        Call<BaseResponse<List<AnomaliaResponse>>> call = apiService.detectarAnomalias(codigoMedidor);
+        call.enqueue(new Callback<BaseResponse<List<AnomaliaResponse>>>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse<List<AnomaliaResponse>>> call, @NonNull Response<BaseResponse<List<AnomaliaResponse>>> response) {
+                Log.d("BaseApi", "response.isSuccessful(): " + response.isSuccessful());
+                Log.d("BaseApi", "response.body(): " + response.body());
+
+                if (response.isSuccessful()) {
+                    try {
+                        BaseResponse<List<AnomaliaResponse>> respuesta = response.body();
+                        if (respuesta.getCodigo() == 200) {
+                            callback.onSuccess(respuesta);
+                        } else {
+                            callback.onError(new Throwable(respuesta.getMensaje()));
+                        }
+                    } catch (Exception e) {
+                        Log.e("BaseApi", "Error:", e);
+                        callback.onError(new Throwable(e.getMessage()));
+                    }
+                } else {
+                    try {
+                        Gson gson = new Gson();
+                        Log.d("BaseApi", "Error response body: " + response.errorBody());
+                        BaseResponse<List<AnomaliaResponse>> errorResponse = gson.fromJson(response.errorBody().string(), BaseResponse.class);
+                        callback.onError(new Throwable(errorResponse.getMensaje()));
+                    } catch (Exception e) {
+                        Log.e("BaseApi", "Error:", e);
+                        callback.onError(new Throwable("Error HTTP " + response.code() + ": " + response.message()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<List<AnomaliaResponse>>> call, Throwable t) {
                 callback.onError(t);
             }
         });

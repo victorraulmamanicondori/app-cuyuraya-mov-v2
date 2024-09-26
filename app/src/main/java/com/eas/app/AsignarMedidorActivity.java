@@ -23,6 +23,7 @@ import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LoginResponse;
 import com.eas.app.utils.Almacenamiento;
 import com.eas.app.utils.Constantes;
+import com.eas.util.DialogUtils;
 
 public class AsignarMedidorActivity extends AppCompatActivity {
 
@@ -72,7 +73,19 @@ public class AsignarMedidorActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(BaseResponse<AsignarMedidorResponse> response) {
                     runOnUiThread(() -> {
-                        Toast.makeText(getApplicationContext(), "Asignacion exitosa del medidor", Toast.LENGTH_SHORT).show();
+                        DialogUtils.showAlertDialog(
+                                AsignarMedidorActivity.this,
+                                Constantes.TITULO_ASIGNACION_EXISTOSA,
+                                response.getMensaje(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> {
+                                    dialog.dismiss();
+                                    etCodigoMedidor.setText("");
+                                    etDNIUsuario.setText("");
+                                },
+                                null,
+                                null
+                        );
                     });
 
                     Log.d("AsignarMedidor", "Asignacion exitosa del medidor");
@@ -81,7 +94,15 @@ public class AsignarMedidorActivity extends AppCompatActivity {
                 @Override
                 public void onError(Throwable t) {
                     runOnUiThread(() -> {
-                        Toast.makeText(getApplicationContext(), "Error en asignar medidor: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        runOnUiThread(() -> DialogUtils.showAlertDialog(
+                                AsignarMedidorActivity.this,
+                                Constantes.TITULO_ASIGNACION_FALLIDA,
+                                t.getMessage(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> dialog.dismiss(),
+                                null,
+                                null
+                        ));
                     });
                     Log.e("AsignarMedidor", "Error en asignar medidor: " + t.getMessage());
                 }
@@ -89,7 +110,15 @@ public class AsignarMedidorActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             runOnUiThread(() -> {
-                Toast.makeText(getApplicationContext(), "Error en asignar medidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                DialogUtils.showAlertDialog(
+                        AsignarMedidorActivity.this,
+                        Constantes.TITULO_ERROR,
+                        e.getMessage(),
+                        Constantes.BOTON_TEXTO_ACEPTAR,
+                        (dialog, which) -> dialog.dismiss(),
+                        null,
+                        null
+                );
             });
             Log.e("AsignarMedidor", "Excepción en asignar medidor", e);
         }

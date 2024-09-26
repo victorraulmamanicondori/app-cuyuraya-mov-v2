@@ -1,15 +1,14 @@
 package com.eas.app;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,14 +16,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
-import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.request.LecturaActualRequest;
-import com.eas.app.api.response.AsignarMedidorResponse;
+import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.utils.Almacenamiento;
 import com.eas.app.utils.Constantes;
 import com.eas.util.DialogUtils;
+
+import java.util.List;
 
 public class RegistrarLecturaActivity extends AppCompatActivity {
 
@@ -46,6 +46,9 @@ public class RegistrarLecturaActivity extends AppCompatActivity {
         tvErrorCodigoMedidor = findViewById(R.id.tvErrorCodigoMedidor);
         tvErrorLecturaActual = findViewById(R.id.tvErrorLecturaActual);
 
+        Button detectarAnomaliasButton = findViewById(R.id.btnDetectarAnomalias);
+        detectarAnomaliasButton.setOnClickListener(v -> detectarAnomaliasConsumo());
+
         Button registrarLecturaButton = findViewById(R.id.btnRegistrarLectura);
         registrarLecturaButton.setOnClickListener(v -> registrarLectura());
 
@@ -54,6 +57,95 @@ public class RegistrarLecturaActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void detectarAnomaliasConsumo() {
+        if (txtCodigoMedidor.getText().toString().trim().isEmpty()) {
+            tvErrorCodigoMedidor.setText(R.string.este_campo_es_obligatorio);
+            tvErrorCodigoMedidor.setVisibility(View.VISIBLE);
+
+            runOnUiThread(() -> {
+                DialogUtils.showAlertDialog(
+                        RegistrarLecturaActivity.this,
+                        Constantes.TITULO_ADVERTENCIA,
+                        Constantes.CAMPO_OBLIGATORIO_DETECTOR_ANOMALIAS,
+                        Constantes.BOTON_TEXTO_ACEPTAR,
+                        (dialog, which) -> dialog.dismiss(),
+                        null,
+                        null
+                );
+            });
+
+            return;
+        }
+
+        try {
+            String token = Almacenamiento.obtener(getApplicationContext(), Constantes.KEY_ACCESS_TOKEN);
+            BaseApi baseApi = new BaseApi(token);
+
+            String codigoMedidor = txtCodigoMedidor.getText().toString().trim();
+
+            baseApi.detectarAnomalias(codigoMedidor, new BaseApiCallback<BaseResponse<List<AnomaliaResponse>>>() {
+                @Override
+                public void onSuccess(BaseResponse<List<AnomaliaResponse>> response) {
+                    runOnUiThread(() -> {
+                        StringBuilder mensaje = getListaAnomalias(response);
+
+                        DialogUtils.showAlertDialog(
+                                RegistrarLecturaActivity.this,
+                                Constantes.TITULO_INFORMATION,
+                                mensaje.toString(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> dialog.dismiss(),
+                                null,
+                                null
+                        );
+                    });
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    runOnUiThread(() -> {
+                        DialogUtils.showAlertDialog(
+                                RegistrarLecturaActivity.this,
+                                Constantes.TITULO_ERROR,
+                                t.getMessage(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> dialog.dismiss(),
+                                null,
+                                null
+                        );
+                    });
+                }
+            });
+
+        } catch (Exception e) {
+            runOnUiThread(() -> {
+                DialogUtils.showAlertDialog(
+                        RegistrarLecturaActivity.this,
+                        Constantes.TITULO_ERROR,
+                        e.getMessage(),
+                        Constantes.BOTON_TEXTO_ACEPTAR,
+                        (dialog, which) -> dialog.dismiss(),
+                        null,
+                        null
+                );
+            });
+        }
+    }
+
+    private static @NonNull StringBuilder getListaAnomalias(BaseResponse<List<AnomaliaResponse>> response) {
+        List<AnomaliaResponse> anomalias = response.getDatos();
+        StringBuilder mensaje = new StringBuilder("El medidor tiene las siguientes anomalias:");
+
+        if (anomalias != null && !anomalias.isEmpty()) {
+            for (int i = 0; i < 5 && i < anomalias.size(); i++) {
+                mensaje.append(anomalias.get(i).getDate()).append(": ").append(anomalias.get(i).getValue()).append("\n");
+            }
+        } else {
+            mensaje = new StringBuilder(Constantes.SIN_ANOMALIAS);
+        }
+        return mensaje;
     }
 
     private void registrarLectura() {
@@ -79,10 +171,16 @@ public class RegistrarLecturaActivity extends AppCompatActivity {
                                 Constantes.TITULO_REGISTRO_EXITOSO,
                                 response.getMensaje(),
                                 Constantes.BOTON_TEXTO_ACEPTAR,
-                                (dialog, which) -> dialog.dismiss(),
-                                Constantes.BOTON_TEXTO_CANCELAR,
-                                (dialog, which) -> dialog.dismiss()
+                                (dialog, which) -> {
+                                    dialog.dismiss();
+                                    txtCodigoMedidor.setText("");
+                                    txtLecturaActual.setText("");
+                                },
+                                null,
+                                null
                         );
+
+
                     });
 
                     Log.d("RegistrarLectura", "Registro exitoso de la lectura");
@@ -97,8 +195,8 @@ public class RegistrarLecturaActivity extends AppCompatActivity {
                                 t.getMessage(),
                                 Constantes.BOTON_TEXTO_ACEPTAR,
                                 (dialog, which) -> dialog.dismiss(),
-                                Constantes.BOTON_TEXTO_CANCELAR,
-                                (dialog, which) -> dialog.dismiss()
+                                null,
+                                null
                         );
                     });
                     Log.e("RegistrarLectura", "Error en registrar lectura: " + t.getMessage());
@@ -113,8 +211,8 @@ public class RegistrarLecturaActivity extends AppCompatActivity {
                         e.getMessage(),
                         Constantes.BOTON_TEXTO_ACEPTAR,
                         (dialog, which) -> dialog.dismiss(),
-                        Constantes.BOTON_TEXTO_CANCELAR,
-                        (dialog, which) -> dialog.dismiss()
+                        null,
+                        null
                 );
             });
             Log.e("RegistrarLectura", "Excepción en registrar lectura", e);

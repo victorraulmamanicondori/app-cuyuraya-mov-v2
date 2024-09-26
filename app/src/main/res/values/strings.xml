@@ -62,7 +62,7 @@
     <string name="codigo_medidor">Codigo medidor:</string>
     <string name="lectura_actual">Lectura actual:</string>
     <string name="ingrese_lectura_actual">Ingrese lectura actual</string>
-    <string name="ingrese_codigo_medidor" />
+    <string name="ingrese_codigo_medidor">Ingrese codigo del medidor</string>
     <string name="btn_registrar_lectura">Registrar Lectura</string>
     <string name="btn_registrar_egreso">Registrar Egreso</string>
     <string name="btn_registrar_ingreso">Registrar Ingreso</string>
@@ -70,4 +70,6 @@
     <string name="ingrese_dni_usuario">Ingrese DNI del usuario</string>
     <string name="dni_usuario">DNI del Usuario:</string>
     <string name="comunidadNativa">Comunidad Nativa:</string>
+    <string name="pendiente_implementar">PENDIENTE IMPLEMENTAR...</string>
+    <string name="detectar_anomalias">Detectar Anomalias</string>
 </resources>
