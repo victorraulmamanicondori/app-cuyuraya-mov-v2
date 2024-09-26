@@ -5,9 +5,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.eas.app.api.request.AsignarMedidorRequest;
+import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
+import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.api.response.LoginResponse;
 import com.eas.app.model.CentroPoblado;
 import com.eas.app.model.ComunidadCampesina;
@@ -221,4 +223,37 @@ public class BaseApi {
         });
     }
 
+    public void registrarLectura(LecturaActualRequest lecturaActualRequest, BaseApiCallback<BaseResponse<LecturaActualResponse>> callback) {
+        Call<BaseResponse<LecturaActualResponse>> call = apiService.registrarLectura(lecturaActualRequest);
+        call.enqueue(new Callback<BaseResponse<LecturaActualResponse>>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse<LecturaActualResponse>> call, @NonNull Response<BaseResponse<LecturaActualResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    BaseResponse<LecturaActualResponse> respuesta = response.body();
+                    if (respuesta.getCodigo() == 200) {
+                        // Éxito
+                        callback.onSuccess(respuesta);
+                    } else {
+                        // Error del servidor con código 200 pero mensaje de error
+                        callback.onError(new Throwable(respuesta.getMensaje()));
+                    }
+                } else {
+                    try {
+                        // Deserializar el cuerpo del error usando Gson u otro convertidor
+                        Gson gson = new Gson();
+                        BaseResponse<LecturaActualResponse> errorResponse = gson.fromJson(response.errorBody().string(),
+                                BaseResponse.class);
+                        callback.onError(new Throwable(errorResponse.getMensaje()));
+                    } catch (IOException e) {
+                        callback.onError(new Throwable("Error HTTP " + response.code() + ": " + response.message()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<LecturaActualResponse>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
 }

@@ -1,9 +1,11 @@
 package com.eas.app.api;
 
 import com.eas.app.api.request.AsignarMedidorRequest;
+import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
+import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.api.response.LoginResponse;
 import com.eas.app.model.CentroPoblado;
 import com.eas.app.model.ComunidadCampesina;
@@ -49,4 +51,7 @@ public interface BaseApiService {
 
     @POST("medidores")
     Call<BaseResponse<AsignarMedidorResponse>> asignarMedidor(@Body AsignarMedidorRequest asignarMedidorRequest);
+
+    @POST("lecturas")
+    Call<BaseResponse<LecturaActualResponse>> registrarLectura(@Body LecturaActualRequest lecturaActualRequest);
 }
