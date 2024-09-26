@@ -7,16 +7,19 @@ import androidx.annotation.NonNull;
 import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
+import com.eas.app.api.request.MovimientoCajaRequest;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.api.response.LoginResponse;
+import com.eas.app.api.response.MovimientoCajaResponse;
 import com.eas.app.model.CentroPoblado;
 import com.eas.app.model.ComunidadCampesina;
 import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
+import com.eas.app.model.TipoMovimiento;
 import com.eas.app.model.Usuario;
 import com.google.gson.Gson;
 
@@ -252,6 +255,78 @@ public class BaseApi {
 
             @Override
             public void onFailure(Call<BaseResponse<LecturaActualResponse>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void getTiposMovimientos(String tipoRubroIngreso, BaseApiCallback<BaseResponse<List<TipoMovimiento>>> callback) {
+        Call<BaseResponse<List<TipoMovimiento>>> call = apiService.getTiposMovimientos(tipoRubroIngreso);
+        call.enqueue(new Callback<BaseResponse<List<TipoMovimiento>>>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse<List<TipoMovimiento>>> call, @NonNull Response<BaseResponse<List<TipoMovimiento>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        BaseResponse<List<TipoMovimiento>> respuesta = response.body();
+                        if (respuesta.getCodigo() == 200) {
+                            callback.onSuccess(respuesta);
+                        } else {
+                            callback.onError(new Throwable(respuesta.getMensaje()));
+                        }
+                    } catch (Exception e) {
+                        Log.e("BaseApi", "Error:", e);
+                        callback.onError(new Throwable(e.getMessage()));
+                    }
+                } else {
+                    try {
+                        Gson gson = new Gson();
+                        BaseResponse<List<TipoMovimiento>> errorResponse = gson.fromJson(response.errorBody().string(), BaseResponse.class);
+                        callback.onError(new Throwable(errorResponse.getMensaje()));
+                    } catch (Exception e) {
+                        Log.e("BaseApi", "Error:", e);
+                        callback.onError(new Throwable("Error HTTP " + response.code() + ": " + response.message()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<List<TipoMovimiento>>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void registrarMovimientoCaja(MovimientoCajaRequest movimientoCajaRequest, BaseApiCallback<BaseResponse<MovimientoCajaResponse>> callback) {
+        Call<BaseResponse<MovimientoCajaResponse>> call = apiService.registrarMovimientoCaja(movimientoCajaRequest);
+        call.enqueue(new Callback<BaseResponse<MovimientoCajaResponse>>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse<MovimientoCajaResponse>> call, @NonNull Response<BaseResponse<MovimientoCajaResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        BaseResponse<MovimientoCajaResponse> respuesta = response.body();
+                        if (respuesta.getCodigo() == 200) {
+                            callback.onSuccess(respuesta);
+                        } else {
+                            callback.onError(new Throwable(respuesta.getMensaje()));
+                        }
+                    } catch (Exception e) {
+                        Log.e("BaseApi", "Error:", e);
+                        callback.onError(new Throwable(e.getMessage()));
+                    }
+                } else {
+                    try {
+                        Gson gson = new Gson();
+                        BaseResponse<MovimientoCajaResponse> errorResponse = gson.fromJson(response.errorBody().string(), BaseResponse.class);
+                        callback.onError(new Throwable(errorResponse.getMensaje()));
+                    } catch (Exception e) {
+                        Log.e("BaseApi", "Error:", e);
+                        callback.onError(new Throwable("Error HTTP " + response.code() + ": " + response.message()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<MovimientoCajaResponse>> call, Throwable t) {
                 callback.onError(t);
             }
         });

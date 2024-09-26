@@ -3,16 +3,19 @@ package com.eas.app.api;
 import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
+import com.eas.app.api.request.MovimientoCajaRequest;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.api.response.LoginResponse;
+import com.eas.app.api.response.MovimientoCajaResponse;
 import com.eas.app.model.CentroPoblado;
 import com.eas.app.model.ComunidadCampesina;
 import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
+import com.eas.app.model.TipoMovimiento;
 import com.eas.app.model.Usuario;
 
 import java.util.List;
@@ -54,4 +57,10 @@ public interface BaseApiService {
 
     @POST("lecturas")
     Call<BaseResponse<LecturaActualResponse>> registrarLectura(@Body LecturaActualRequest lecturaActualRequest);
+
+    @GET("tipos-movimientos/rubro/{tipoRubro}")
+    Call<BaseResponse<List<TipoMovimiento>>> getTiposMovimientos(@Path("tipoRubro") String tipoRubro);
+
+    @POST("cajas")
+    Call<BaseResponse<MovimientoCajaResponse>> registrarMovimientoCaja(@Body MovimientoCajaRequest movimientoCajaRequest);
 }

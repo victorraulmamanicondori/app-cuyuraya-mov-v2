@@ -8,4 +8,6 @@ public class Constantes {
     public static final String TITULO_REGISTRO_FALLIDO = "Registro fallido";
     public static final String BOTON_TEXTO_ACEPTAR = "Aceptar";
     public static final String BOTON_TEXTO_CANCELAR = "Cancelar";
+    public static final String TIPO_RUBRO_INGRESO = "Ingreso";
+    public static final String TIPO_RUBRO_EGRESO = "Egreso";
 }
