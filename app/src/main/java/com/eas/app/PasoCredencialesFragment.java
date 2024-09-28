@@ -29,8 +29,6 @@ public class PasoCredencialesFragment extends Fragment {
     }
 
     public void recolectarDatos() {
-        super.onPause();
-
         RegistroUsuarioActivity activity = (RegistroUsuarioActivity) getActivity();
         if (activity != null) {
             Usuario usuario = activity.getUsuario();

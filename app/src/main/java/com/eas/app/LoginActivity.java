@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText dniInput, claveInput;
+    private EditText dniInput/*, claveInput*/;
     private TextView errorText;
     private ProgressBar progressBar;
     private ExecutorService executorService;
@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         dniInput = findViewById(R.id.dni_input);
-        claveInput = findViewById(R.id.clave_input);
+        // claveInput = findViewById(R.id.clave_input);
         errorText = findViewById(R.id.error_text);
         progressBar = findViewById(R.id.progress_bar);
 
@@ -56,9 +56,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleLogin() {
         String dni = dniInput.getText().toString().trim();
-        String clave = claveInput.getText().toString().trim();
+        // String clave = claveInput.getText().toString().trim();
 
-        if (dni.isEmpty() || clave.isEmpty()) {
+        if (dni.isEmpty()/* || clave.isEmpty()*/) {
             errorText.setVisibility(View.VISIBLE);
         } else {
             errorText.setVisibility(View.GONE);
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             executorService.execute(() -> {
                 try {
                     BaseApi loginApi = new BaseApi(null);
-                    LoginRequest loginRequest = new LoginRequest(dni, clave); // Usa los valores ingresados
+                    LoginRequest loginRequest = new LoginRequest(dni, dni); // Usa los valores ingresados
 
                     loginApi.login(loginRequest, new BaseApiCallback<LoginResponse>() {
                         @Override

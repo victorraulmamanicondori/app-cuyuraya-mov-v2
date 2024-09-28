@@ -84,7 +84,7 @@ public class PasoUbigeoFragment extends Fragment {
         return view;
     }
 
-    @Override
+    /*@Override
     public void onPause() {
         super.onPause();
 
@@ -107,7 +107,7 @@ public class PasoUbigeoFragment extends Fragment {
                 usuario.setCodigoComunidadNativa(((SpinnerItem)spinnerComunidadNativa.getSelectedItem()).getCodigo());
             }
         }
-    }
+    }*/
 
     private void configurarListeners() {
         spinnerDepartamento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -392,5 +392,27 @@ public class PasoUbigeoFragment extends Fragment {
         }
 
         return isValid;
+    }
+
+    public void recolectarDatos() {
+        RegistroUsuarioActivity activity = (RegistroUsuarioActivity) getActivity();
+        if (activity != null) {
+            Usuario usuario = activity.getUsuario();
+            usuario.setCodigoDepartamento(((SpinnerItem)spinnerDepartamento.getSelectedItem()).getCodigo());
+            usuario.setCodigoProvincia(((SpinnerItem)spinnerProvincia.getSelectedItem()).getCodigo());
+            usuario.setCodigoDistrito(((SpinnerItem)spinnerDistrito.getSelectedItem()).getCodigo());
+
+            if (spinnerCentroPoblado != null && spinnerCentroPoblado.getSelectedItemPosition() != -1 && spinnerCentroPoblado.getSelectedItemPosition() != 0) {
+                usuario.setCodigoCentroPoblado(((SpinnerItem)spinnerCentroPoblado.getSelectedItem()).getCodigo());
+            }
+
+            if (spinnerComunidadParcialidad != null && spinnerComunidadParcialidad.getSelectedItemPosition() != -1 && spinnerComunidadParcialidad.getSelectedItemPosition() != 0) {
+                usuario.setCodigoComunidadCampesina(((SpinnerItem)spinnerComunidadParcialidad.getSelectedItem()).getCodigo());
+            }
+
+            if (spinnerComunidadNativa != null && spinnerComunidadNativa.getSelectedItemPosition() != -1 && spinnerComunidadNativa.getSelectedItemPosition() != 0) {
+                usuario.setCodigoComunidadNativa(((SpinnerItem)spinnerComunidadNativa.getSelectedItem()).getCodigo());
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
     <string name="app_name">EasApp</string>
     <string name="titulo_app">Energía, Ambiente y Sostenibilidad</string>
     <string name="titulo_login">Inicio de sesión</string>
-    <string name="error_login_obligatorio">Ingrese DNI y Clave</string>
+    <string name="error_login_obligatorio">Ingrese DNI</string>
     <string name="login_hint_dni">DNI</string>
     <string name="login_hint_clave">Clave</string>
     <string name="login_btn_entrar">Entrar</string>
@@ -11,14 +11,6 @@
     <string name="nextButtonTitle">Siguiente</string>
     <string name="backButtonTitle">Anterior</string>
 
-    <string-array name="steps">
-        <item>Beginning</item>
-        <item>Intermediate\npage</item>
-        <item>End</item>
-        <item>Post step</item>
-    </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ingrese_nombres">Ingrese nombres</string>
     <string name="nombres">Nombres:</string>
     <string name="apellido_paterno">Apellido Paterno:</string>

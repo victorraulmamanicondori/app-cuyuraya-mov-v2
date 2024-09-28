@@ -54,6 +54,7 @@ public class PasoDatosPersonalesFragment extends Fragment {
             usuario.setPaterno(etPaterno.getText().toString().trim());
             usuario.setMaterno(etMaterno.getText().toString().trim());
             usuario.setDni(etDni.getText().toString().trim());
+            usuario.setClave(etDni.getText().toString().trim()); // Establecer la clave como el DNI
         }
     }
 
