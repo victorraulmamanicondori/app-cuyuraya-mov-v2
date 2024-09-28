@@ -4,6 +4,7 @@ import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.request.MovimientoCajaRequest;
+import com.eas.app.api.request.ResetearContrasenaRequest;
 import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
@@ -25,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface BaseApiService {
@@ -67,4 +69,7 @@ public interface BaseApiService {
 
     @GET("medidores/detectar-anomalias/{codigoMedidor}")
     Call<BaseResponse<List<AnomaliaResponse>>> detectarAnomalias(@Path("codigoMedidor") String codigoMedidor);
+
+    @PUT("usuarios/resetear-contrasena")
+    Call<BaseResponse<String>> resetearContrasena(@Body ResetearContrasenaRequest resetearContrasenaRequest);
 }

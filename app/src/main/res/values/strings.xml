@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">EasApp</string>
-    <string name="titulo_app">Energía, Ambiente y Sostenibilidad</string>
+    <string name="app_name">Energía, Ambiente, y Sostenibilidad</string>
+    <string name="titulo_app">Energía, Ambiente, y Sostenibilidad</string>
     <string name="titulo_login">Inicio de sesión</string>
     <string name="error_login_obligatorio">Ingrese DNI</string>
     <string name="login_hint_dni">DNI</string>
@@ -64,4 +64,5 @@
     <string name="comunidadNativa">Comunidad Nativa:</string>
     <string name="pendiente_implementar">PENDIENTE IMPLEMENTAR...</string>
     <string name="detectar_anomalias">Detectar Anomalias</string>
+    <string name="btn_resetear_contrasena">Resetear Contraseña</string>
 </resources>
