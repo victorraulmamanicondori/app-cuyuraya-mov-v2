@@ -59,6 +59,7 @@
         android:background="@color/editTextBackgroundColor"
         android:hint="@string/login_hint_dni"
         android:inputType="number"
+        android:maxLength="8"
         android:autofillHints="username"
         android:paddingHorizontal="10dp"
         android:textColor="@color/editTextTextColor"/>
