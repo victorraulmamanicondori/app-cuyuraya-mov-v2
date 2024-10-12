@@ -11,6 +11,7 @@ import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.api.response.LoginResponse;
 import com.eas.app.api.response.MovimientoCajaResponse;
+import com.eas.app.api.response.UsuarioResponse;
 import com.eas.app.model.CentroPoblado;
 import com.eas.app.model.ComunidadCampesina;
 import com.eas.app.model.ComunidadNativa;
@@ -72,4 +73,8 @@ public interface BaseApiService {
 
     @PUT("usuarios/resetear-contrasena")
     Call<BaseResponse<String>> resetearContrasena(@Body ResetearContrasenaRequest resetearContrasenaRequest);
+
+    @GET("usuarios/{dni}")
+    Call<BaseResponse<UsuarioResponse>> getUsuario(@Path("dni") String dni);
+
 }

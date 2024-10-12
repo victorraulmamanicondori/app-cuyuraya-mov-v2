@@ -1,6 +1,8 @@
 package com.eas.app;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +18,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
+import com.eas.app.api.BaseApiV2;
 import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LoginResponse;
+import com.eas.app.api.response.UsuarioResponse;
 import com.eas.app.utils.Almacenamiento;
 import com.eas.app.utils.Constantes;
 import com.eas.util.DialogUtils;
@@ -52,6 +56,48 @@ public class AsignarMedidorActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        etDNIUsuario.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 8) {
+                    etDNIUsuario.setEnabled(false);
+
+                    try {
+                        String token = Almacenamiento.obtener(getApplicationContext(), Constantes.KEY_ACCESS_TOKEN);
+                        BaseApiV2 baseApi = new BaseApiV2(token);
+
+                        String dni = etDNIUsuario.getText().toString().trim();
+
+                        baseApi.getUsuario(dni, new BaseApiCallback<BaseResponse<UsuarioResponse>>() {
+                            @Override
+                            public void onSuccess(BaseResponse<UsuarioResponse> response) {
+                                UsuarioResponse usuario = response.getDatos();
+                                Log.d("AsignarMedidor", String.format("%s %s %s", usuario.getNombres(), usuario.getPaterno(), usuario.getMaterno()));
+                            }
+
+                            @Override
+                            public void onError(Throwable t) {
+                                Log.e("AsignarMedidor", "Error en obtener usuario: " + t.getMessage());
+                            }
+                        });
+                    } catch (Exception e) {
+                        Log.e("AsignarMedidor", "Excepción en obtener usuario", e);
+                    }
+                }
+            }
         });
     }
 
