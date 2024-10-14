@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.retrofit2)
     implementation(libs.converterGson)
+    implementation(libs.itext7Core)
+    implementation(libs.viewPager2)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
