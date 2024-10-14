@@ -37,6 +37,8 @@ public class AsignarMedidorActivity extends AppCompatActivity {
     private TextView tvErrorCodigoMedidor;
     private TextView tvErrorDNIUsuario;
 
+    private TextView tvUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,8 @@ public class AsignarMedidorActivity extends AppCompatActivity {
 
         tvErrorCodigoMedidor = findViewById(R.id.tvErrorCodigoMedidor);
         tvErrorDNIUsuario = findViewById(R.id.tvErrorDNIUsuario);
+
+        tvUsuario = findViewById(R.id.lblUsuario);
 
         Button asignarMedidorButton = findViewById(R.id.btnAsignarMedidor);
         asignarMedidorButton.setOnClickListener(v -> asignarMedidor());
@@ -67,7 +71,7 @@ public class AsignarMedidorActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                tvErrorDNIUsuario.setVisibility(View.GONE);
             }
 
             @Override
@@ -84,18 +88,32 @@ public class AsignarMedidorActivity extends AppCompatActivity {
                         baseApi.getUsuario(dni, new BaseApiCallback<BaseResponse<UsuarioResponse>>() {
                             @Override
                             public void onSuccess(BaseResponse<UsuarioResponse> response) {
+                                tvUsuario.setVisibility(View.VISIBLE);
+
                                 UsuarioResponse usuario = response.getDatos();
-                                Log.d("AsignarMedidor", String.format("%s %s %s", usuario.getNombres(), usuario.getPaterno(), usuario.getMaterno()));
+                                String infoUsuario = String.format("Nombres: %s, Paterno: %s, Materno: %s\nDepartamento: %s, Provincia: %s, Distrito: %s\nDirección: %s",
+                                        usuario.getNombres(), usuario.getPaterno(), usuario.getMaterno(),
+                                        usuario.getNombreDepartamento(),
+                                        usuario.getNombreProvincia(),
+                                        usuario.getNombreDistrito(),
+                                        usuario.getDireccion());
+                                tvUsuario.setText(infoUsuario);
+                                etDNIUsuario.setEnabled(true);
+                                Log.d("AsignarMedidor", infoUsuario);
                             }
 
                             @Override
                             public void onError(Throwable t) {
+                                etDNIUsuario.setEnabled(true);
                                 Log.e("AsignarMedidor", "Error en obtener usuario: " + t.getMessage());
                             }
                         });
                     } catch (Exception e) {
+                        etDNIUsuario.setEnabled(true);
                         Log.e("AsignarMedidor", "Excepción en obtener usuario", e);
                     }
+                } else {
+                    tvUsuario.setVisibility(View.GONE);
                 }
             }
         });
