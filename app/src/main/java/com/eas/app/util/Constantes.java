@@ -1,4 +1,4 @@
-package com.eas.app.utils;
+package com.eas.app.util;
 
 public class Constantes {
     public static final String ESTADO_ACTIVO = "ACTIVO";
@@ -18,5 +18,4 @@ public class Constantes {
     public static final String TITULO_ERROR = "Error";
     public static final String TITULO_ASIGNACION_EXISTOSA = "Asignacion exitosa";
     public static final String TITULO_ASIGNACION_FALLIDA = "Asignacion fallida";
-
 }

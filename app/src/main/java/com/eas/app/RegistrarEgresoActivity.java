@@ -26,8 +26,8 @@ import com.eas.app.api.request.MovimientoCajaRequest;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.MovimientoCajaResponse;
 import com.eas.app.model.TipoMovimiento;
-import com.eas.app.utils.Almacenamiento;
-import com.eas.app.utils.Constantes;
+import com.eas.app.util.Almacenamiento;
+import com.eas.app.util.Constantes;
 import com.eas.app.componentes.SpinnerItem;
 import com.eas.app.util.DialogUtils;
 

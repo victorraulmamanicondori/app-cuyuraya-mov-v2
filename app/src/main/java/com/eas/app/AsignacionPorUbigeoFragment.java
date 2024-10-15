@@ -28,7 +28,7 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
-import com.eas.app.utils.Constantes;
+import com.eas.app.util.Constantes;
 
 import java.util.ArrayList;
 import java.util.List;

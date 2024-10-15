@@ -17,7 +17,7 @@ import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
 import com.eas.app.api.request.ResetearContrasenaRequest;
 import com.eas.app.api.response.BaseResponse;
-import com.eas.app.utils.Constantes;
+import com.eas.app.util.Constantes;
 import com.eas.app.util.DialogUtils;
 
 public class RecuperarContrasenaActivity extends AppCompatActivity {

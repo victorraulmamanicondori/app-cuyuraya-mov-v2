@@ -16,8 +16,8 @@ import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.response.LoginResponse;
-import com.eas.app.utils.Almacenamiento;
-import com.eas.app.utils.Constantes;
+import com.eas.app.util.Almacenamiento;
+import com.eas.app.util.Constantes;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

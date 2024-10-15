@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.eas.app.model.Usuario;
-import com.eas.app.utils.Constantes;
+import com.eas.app.util.Constantes;
 
 public class PasoCredencialesFragment extends Fragment {
 

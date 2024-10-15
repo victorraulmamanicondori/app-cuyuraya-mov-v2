@@ -13,8 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
 import com.eas.app.model.Usuario;
-import com.eas.app.utils.Almacenamiento;
-import com.eas.app.utils.Constantes;
+import com.eas.app.util.Almacenamiento;
+import com.eas.app.util.Constantes;
 import com.eas.app.componentes.StepView;
 import com.eas.app.util.DialogUtils;
 

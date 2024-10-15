@@ -20,8 +20,8 @@ import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
-import com.eas.app.utils.Almacenamiento;
-import com.eas.app.utils.Constantes;
+import com.eas.app.util.Almacenamiento;
+import com.eas.app.util.Constantes;
 import com.eas.app.util.DialogUtils;
 
 import java.util.List;
