@@ -410,7 +410,7 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                 AlertDialog alertDialog = builder.create();
 
                 // Establecer el título del diálogo
-                dialogTitle.setText(String.format("Asignar medidor a %s %s %s", user.getNombres(), user.getPaterno(), user.getMaterno()));
+                dialogTitle.setText(String.format("Asignar medidor a %s %s %s (DNI: %s)", user.getNombres(), user.getPaterno(), user.getMaterno(), user.getDni()));
 
                 // Configurar el botón Cancelar
                 btnCancelar.setOnClickListener(cancelView -> alertDialog.dismiss());
