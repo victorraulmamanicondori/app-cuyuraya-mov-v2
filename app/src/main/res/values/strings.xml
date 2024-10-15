@@ -73,8 +73,8 @@
     <string name="colCodigoMedidor">Código Medidor</string>
     <string name="indicador_asignacion_medidor">Indicador de asignacion de medidor</string>
     <string name="tamanio_titulo_tabla">16</string>
-    <string name="btnInicio">Inicio</string>
-    <string name="btnAtras">Atrás</string>
-    <string name="btnAdelante">Adelante</string>
-    <string name="btnFinal">Final</string>
+    <string name="btnInicio_desc">Inicio</string>
+    <string name="btnAtras_desc">Atrás</string>
+    <string name="btnAdelante_desc">Adelante</string>
+    <string name="btnFinal_desc">Final</string>
 </resources>

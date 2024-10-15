@@ -48,7 +48,7 @@ public class AsignacionPorUbigeoFragment extends Fragment {
     private TableLayout tableLayout;
     private List<UsuarioResponse> userList;
     private TextView pagination;
-    private int pageSize = 3;
+    private int pageSize = 4;
     private int currentPage = 0;
     private int totalPages = 0;
     private int totalUsuarios = 0;
@@ -345,13 +345,12 @@ public class AsignacionPorUbigeoFragment extends Fragment {
         currentPage = Math.max(0, Math.min(page, totalPages - 1));
         int start = currentPage * pageSize;
         int end = Math.min(start + pageSize, userList.size());
-        pagination.setText(String.format("Página %s / %s, Total Usuarios: %s", currentPage + 1, totalPages, totalUsuarios));
+        pagination.setText(String.format("Total Usuarios: %s, Página %s / %s", totalUsuarios, currentPage + 1, totalPages));
 
         tableLayout.removeAllViews(); // Limpiar la tabla
 
         // Agregar cabecera
         TableRow headerRow = new TableRow(getContext());
-        headerRow.addView(createTextView("Estado"));
         headerRow.addView(createTextView("DNI"));
         headerRow.addView(createTextView("Medidor"));
         headerRow.addView(createTextView("Usuario"));
@@ -366,13 +365,10 @@ public class AsignacionPorUbigeoFragment extends Fragment {
             TableRow row = new TableRow(getContext());
 
             if (i % 2 == 0) {
-                row.setBackgroundColor(getResources().getColor(R.color.gray_400)); // Gris claro para filas pares
-            } else {
                 row.setBackgroundColor(getResources().getColor(android.R.color.white)); // Blanco para filas impares
+            } else {
+                row.setBackgroundColor(getResources().getColor(R.color.gray_400)); // Gris claro para filas pares
             }
-
-            ImageView estadoImageView = getImageView(user);
-            row.addView(estadoImageView);
 
             row.addView(createTextView(user.getDni()));
             row.addView(createTextView(user.getCodigoMedidor()));
@@ -384,9 +380,9 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                     View child = tableLayout.getChildAt(j);
                     if (child instanceof TableRow && child != headerRow) {
                         if (j % 2 == 0) {
-                            child.setBackgroundColor(getResources().getColor(android.R.color.white));
-                        } else {
                             child.setBackgroundColor(getResources().getColor(R.color.gray_400));
+                        } else {
+                            child.setBackgroundColor(getResources().getColor(android.R.color.white));
                         }
                     }
                 }
@@ -399,18 +395,6 @@ public class AsignacionPorUbigeoFragment extends Fragment {
 
             tableLayout.addView(row);
         }
-    }
-
-    private @NonNull ImageView getImageView(UsuarioResponse user) {
-        ImageView estadoImageView = new ImageView(getContext());
-        if (user.getCodigoMedidor() != null && !user.getCodigoMedidor().isEmpty()) {
-            estadoImageView.setImageResource(R.drawable.ic_check_circle);
-        } else {
-            estadoImageView.setImageResource(R.drawable.ic_cancel);
-        }
-        estadoImageView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        estadoImageView.setPadding(8, 8, 8, 8);
-        return estadoImageView;
     }
 
     private TextView createTextView(String text) {

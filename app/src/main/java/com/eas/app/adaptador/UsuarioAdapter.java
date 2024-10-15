@@ -3,7 +3,6 @@ package com.eas.app.adaptador;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,11 +38,6 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UserView
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         UsuarioResponse user = userList.get(position);
 
-        if (user.getCodigoMedidor() != null && !user.getCodigoMedidor().isEmpty()) {
-            holder.imgChecked.setVisibility(View.VISIBLE);
-        } else {
-            holder.imgChecked.setVisibility(View.GONE);
-        }
         holder.txtDni.setText(user.getDni());
         holder.txtCodigoMedidor.setText(user.getCodigoMedidor());
         holder.txtUserName.setText(String.format("%s %s %s", user.getNombres(), user.getPaterno(), user.getMaterno()));
@@ -58,14 +52,12 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UserView
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView txtUserName, txtDni, txtCodigoMedidor;
-        ImageView imgChecked;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             txtUserName = itemView.findViewById(R.id.txtNombreUsuario);
             txtDni = itemView.findViewById(R.id.txtDniUsuario);
             txtCodigoMedidor = itemView.findViewById(R.id.txtCodigoMedidor);
-            imgChecked = itemView.findViewById(R.id.imgChecked);
         }
     }
 }
