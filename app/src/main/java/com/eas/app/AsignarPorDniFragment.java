@@ -16,9 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
-import com.eas.app.api.BaseApiV2;
+import com.eas.app.api.BaseApi;
 import com.eas.app.api.request.AsignarMedidorRequest;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
@@ -74,7 +73,7 @@ public class AsignarPorDniFragment extends Fragment {
                         assert activity != null;
 
                         String token = Almacenamiento.obtener(activity, Constantes.KEY_ACCESS_TOKEN);
-                        BaseApiV2 baseApi = new BaseApiV2(token);
+                        BaseApi baseApi = new BaseApi(token);
 
                         String dni = etDNIUsuario.getText().toString().trim();
 

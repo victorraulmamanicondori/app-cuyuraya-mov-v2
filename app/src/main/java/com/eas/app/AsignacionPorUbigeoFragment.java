@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.eas.app.api.BaseApiCallback;
-import com.eas.app.api.BaseApiV2;
+import com.eas.app.api.BaseApi;
 import com.eas.app.api.response.UsuarioResponse;
 import com.eas.app.componentes.SpinnerItem;
 import com.eas.app.model.CentroPoblado;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AsignacionPorUbigeoFragment extends Fragment {
-    private BaseApiV2 baseApi;
+    private BaseApi baseApi;
 
     private View view;
 
@@ -79,7 +79,7 @@ public class AsignacionPorUbigeoFragment extends Fragment {
 
         pagination = view.findViewById(R.id.paginacionTablaUsuarios);
 
-        baseApi = new BaseApiV2(null);
+        baseApi = new BaseApi(null);
 
         loadDepartamentos();
 
