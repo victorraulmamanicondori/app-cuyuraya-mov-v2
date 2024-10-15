@@ -1,4 +1,4 @@
-package com.eas.adaptador;
+package com.eas.app.adaptador;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

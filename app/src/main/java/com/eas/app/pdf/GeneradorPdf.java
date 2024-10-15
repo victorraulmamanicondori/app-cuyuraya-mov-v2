@@ -1,4 +1,4 @@
-package com.eas.pdf;
+package com.eas.app.pdf;
 
 import android.os.Environment;
 import android.util.Log;

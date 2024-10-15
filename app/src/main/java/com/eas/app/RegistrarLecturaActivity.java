@@ -22,7 +22,7 @@ import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.utils.Almacenamiento;
 import com.eas.app.utils.Constantes;
-import com.eas.util.DialogUtils;
+import com.eas.app.util.DialogUtils;
 
 import java.util.List;
 

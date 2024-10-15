@@ -2,7 +2,6 @@ package com.eas.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +17,8 @@ import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
 import com.eas.app.api.request.ResetearContrasenaRequest;
 import com.eas.app.api.response.BaseResponse;
-import com.eas.app.model.Usuario;
 import com.eas.app.utils.Constantes;
-import com.eas.util.DialogUtils;
+import com.eas.app.util.DialogUtils;
 
 public class RecuperarContrasenaActivity extends AppCompatActivity {
 

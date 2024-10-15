@@ -19,6 +19,7 @@ public class UsuarioResponse {
     private String nombreDepartamento;
     private String nombreProvincia;
     private String nombreDistrito;
+    private String codigoMedidor;
 
     public String getIdUsuario() {
         return idUsuario;
@@ -162,5 +163,13 @@ public class UsuarioResponse {
 
     public void setNombreDistrito(String nombreDistrito) {
         this.nombreDistrito = nombreDistrito;
+    }
+
+    public String getCodigoMedidor() {
+        return codigoMedidor;
+    }
+
+    public void setCodigoMedidor(String codigoMedidor) {
+        this.codigoMedidor = codigoMedidor;
     }
 }

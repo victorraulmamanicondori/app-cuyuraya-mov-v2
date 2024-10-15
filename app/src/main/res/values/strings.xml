@@ -68,4 +68,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tabs_asignar_medidor">Asignación de medidores</string>
+    <string name="colNombres">Nombres</string>
+    <string name="colDni">DNI</string>
+    <string name="colCodigoMedidor">Código Medidor</string>
+    <string name="indicador_asignacion_medidor">Indicador de asignacion de medidor</string>
+    <string name="tamanio_titulo_tabla">16</string>
+    <string name="btnInicio">Inicio</string>
+    <string name="btnAtras">Atrás</string>
+    <string name="btnAdelante">Adelante</string>
+    <string name="btnFinal">Final</string>
 </resources>

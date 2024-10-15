@@ -28,8 +28,8 @@ import com.eas.app.api.response.MovimientoCajaResponse;
 import com.eas.app.model.TipoMovimiento;
 import com.eas.app.utils.Almacenamiento;
 import com.eas.app.utils.Constantes;
-import com.eas.componentes.SpinnerItem;
-import com.eas.util.DialogUtils;
+import com.eas.app.componentes.SpinnerItem;
+import com.eas.app.util.DialogUtils;
 
 import java.util.ArrayList;
 import java.util.List;

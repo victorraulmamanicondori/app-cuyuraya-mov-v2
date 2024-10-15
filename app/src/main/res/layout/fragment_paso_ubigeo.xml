@@ -117,13 +117,13 @@
         android:layout_height="50dp"
         android:paddingHorizontal="10dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/lblComunidadParcialidad"
+        app:layout_constraintBottom_toTopOf="@id/lblComunidadCampesina"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lblCentroPoblado" />
 
     <TextView
-        android:id="@+id/lblComunidadParcialidad"
+        android:id="@+id/lblComunidadCampesina"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/comunidadParcialidad"
@@ -142,7 +142,7 @@
         app:layout_constraintBottom_toTopOf="@id/lblComunidadNativa"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblComunidadParcialidad" />
+        app:layout_constraintTop_toBottomOf="@id/lblComunidadCampesina" />
 
     <TextView
         android:id="@+id/lblComunidadNativa"

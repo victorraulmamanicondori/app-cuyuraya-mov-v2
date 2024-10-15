@@ -1,4 +1,4 @@
-package com.eas.componentes;
+package com.eas.app.componentes;
 
 public class SpinnerItem {
     private String codigo;

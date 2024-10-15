@@ -1,4 +1,4 @@
-package com.eas.util;
+package com.eas.app.util;
 
 import android.app.AlertDialog;
 import android.content.Context;

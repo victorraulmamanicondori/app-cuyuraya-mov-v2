@@ -5,16 +5,16 @@ plugins {
 android {
     signingConfigs {
         getByName("debug") {
-            storeFile = file("keys/eas-key.keystore")
-            storePassword = "ongeas"
+            storeFile = file("/home/megatron/Projects/eas/app-cuyuraya-mov-v2/almacenclave.jks")
+            storePassword = "ONGEAS"
             keyAlias = "eas"
-            keyPassword = "ongeas"
+            keyPassword = "ONGEAS"
         }
         create("release") {
-            storeFile = file("keys/eas-key.keystore")
-            storePassword = "ongeas"
+            storeFile = file("/home/megatron/Projects/eas/app-cuyuraya-mov-v2/almacenclave.jks")
+            storePassword = "ONGEAS"
             keyAlias = "eas"
-            keyPassword = "ongeas"
+            keyPassword = "ONGEAS"
         }
     }
     namespace = "com.eas.app"
@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.converterGson)
     implementation(libs.itext7Core)
     implementation(libs.viewPager2)
+    implementation(libs.recyclerview)
+    implementation(libs.recyclerviewSelection)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

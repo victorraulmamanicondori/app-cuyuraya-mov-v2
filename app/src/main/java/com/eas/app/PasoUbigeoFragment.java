@@ -1,7 +1,6 @@
 package com.eas.app;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
 import com.eas.app.model.Usuario;
 import com.eas.app.utils.Constantes;
-import com.eas.componentes.SpinnerItem;
+import com.eas.app.componentes.SpinnerItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ public class PasoUbigeoFragment extends Fragment {
         spinnerDistrito = view.findViewById(R.id.spinnerDistrito);
 
         lblCentroPoblado = view.findViewById(R.id.lblCentroPoblado);
-        lblComunidadParcialidad = view.findViewById(R.id.lblComunidadParcialidad);
+        lblComunidadParcialidad = view.findViewById(R.id.lblComunidadCampesina);
         lblComunidadNativa = view.findViewById(R.id.lblComunidadNativa);
 
         spinnerCentroPoblado = view.findViewById(R.id.spinnerCentroPoblado);
@@ -83,31 +82,6 @@ public class PasoUbigeoFragment extends Fragment {
 
         return view;
     }
-
-    /*@Override
-    public void onPause() {
-        super.onPause();
-
-        RegistroUsuarioActivity activity = (RegistroUsuarioActivity) getActivity();
-        if (activity != null) {
-            Usuario usuario = activity.getUsuario();
-            usuario.setCodigoDepartamento(((SpinnerItem)spinnerDepartamento.getSelectedItem()).getCodigo());
-            usuario.setCodigoProvincia(((SpinnerItem)spinnerProvincia.getSelectedItem()).getCodigo());
-            usuario.setCodigoDistrito(((SpinnerItem)spinnerDistrito.getSelectedItem()).getCodigo());
-
-            if (spinnerCentroPoblado != null && spinnerCentroPoblado.getSelectedItemPosition() != -1 && spinnerCentroPoblado.getSelectedItemPosition() != 0) {
-                usuario.setCodigoCentroPoblado(((SpinnerItem)spinnerCentroPoblado.getSelectedItem()).getCodigo());
-            }
-
-            if (spinnerComunidadParcialidad != null && spinnerComunidadParcialidad.getSelectedItemPosition() != -1 && spinnerComunidadParcialidad.getSelectedItemPosition() != 0) {
-                usuario.setCodigoComunidadCampesina(((SpinnerItem)spinnerComunidadParcialidad.getSelectedItem()).getCodigo());
-            }
-
-            if (spinnerComunidadNativa != null && spinnerComunidadNativa.getSelectedItemPosition() != -1 && spinnerComunidadNativa.getSelectedItemPosition() != 0) {
-                usuario.setCodigoComunidadNativa(((SpinnerItem)spinnerComunidadNativa.getSelectedItem()).getCodigo());
-            }
-        }
-    }*/
 
     private void configurarListeners() {
         spinnerDepartamento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -293,7 +267,7 @@ public class PasoUbigeoFragment extends Fragment {
     private void loadComunidadCampesina(String codigoDistrito) {
         if (codigoDistrito.isEmpty()) {
             spinnerComunidadParcialidad.setVisibility(View.GONE);
-            view.findViewById(R.id.lblComunidadParcialidad).setVisibility(View.GONE);
+            view.findViewById(R.id.lblComunidadCampesina).setVisibility(View.GONE);
             return;
         }
 
@@ -302,7 +276,7 @@ public class PasoUbigeoFragment extends Fragment {
             public void onSuccess(List<ComunidadCampesina> result) {
                 if (result == null || result.isEmpty()) {
                     spinnerComunidadParcialidad.setVisibility(View.GONE);
-                    view.findViewById(R.id.lblComunidadParcialidad).setVisibility(View.GONE);
+                    view.findViewById(R.id.lblComunidadCampesina).setVisibility(View.GONE);
                 } else {
                     lblComunidadParcialidad.setVisibility(View.VISIBLE);
                     spinnerComunidadParcialidad.setVisibility(View.VISIBLE);

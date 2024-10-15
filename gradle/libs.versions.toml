@@ -11,6 +11,8 @@ retrofit2 = "2.11.0"
 converter-gson = "2.11.0"
 itext7 = "7.1.14"
 viewpager2 = "1.1.0"
+recyclerview = "1.3.2"
+recyclerviewSelection = "1.1.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,6 +26,8 @@ retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref =
 converterGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converter-gson" }
 itext7Core = { group = "com.itextpdf", name = "itext7-core", version.ref = "itext7" }
 viewPager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+recyclerviewSelection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerviewSelection" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
