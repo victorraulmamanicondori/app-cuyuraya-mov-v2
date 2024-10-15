@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.eas.app.api.BaseApiCallback;
@@ -390,7 +393,43 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                 // Cambiar la fila seleccionada a color amarillo
                 row.setBackgroundColor(getResources().getColor(R.color.light_blue_400));
 
-                Toast.makeText(getActivity(), "Seleccionado: " + user.getNombres(), Toast.LENGTH_SHORT).show();
+                // Inflar el diseño del diálogo
+                View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_asignar_medidor, null);
+
+                // Crear el diálogo
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setView(dialogView);
+
+                // Obtener referencias a los elementos del diálogo
+                TextView dialogTitle = dialogView.findViewById(R.id.dialogTitle);
+                EditText editTextMedidor = dialogView.findViewById(R.id.editTextMedidor);
+                Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
+                Button btnRegistrar = dialogView.findViewById(R.id.btnRegistrar);
+
+                // Configurar el diálogo
+                AlertDialog alertDialog = builder.create();
+
+                // Establecer el título del diálogo
+                dialogTitle.setText(String.format("Asignar medidor a %s %s %s", user.getNombres(), user.getPaterno(), user.getMaterno()));
+
+                // Configurar el botón Cancelar
+                btnCancelar.setOnClickListener(cancelView -> alertDialog.dismiss());
+
+                // Configurar el botón Registrar
+                btnRegistrar.setOnClickListener(registerView -> {
+                    String codigoMedidor = editTextMedidor.getText().toString();
+                    if (!codigoMedidor.isEmpty()) {
+                        // Lógica para asignar el medidor al usuario
+                        user.setCodigoMedidor(codigoMedidor);
+                        Toast.makeText(getActivity(), "Medidor asignado a " + user.getNombres(), Toast.LENGTH_SHORT).show();
+                        alertDialog.dismiss();
+                    } else {
+                        Toast.makeText(getActivity(), "Ingrese un código de medidor válido", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                // Mostrar el diálogo
+                alertDialog.show();
             });
 
             tableLayout.addView(row);
