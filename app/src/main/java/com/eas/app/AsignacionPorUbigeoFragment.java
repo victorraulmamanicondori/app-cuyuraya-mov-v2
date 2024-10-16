@@ -2,6 +2,7 @@ package com.eas.app;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,10 @@ import androidx.fragment.app.Fragment;
 
 import com.eas.app.api.BaseApiCallback;
 import com.eas.app.api.BaseApi;
+import com.eas.app.api.request.AsignarMedidorRequest;
+import com.eas.app.api.request.UbigeoRequest;
+import com.eas.app.api.response.AsignarMedidorResponse;
+import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.UsuarioResponse;
 import com.eas.app.componentes.SpinnerItem;
 import com.eas.app.model.CentroPoblado;
@@ -31,7 +36,9 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
+import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
+import com.eas.app.util.DialogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +56,7 @@ public class AsignacionPorUbigeoFragment extends Fragment {
     private Spinner spinComunidadNativa;
 
     private TableLayout tableLayout;
-    private List<UsuarioResponse> userList;
+    private List<UsuarioResponse> userList = new ArrayList<>();
     private TextView pagination;
     private int pageSize = 4;
     private int currentPage = 0;
@@ -82,13 +89,13 @@ public class AsignacionPorUbigeoFragment extends Fragment {
 
         pagination = view.findViewById(R.id.paginacionTablaUsuarios);
 
-        baseApi = new BaseApi(null);
+        String token = Almacenamiento.obtener(getContext(), Constantes.KEY_ACCESS_TOKEN);
+        baseApi = new BaseApi(token);
 
         loadDepartamentos();
 
         configurarListeners();
 
-        userList = getUserData();
         loadPage(currentPage);
 
         return view;
@@ -155,11 +162,57 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                     loadCentroPoblado(distritoSeleccionado.getCodigo());
                     loadComunidadCampesina(distritoSeleccionado.getCodigo());
                     loadComunidadNativa(distritoSeleccionado.getCodigo());
+                    getUserData();
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
+        spinCentroPoblado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                SpinnerItem centroPobladoSeleccionado = (SpinnerItem) adapterView.getSelectedItem();
+                if (centroPobladoSeleccionado != null) {
+                    getUserData();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinComunidadCampesina.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                SpinnerItem comunidadCampesinaSeleccionado = (SpinnerItem) adapterView.getSelectedItem();
+                if (comunidadCampesinaSeleccionado != null) {
+                    getUserData();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinComunidadNativa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                SpinnerItem comunidadNativaSeleccionado = (SpinnerItem) adapterView.getSelectedItem();
+                if (comunidadNativaSeleccionado != null) {
+                    getUserData();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
     }
 
@@ -343,6 +396,8 @@ public class AsignacionPorUbigeoFragment extends Fragment {
     }
 
     private void loadPage(int page) {
+        Log.i("LoadPage", "page=" + page);
+
         totalUsuarios = userList.size();
         totalPages = (int) Math.ceil((double) userList.size() / pageSize);
         currentPage = Math.max(0, Math.min(page, totalPages - 1));
@@ -419,10 +474,7 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                 btnRegistrar.setOnClickListener(registerView -> {
                     String codigoMedidor = editTextMedidor.getText().toString();
                     if (!codigoMedidor.isEmpty()) {
-                        // Lógica para asignar el medidor al usuario
-                        user.setCodigoMedidor(codigoMedidor);
-                        Toast.makeText(getActivity(), "Medidor asignado a " + user.getNombres(), Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
+                        asignarMedidor(codigoMedidor, user, alertDialog);
                     } else {
                         Toast.makeText(getActivity(), "Ingrese un código de medidor válido", Toast.LENGTH_SHORT).show();
                     }
@@ -433,6 +485,65 @@ public class AsignacionPorUbigeoFragment extends Fragment {
             });
 
             tableLayout.addView(row);
+        }
+    }
+
+    private void asignarMedidor(String codigoMedidor, UsuarioResponse user, AlertDialog alertDialog) {
+        try {
+            AsignarMedidorRequest asignarMedidorRequest = new AsignarMedidorRequest(codigoMedidor, user.getDni());
+
+            baseApi.asignarMedidor(asignarMedidorRequest, new BaseApiCallback<BaseResponse<AsignarMedidorResponse>>() {
+                @Override
+                public void onSuccess(BaseResponse<AsignarMedidorResponse> response) {
+                    if (response.getCodigo() == 200) {
+                        user.setCodigoMedidor(codigoMedidor);
+                        loadPage(currentPage);
+
+                        DialogUtils.showAlertDialog(
+                                getActivity(),
+                                Constantes.TITULO_ASIGNACION_EXISTOSA,
+                                response.getMensaje(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> {
+                                    dialog.dismiss();
+                                },
+                                null,
+                                null
+                        );
+                    } else {
+                        DialogUtils.showAlertDialog(
+                                getActivity(),
+                                Constantes.TITULO_ASIGNACION_FALLIDA,
+                                response.getMensaje(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> dialog.dismiss(),
+                                null,
+                                null
+                        );
+                        Log.e("AsignarMedidor", "Error en asignar medidor: " + response.getMensaje());
+                    }
+
+                    alertDialog.dismiss();
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    DialogUtils.showAlertDialog(
+                            getActivity(),
+                            Constantes.TITULO_ASIGNACION_FALLIDA,
+                            t.getMessage(),
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> dialog.dismiss(),
+                            null,
+                            null
+                    );
+                    Log.e("AsignarMedidor", "Error en asignar medidor: " + t.getMessage());
+                }
+            });
+
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Error en asignar medidor: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("AsignarMedidor", "Excepción en asignar medidor", e);
         }
     }
 
@@ -447,19 +558,56 @@ public class AsignacionPorUbigeoFragment extends Fragment {
         return textView;
     }
 
-    private List<UsuarioResponse> getUserData() {
-        List<UsuarioResponse> users = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
-            UsuarioResponse user = new UsuarioResponse();
-            user.setNombres("Miguel " + i);
-            user.setPaterno("Mamani " + i);
-            user.setMaterno("Condori " + i);
-            user.setDni("1234567" + i);
-            if (i % 3 == 0)
-                user.setCodigoMedidor("1234" + i);
+    private void getUserData() {
+        UbigeoRequest request = getUbigeoRequest();
+        currentPage = 0;
+        totalPages = 0;
+        totalUsuarios = 0;
+        userList = new ArrayList<>();
 
-            users.add(user);
+        if (request.getCodigoDistrito() != null && !request.getCodigoDistrito().isEmpty()) {
+            baseApi.listarUsuariosPorUbigeo(request, new BaseApiCallback<BaseResponse<List<UsuarioResponse>>>() {
+                @Override
+                public void onSuccess(BaseResponse<List<UsuarioResponse>> result) {
+                    if (result != null && result.getDatos() != null && !result.getDatos().isEmpty()) {
+                        Log.i("UsuariosPorUbigeo", "Actualizando lista de usuarios");
+                        userList = result.getDatos();
+                    }
+                    loadPage(currentPage);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    loadPage(currentPage);
+                    Toast.makeText(getContext(), "Error al listar usuarios por ubigeo: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            loadPage(currentPage);
         }
-        return users;
+    }
+
+    private @NonNull UbigeoRequest getUbigeoRequest() {
+        SpinnerItem distritoSeleccionado = (SpinnerItem) spinDistrito.getSelectedItem();
+        SpinnerItem centroPobladoSeleccionado = (SpinnerItem) spinCentroPoblado.getSelectedItem();
+        SpinnerItem comunidadCampesinaSeleccionado = (SpinnerItem) spinComunidadCampesina.getSelectedItem();
+        SpinnerItem comunidadNativaSeleccionado = (SpinnerItem) spinComunidadNativa.getSelectedItem();
+
+        UbigeoRequest request = new UbigeoRequest();
+        request.setCodigoDistrito(distritoSeleccionado.getCodigo());
+
+        if (centroPobladoSeleccionado != null) {
+            request.setCodigoCentroPoblado(centroPobladoSeleccionado.getCodigo());
+        }
+
+        if (comunidadCampesinaSeleccionado != null) {
+            request.setCodigoComunidadCampesina(comunidadCampesinaSeleccionado.getCodigo());
+        }
+
+        if (comunidadNativaSeleccionado != null) {
+            request.setCodigoComunidadNativa(comunidadNativaSeleccionado.getCodigo());
+        }
+
+        return request;
     }
 }

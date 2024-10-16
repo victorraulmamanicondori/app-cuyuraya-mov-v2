@@ -29,6 +29,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface BaseApiService {
 
@@ -77,4 +78,10 @@ public interface BaseApiService {
     @GET("usuarios/{dni}")
     Call<BaseResponse<UsuarioResponse>> getUsuario(@Path("dni") String dni);
 
+    @GET("usuarios/ubigeo/{codigoDistrito}")
+    Call<BaseResponse<List<UsuarioResponse>>> listarUsuariosPorUbigeo(
+            @Path("codigoDistrito") String codigoDistrito,
+            @Query("codigoCentroPoblado") String codigoCentroPoblado,
+            @Query("codigoComunidadCampesina") String codigoComunidadCampesina,
+            @Query("codigocodigoComunidadNativa") String codigocodigoComunidadNativa);
 }

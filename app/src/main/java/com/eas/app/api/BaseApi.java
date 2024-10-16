@@ -9,6 +9,7 @@ import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.request.MovimientoCajaRequest;
 import com.eas.app.api.request.ResetearContrasenaRequest;
+import com.eas.app.api.request.UbigeoRequest;
 import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
@@ -24,6 +25,7 @@ import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
 import com.eas.app.model.TipoMovimiento;
 import com.eas.app.model.Usuario;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
@@ -49,8 +51,13 @@ public class BaseApi {
                     callback.onSuccess(response.body());
                 } else {
                     try {
-                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
-                        callback.onError(new Throwable("Error: " + response.message() + ", " + errorBody));
+                        // String errorBody = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
+                        // callback.onError(new Throwable("Error: " + response.message() + ", " + errorBody));
+
+                        Gson gson = new Gson();
+                        Log.d("BaseApi", "Error response body: " + response.errorBody());
+                        BaseResponse<String> errorResponse = gson.fromJson(response.errorBody().string(), BaseResponse.class);
+                        callback.onError(new Throwable(errorResponse.getMensaje()));
                     } catch (IOException e) {
                         callback.onError(new Throwable("Error HTTP " + response.code() + ": " + response.message()));
                     }
@@ -136,6 +143,15 @@ public class BaseApi {
 
     public void resetearContrasena(ResetearContrasenaRequest request, BaseApiCallback<BaseResponse<String>> callback) {
         Call<BaseResponse<String>> call = apiService.resetearContrasena(request);
+        makeApiCall(call, callback);
+    }
+
+    public void listarUsuariosPorUbigeo(UbigeoRequest request, BaseApiCallback<BaseResponse<List<UsuarioResponse>>> callback) {
+        Call<BaseResponse<List<UsuarioResponse>>> call =
+                apiService.listarUsuariosPorUbigeo(request.getCodigoDistrito(),
+                        request.getCodigoCentroPoblado(),
+                        request.getCodigoComunidadCampesina(),
+                        request.getCodigoComunidadNativa());
         makeApiCall(call, callback);
     }
 }
