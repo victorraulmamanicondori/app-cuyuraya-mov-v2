@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".TarifaActivity">
+
+    <TextView
+        android:id="@+id/lblCodigoTarifa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/codigo_tarifa"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/txtCodigoTarifa"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="text"
+        android:hint="@string/ingrese_codigo_tarifa"/>
+
+    <TextView
+        android:id="@+id/txtErrorCodigoTarifa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/lblDescTarifa"
+        android:text="@string/descripcion_tarifa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/txtDescTarifa"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/ingrese_descripcion_tarifa"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/txtErrorDescTarifa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/lblMontoTarifa"
+        android:text="@string/monto_tarifa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/txtMontoTarifa"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/ingrese_tarifa"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:id="@+id/txtErrorMontoTarifa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnGuardarTarifa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guardar_tarifa"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/buttonBackgroundColor"
+        android:textColor="@color/buttonTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"/>
+</LinearLayout>

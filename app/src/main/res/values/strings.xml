@@ -77,4 +77,12 @@
     <string name="btnAtras_desc">Atrás</string>
     <string name="btnAdelante_desc">Adelante</string>
     <string name="btnFinal_desc">Final</string>
+    <string name="tarifas">Tarifa</string>
+    <string name="guardar_tarifa">Guardar Tarifa</string>
+    <string name="ingrese_codigo_tarifa">Ingrese código de tarifa</string>
+    <string name="ingrese_tarifa">Ingrese tarifa</string>
+    <string name="ingrese_descripcion_tarifa">Ingrese descripción de tarifa</string>
+    <string name="codigo_tarifa">Código tarifa:</string>
+    <string name="descripcion_tarifa">Descripción de Tarifa:</string>
+    <string name="monto_tarifa">Monto de Tarifa:</string>
 </resources>

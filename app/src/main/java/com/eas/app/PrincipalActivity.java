@@ -94,5 +94,14 @@ public class PrincipalActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        CardView cardTarifa = findViewById(R.id.cardTarifa);
+        cardTarifa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PrincipalActivity.this, TarifaActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
