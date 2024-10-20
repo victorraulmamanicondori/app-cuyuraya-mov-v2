@@ -19,6 +19,9 @@ public class UsuarioResponse {
     private String nombreDepartamento;
     private String nombreProvincia;
     private String nombreDistrito;
+    private String nombreCentroPoblado;
+    private String nombreComunidadCampesina;
+    private String nombreComunidadNativa;
     private String codigoMedidor;
 
     public String getIdUsuario() {
@@ -171,5 +174,29 @@ public class UsuarioResponse {
 
     public void setCodigoMedidor(String codigoMedidor) {
         this.codigoMedidor = codigoMedidor;
+    }
+
+    public String getNombreCentroPoblado() {
+        return nombreCentroPoblado;
+    }
+
+    public void setNombreCentroPoblado(String nombreCentroPoblado) {
+        this.nombreCentroPoblado = nombreCentroPoblado;
+    }
+
+    public String getNombreComunidadCampesina() {
+        return nombreComunidadCampesina;
+    }
+
+    public void setNombreComunidadCampesina(String nombreComunidadCampesina) {
+        this.nombreComunidadCampesina = nombreComunidadCampesina;
+    }
+
+    public String getNombreComunidadNativa() {
+        return nombreComunidadNativa;
+    }
+
+    public void setNombreComunidadNativa(String nombreComunidadNativa) {
+        this.nombreComunidadNativa = nombreComunidadNativa;
     }
 }

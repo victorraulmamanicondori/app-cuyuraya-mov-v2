@@ -83,14 +83,23 @@ public class AsignarPorDniFragment extends Fragment {
                                 tvUsuario.setVisibility(View.VISIBLE);
 
                                 UsuarioResponse usuario = response.getDatos();
-                                String infoUsuario = String.format("Nombres: %s, Paterno: %s, Materno: %s\nDepartamento: %s, Provincia: %s, Distrito: %s\nDirección: %s",
+                                String infoUsuario = String.format("Usuario: %s %s %s\nDepartamento: %s\nProvincia: %s\nDistrito: %s\nCentro Poblado: %s\nComunidad Campesina: %s\nComunidad Nativa: %s\nDirección: %s\nMedidor: %s",
                                         usuario.getNombres(), usuario.getPaterno(), usuario.getMaterno(),
                                         usuario.getNombreDepartamento(),
                                         usuario.getNombreProvincia(),
                                         usuario.getNombreDistrito(),
-                                        usuario.getDireccion());
+                                        (usuario.getNombreCentroPoblado() != null ? usuario.getNombreCentroPoblado() : ""),
+                                        (usuario.getNombreComunidadCampesina() != null ? usuario.getNombreComunidadCampesina() : ""),
+                                        (usuario.getNombreComunidadNativa() != null ? usuario.getNombreComunidadNativa() : ""),
+                                        usuario.getDireccion(),
+                                        (usuario.getCodigoMedidor() != null ? usuario.getCodigoMedidor() : ""));
                                 tvUsuario.setText(infoUsuario);
                                 etDNIUsuario.setEnabled(true);
+
+                                if (usuario.getCodigoMedidor() != null && !usuario.getCodigoMedidor().trim().isEmpty()) {
+                                    etCodigoMedidor.setText(usuario.getCodigoMedidor().trim());
+                                }
+
                                 Log.d("AsignarMedidor", infoUsuario);
                             }
 
