@@ -18,4 +18,5 @@ public class Constantes {
     public static final String TITULO_ERROR = "Error";
     public static final String TITULO_ASIGNACION_EXISTOSA = "Asignacion exitosa";
     public static final String TITULO_ASIGNACION_FALLIDA = "Asignacion fallida";
+    public static final String CODIGO_TARIFA_BASE = "BASE";
 }

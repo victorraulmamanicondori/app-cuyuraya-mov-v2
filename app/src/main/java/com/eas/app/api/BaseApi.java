@@ -23,6 +23,7 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
+import com.eas.app.model.Tarifa;
 import com.eas.app.model.TipoMovimiento;
 import com.eas.app.model.Usuario;
 import com.google.gson.Gson;
@@ -152,6 +153,16 @@ public class BaseApi {
                         request.getCodigoCentroPoblado(),
                         request.getCodigoComunidadCampesina(),
                         request.getCodigoComunidadNativa());
+        makeApiCall(call, callback);
+    }
+
+    public void guardarTarifa(Tarifa request, BaseApiCallback<BaseResponse<Tarifa>> callback) {
+        Call<BaseResponse<Tarifa>> call = apiService.guardarTarifa(request);
+        makeApiCall(call, callback);
+    }
+
+    public void obtenerTarifa(String codigoTarifa, BaseApiCallback<BaseResponse<Tarifa>> callback) {
+        Call<BaseResponse<Tarifa>> call = apiService.obtenerTarifa(codigoTarifa);
         makeApiCall(call, callback);
     }
 }

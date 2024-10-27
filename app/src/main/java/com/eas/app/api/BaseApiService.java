@@ -18,6 +18,7 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
+import com.eas.app.model.Tarifa;
 import com.eas.app.model.TipoMovimiento;
 import com.eas.app.model.Usuario;
 
@@ -84,4 +85,10 @@ public interface BaseApiService {
             @Query("codigoCentroPoblado") String codigoCentroPoblado,
             @Query("codigoComunidadCampesina") String codigoComunidadCampesina,
             @Query("codigocodigoComunidadNativa") String codigocodigoComunidadNativa);
+
+    @PUT("tarifas")
+    Call<BaseResponse<Tarifa>> guardarTarifa(@Body Tarifa request);
+
+    @GET("tarifas/{codigoTarifa}")
+    Call<BaseResponse<Tarifa>> obtenerTarifa(@Path("codigoTarifa") String codigoTarifa);
 }
