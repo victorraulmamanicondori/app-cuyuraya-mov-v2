@@ -19,17 +19,19 @@
     <string name="descripcion">Descripcion:</string>
     <string name="ingrese_descripcion">Ingrese descripcion</string>
     <string name="tipo_egreso">Egreso:</string>
-    <string name="lbl_codigo_medidor">Codigo medidor:</string>
-    <string name="lectura_actual">Lectura actual:</string>
+    <string name="lbl_codigo_medidor">Código Medidor:</string>
+    <string name="lectura_actual">Lectura Actual:</string>
     <string name="ingrese_lectura_actual">Ingrese lectura actual</string>
-    <string name="hint_ingrese_codigo_medidor">Ingrese codigo del medidor</string>
-    <string name="btn_registrar_lectura">Registrar Lectura</string>
+    <string name="hint_ingrese_codigo_medidor">Ingrese código</string>
+    <string name="btn_registrar_lectura">Guardar Lectura</string>
     <string name="btn_registrar_egreso">Registrar Egreso</string>
     <string name="btn_registrar_ingreso">Registrar Ingreso</string>
     <string name="btn_asignar_medidor">Asignar Medidor</string>
-    <string name="hint_ingrese_dni_usuario">Ingrese DNI del usuario</string>
-    <string name="lbl_dni_usuario">DNI del Usuario:</string>
+    <string name="hint_ingrese_dni_usuario">Ingrese DNI</string>
+    <string name="lbl_dni_usuario">DNI Usuario:</string>
     <string name="comunidadNativa">Comunidad Nativa:</string>
     <string name="pendiente_implementar">PENDIENTE IMPLEMENTAR...</string>
     <string name="detectar_anomalias">Detectar Anomalias</string>
+    <string name="lectura_anterior">Lectura Anterior:</string>
+    <string name="ingrese_lectura_anterior">Lectura anterior</string>
 </resources>

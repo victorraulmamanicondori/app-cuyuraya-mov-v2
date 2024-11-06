@@ -8,9 +8,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.eas.app.AsignacionPorUbigeoFragment;
 import com.eas.app.AsignarPorDniFragment;
 
-public class ViewPagerAdapter extends FragmentStateAdapter {
+public class MedidorViewPagerAdapter extends FragmentStateAdapter {
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public MedidorViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 

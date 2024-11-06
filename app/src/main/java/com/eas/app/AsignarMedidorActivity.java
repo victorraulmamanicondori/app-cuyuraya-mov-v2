@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.eas.app.adaptador.ViewPagerAdapter;
+import com.eas.app.adaptador.MedidorViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -16,10 +16,10 @@ public class AsignarMedidorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asignar_medidor);
 
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabLayoutMedidor);
+        ViewPager2 viewPager = findViewById(R.id.viewPagerMedidor);
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        MedidorViewPagerAdapter adapter = new MedidorViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {

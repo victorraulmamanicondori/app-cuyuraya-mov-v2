@@ -1,117 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
+    android:orientation="vertical"
     tools:context=".RegistrarLecturaActivity">
 
-    <TextView
-        android:id="@+id/lblCodigoMedidor"
-        android:layout_width="0dp"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutLectura"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/lbl_codigo_medidor"
-        app:layout_constraintBottom_toTopOf="@id/txtCodigoMedidor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:contentDescription="@string/tabs_asignar_medidor"/>
 
-    <EditText
-        android:id="@+id/txtCodigoMedidor"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@drawable/edittext_background"
-        android:hint="@string/hint_ingrese_codigo_medidor"
-        android:maxLength="255"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@id/tvErrorCodigoMedidor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblCodigoMedidor"
-        android:layout_marginBottom="0dp"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerLectura"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/tvErrorCodigoMedidor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/lblLecturaActual"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtCodigoMedidor"
-        android:layout_marginTop="0dp"/>
-
-    <TextView
-        android:id="@+id/lblLecturaActual"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/lectura_actual"
-        app:layout_constraintBottom_toTopOf="@id/txtLecturaActual"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvErrorCodigoMedidor"
-        android:layout_marginVertical="0dp"/>
-
-    <EditText
-        android:id="@+id/txtLecturaActual"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@drawable/edittext_background"
-        android:hint="@string/ingrese_lectura_actual"
-        android:inputType="number"
-        android:maxLength="18"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@id/tvErrorLecturaActual"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblLecturaActual"
-        android:layout_marginBottom="0dp"/>
-
-    <TextView
-        android:id="@+id/tvErrorLecturaActual"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/btnDetectarAnomalias"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtLecturaActual"
-        android:layout_marginVertical="0dp"/>
-
-    <Button
-        android:id="@+id/btnDetectarAnomalias"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/detectar_anomalias"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegistrarLectura"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvErrorLecturaActual"
-        android:layout_marginBottom="0dp"
-        android:layout_marginVertical="0dp"/>
-
-    <Button
-        android:id="@+id/btnRegistrarLectura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/buttonBackgroundColor"
-        android:text="@string/btn_registrar_lectura"
-        android:textColor="@color/buttonTextColor"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnDetectarAnomalias"
-        android:layout_marginBottom="0dp"
-        android:layout_marginVertical="0dp"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
