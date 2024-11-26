@@ -9,6 +9,7 @@ import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
+import com.eas.app.api.response.LecturaPaginadoResponse;
 import com.eas.app.api.response.LoginResponse;
 import com.eas.app.api.response.MovimientoCajaResponse;
 import com.eas.app.api.response.UsuarioResponse;
@@ -91,4 +92,7 @@ public interface BaseApiService {
 
     @GET("tarifas/{codigoTarifa}")
     Call<BaseResponse<Tarifa>> obtenerTarifa(@Path("codigoTarifa") String codigoTarifa);
+
+    @GET("lecturas/medidor/{codigoMedidor}")
+    Call<BaseResponse<LecturaPaginadoResponse>> listarLecturasPorMedidor(@Path("codigoMedidor") String codigoMedidor, @Query("page") int page, @Query("limit") int limit);
 }

@@ -14,6 +14,7 @@ import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
+import com.eas.app.api.response.LecturaPaginadoResponse;
 import com.eas.app.api.response.LoginResponse;
 import com.eas.app.api.response.MovimientoCajaResponse;
 import com.eas.app.api.response.UsuarioResponse;
@@ -163,6 +164,11 @@ public class BaseApi {
 
     public void obtenerTarifa(String codigoTarifa, BaseApiCallback<BaseResponse<Tarifa>> callback) {
         Call<BaseResponse<Tarifa>> call = apiService.obtenerTarifa(codigoTarifa);
+        makeApiCall(call, callback);
+    }
+
+    public void listarLecturas(String codigoMedidor, int page, int limit, BaseApiCallback<BaseResponse<LecturaPaginadoResponse>> callback) {
+        Call<BaseResponse<LecturaPaginadoResponse>> call = apiService.listarLecturasPorMedidor(codigoMedidor, page, limit);
         makeApiCall(call, callback);
     }
 }

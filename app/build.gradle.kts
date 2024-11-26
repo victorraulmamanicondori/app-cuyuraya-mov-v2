@@ -5,7 +5,7 @@ plugins {
 android {
     signingConfigs {
         getByName("debug") {
-            storeFile = file("/home/megatron/Projects/eas/app-cuyuraya-mov-v2/almacenclave.jks")
+            storeFile = file("/home/miguel/LabCenter/nodejs/app-cuyuraya-mov-v2/almacenclave.jks")
             storePassword = "ONGEAS"
             keyAlias = "eas"
             keyPassword = "ONGEAS"

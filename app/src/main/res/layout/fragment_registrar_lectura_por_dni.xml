@@ -303,6 +303,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <CheckBox
+                android:id="@+id/chkPagado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView

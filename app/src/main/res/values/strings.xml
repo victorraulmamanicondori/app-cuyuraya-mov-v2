@@ -89,7 +89,7 @@
     <string name="ingrese_lectura_anterior">Lectura anterior</string>
     <string name="ingrese_fecha_lectura">Fecha lectura</string>
     <string name="fecha_lectura">Fecha Lectura:</string>
-    <string name="recibo">Recibo:</string>
+    <string name="recibo">Número Recibo:</string>
     <string name="ingrese_recibo">Número de recibo</string>
     <string name="m3consumidos">M3 Consumidos:</string>
     <string name="ingrese_m3consumidos">Cantidad consumido</string>

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
+import com.eas.app.api.response.LecturaPaginadoResponse;
 import com.eas.app.api.response.UsuarioResponse;
 import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
@@ -40,6 +42,14 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     private EditText txtCodigoMedidor;
     private EditText txtLecturaActual;
 
+    private EditText txtLecturaAnterior;
+    private EditText txtFechaLectura;
+    private EditText txtRecibo;
+    private EditText txtM3Consumidos;
+    private EditText txtMontoTotal;
+    private EditText txtFechaLimitePago;
+    private CheckBox chkPagado;
+
     private TextView lblNombreUsuario;
     private TextView tvErrorDniUsuario;
     private TextView tvErrorCodigoMedidor;
@@ -47,9 +57,17 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     
     private ImageButton btnBuscarPorDni;
     private ImageButton btnBuscarPorCodigo;
+    private ImageButton btnInicio;
+    private ImageButton btnAtras;
+    private ImageButton btnAdelante;
+    private ImageButton btnFinal;
 
     private UsuarioViewModel usuarioViewModel;
     private UsuarioResponse usuarioResponse;
+
+    private int page = 1;
+    private int limit = 1;
+    private int total = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +77,13 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         txtDniUsuario = view.findViewById(R.id.txtDniUsuario);
         txtCodigoMedidor = view.findViewById(R.id.txtCodigoMedidor);
         txtLecturaActual = view.findViewById(R.id.txtLecturaActual);
+        txtLecturaAnterior = view.findViewById(R.id.txtLecturaAnterior);
+        txtFechaLectura = view.findViewById(R.id.txtFechaLectura);
+        txtRecibo = view.findViewById(R.id.txtRecibo);
+        txtM3Consumidos = view.findViewById(R.id.txtM3Consumidos);
+        txtMontoTotal = view.findViewById(R.id.txtMontoTotal);
+        txtFechaLimitePago = view.findViewById(R.id.txtFechaLimitePago);
+        chkPagado = view.findViewById(R.id.chkPagado);
 
         lblNombreUsuario = view.findViewById(R.id.lblNombreUsuario);
         tvErrorDniUsuario = view.findViewById(R.id.tvErrorDniUsuario);
@@ -70,6 +95,18 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
         btnBuscarPorCodigo = view.findViewById(R.id.btnBuscarPorCodigo);
         btnBuscarPorCodigo.setOnClickListener(v -> buscarLecturasPorCodigo());
+
+        btnInicio = view.findViewById(R.id.btnInicio);
+        btnInicio.setOnClickListener(v -> irAlInicio());
+
+        btnAtras = view.findViewById(R.id.btnAtras);
+        btnAtras.setOnClickListener(v -> irAtras());
+
+        btnAdelante = view.findViewById(R.id.btnAdelante);
+        btnAdelante.setOnClickListener(v -> irAdelante());
+
+        btnFinal = view.findViewById(R.id.btnFinal);
+        btnFinal.setOnClickListener(v -> irAlFinal());
         
         Button detectarAnomaliasButton = view.findViewById(R.id.btnDetectarAnomalias);
         detectarAnomaliasButton.setOnClickListener(v -> detectarAnomaliasConsumo());
@@ -84,9 +121,87 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
             txtDniUsuario.setText(usuarioResponse.getDni());
             lblNombreUsuario.setText(String.format("%s %s %s", usuarioResponse.getNombres(), usuarioResponse.getPaterno(), usuarioResponse.getMaterno()));
             txtCodigoMedidor.setText(usuarioResponse.getCodigoMedidor().trim());
+
+            try {
+                String token = Almacenamiento.obtener(requireActivity(), Constantes.KEY_ACCESS_TOKEN);
+                BaseApi baseApi = new BaseApi(token);
+
+                baseApi.listarLecturas(usuarioResponse.getCodigoMedidor(), Constantes.PARAM_PAGE, Constantes.PARAM_LIMIT, new BaseApiCallback<BaseResponse<LecturaPaginadoResponse>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<LecturaPaginadoResponse> response) {
+                        LecturaPaginadoResponse lecturasPaginado = response.getDatos();
+                        List<LecturaActualResponse> lecturas = lecturasPaginado.getResultados();
+
+                        page = lecturasPaginado.getPage();
+                        limit = lecturasPaginado.getLimit();
+                        total = lecturasPaginado.getTotal();
+
+                        if (lecturas != null && !lecturas.isEmpty()) {
+                            if (lecturas.get(0).getLecturaActual() != null) {
+                                txtLecturaActual.setText(lecturas.get(0).getLecturaActual().toString());
+                            }
+
+                            if (lecturas.get(0).getLecturaAnterior() != null) {
+                                txtLecturaAnterior.setText(lecturas.get(0).getLecturaAnterior().toString());
+                            }
+
+                            if (lecturas.get(0).getFechaLectura() != null) {
+                                txtFechaLectura.setText(lecturas.get(0).getFechaLectura());
+                            }
+
+                            if (lecturas.get(0).getNumeroRecibo() != null) {
+                                txtRecibo.setText(lecturas.get(0).getNumeroRecibo());
+                            }
+
+                            if (lecturas.get(0).getM3Consumido() != null) {
+                                txtM3Consumidos.setText(lecturas.get(0).getM3Consumido().toString());
+                            }
+
+                            if (lecturas.get(0).getMontoPagar() != null) {
+                                txtMontoTotal.setText(lecturas.get(0).getMontoPagar().toString());
+                            }
+
+                            if (lecturas.get(0).getFechaLimitePago() != null) {
+                                txtFechaLimitePago.setText(lecturas.get(0).getFechaLimitePago());
+                            }
+
+                            if (Constantes.ESTADO_PAGADO.equals(lecturas.get(0).getEstado())) {
+                                chkPagado.setChecked(true);
+                            } else {
+                                chkPagado.setChecked(false);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        Toast.makeText(requireActivity(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e("RegistrarLecturaPorDni", "Error:" + t.getMessage());
+                    }
+                });
+            } catch(Exception ex) {
+                Toast.makeText(requireActivity(), "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("RegistrarLecturaPorDni", "Error:" + ex.getMessage());
+            }
         });
 
         return view;
+    }
+
+    private void irAlInicio() {
+
+    }
+
+    private void irAtras() {
+
+    }
+
+    private void irAdelante() {
+
+    }
+
+    private void irAlFinal() {
+
     }
 
     private void buscarLecturasPorDni() {
