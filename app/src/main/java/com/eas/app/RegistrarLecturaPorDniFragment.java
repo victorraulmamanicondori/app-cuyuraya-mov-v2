@@ -66,7 +66,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     private UsuarioResponse usuarioResponse;
 
     private int page = 1;
-    private int limit = 1;
+    private int limit = Constantes.PARAM_LIMIT;
     private int total = 0;
 
     @Override
@@ -122,86 +122,110 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
             lblNombreUsuario.setText(String.format("%s %s %s", usuarioResponse.getNombres(), usuarioResponse.getPaterno(), usuarioResponse.getMaterno()));
             txtCodigoMedidor.setText(usuarioResponse.getCodigoMedidor().trim());
 
-            try {
-                String token = Almacenamiento.obtener(requireActivity(), Constantes.KEY_ACCESS_TOKEN);
-                BaseApi baseApi = new BaseApi(token);
-
-                baseApi.listarLecturas(usuarioResponse.getCodigoMedidor(), Constantes.PARAM_PAGE, Constantes.PARAM_LIMIT, new BaseApiCallback<BaseResponse<LecturaPaginadoResponse>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<LecturaPaginadoResponse> response) {
-                        LecturaPaginadoResponse lecturasPaginado = response.getDatos();
-                        List<LecturaActualResponse> lecturas = lecturasPaginado.getResultados();
-
-                        page = lecturasPaginado.getPage();
-                        limit = lecturasPaginado.getLimit();
-                        total = lecturasPaginado.getTotal();
-
-                        if (lecturas != null && !lecturas.isEmpty()) {
-                            if (lecturas.get(0).getLecturaActual() != null) {
-                                txtLecturaActual.setText(lecturas.get(0).getLecturaActual().toString());
-                            }
-
-                            if (lecturas.get(0).getLecturaAnterior() != null) {
-                                txtLecturaAnterior.setText(lecturas.get(0).getLecturaAnterior().toString());
-                            }
-
-                            if (lecturas.get(0).getFechaLectura() != null) {
-                                txtFechaLectura.setText(lecturas.get(0).getFechaLectura());
-                            }
-
-                            if (lecturas.get(0).getNumeroRecibo() != null) {
-                                txtRecibo.setText(lecturas.get(0).getNumeroRecibo());
-                            }
-
-                            if (lecturas.get(0).getM3Consumido() != null) {
-                                txtM3Consumidos.setText(lecturas.get(0).getM3Consumido().toString());
-                            }
-
-                            if (lecturas.get(0).getMontoPagar() != null) {
-                                txtMontoTotal.setText(lecturas.get(0).getMontoPagar().toString());
-                            }
-
-                            if (lecturas.get(0).getFechaLimitePago() != null) {
-                                txtFechaLimitePago.setText(lecturas.get(0).getFechaLimitePago());
-                            }
-
-                            if (Constantes.ESTADO_PAGADO.equals(lecturas.get(0).getEstado())) {
-                                chkPagado.setChecked(true);
-                            } else {
-                                chkPagado.setChecked(false);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        Toast.makeText(requireActivity(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e("RegistrarLecturaPorDni", "Error:" + t.getMessage());
-                    }
-                });
-            } catch(Exception ex) {
-                Toast.makeText(requireActivity(), "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e("RegistrarLecturaPorDni", "Error:" + ex.getMessage());
-            }
+            obtenerDatos(usuarioResponse.getCodigoMedidor(), Constantes.PARAM_PAGE, Constantes.PARAM_LIMIT);
         });
 
         return view;
     }
 
     private void irAlInicio() {
-
+        setPage(total);
+        obtenerDatos(txtCodigoMedidor.getText().toString().trim(), total, limit);
     }
 
     private void irAtras() {
-
+        if (page < total) {
+            setPage(page + 1);
+            obtenerDatos(txtCodigoMedidor.getText().toString().trim(), page, limit);
+        }
     }
 
     private void irAdelante() {
-
+        if (page > 1) {
+            setPage(page - 1);
+            obtenerDatos(txtCodigoMedidor.getText().toString().trim(), page, limit);
+        }
     }
 
     private void irAlFinal() {
+        setPage(1);
+        obtenerDatos(txtCodigoMedidor.getText().toString().trim(), page, limit);
+    }
 
+    private void setPage(int page) {
+        this.page = page;
+    }
+
+    private void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    private void setTotal(int total) {
+        this.total = total;
+    }
+
+    private void obtenerDatos(String codigoMedidor, int page, int limit) {
+        try {
+            String token = Almacenamiento.obtener(requireActivity(), Constantes.KEY_ACCESS_TOKEN);
+            BaseApi baseApi = new BaseApi(token);
+
+            baseApi.listarLecturas(codigoMedidor, page, limit, new BaseApiCallback<BaseResponse<LecturaPaginadoResponse>>() {
+                @Override
+                public void onSuccess(BaseResponse<LecturaPaginadoResponse> response) {
+                    LecturaPaginadoResponse lecturasPaginado = response.getDatos();
+                    List<LecturaActualResponse> lecturas = lecturasPaginado.getResultados();
+
+                    setPage(lecturasPaginado.getPage());
+                    setLimit(lecturasPaginado.getLimit());
+                    setTotal(lecturasPaginado.getTotal());
+
+                    if (lecturas != null && !lecturas.isEmpty()) {
+                        if (lecturas.get(0).getLecturaActual() != null) {
+                            txtLecturaActual.setText(lecturas.get(0).getLecturaActual().toString());
+                        }
+
+                        if (lecturas.get(0).getLecturaAnterior() != null) {
+                            txtLecturaAnterior.setText(lecturas.get(0).getLecturaAnterior().toString());
+                        }
+
+                        if (lecturas.get(0).getFechaLectura() != null) {
+                            txtFechaLectura.setText(lecturas.get(0).getFechaLectura());
+                        }
+
+                        if (lecturas.get(0).getNumeroRecibo() != null) {
+                            txtRecibo.setText(lecturas.get(0).getNumeroRecibo());
+                        }
+
+                        if (lecturas.get(0).getM3Consumido() != null) {
+                            txtM3Consumidos.setText(lecturas.get(0).getM3Consumido().toString());
+                        }
+
+                        if (lecturas.get(0).getMontoPagar() != null) {
+                            txtMontoTotal.setText(lecturas.get(0).getMontoPagar().toString());
+                        }
+
+                        if (lecturas.get(0).getFechaLimitePago() != null) {
+                            txtFechaLimitePago.setText(lecturas.get(0).getFechaLimitePago());
+                        }
+
+                        if (Constantes.ESTADO_PAGADO.equals(lecturas.get(0).getEstado())) {
+                            chkPagado.setChecked(true);
+                        } else {
+                            chkPagado.setChecked(false);
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    Toast.makeText(requireActivity(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("RegistrarLecturaPorDni", "Error:" + t.getMessage());
+                }
+            });
+        } catch(Exception ex) {
+            Toast.makeText(requireActivity(), "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("RegistrarLecturaPorDni", "Error:" + ex.getMessage());
+        }
     }
 
     private void buscarLecturasPorDni() {
