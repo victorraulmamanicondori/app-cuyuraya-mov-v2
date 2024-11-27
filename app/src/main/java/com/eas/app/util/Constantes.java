@@ -20,6 +20,8 @@ public class Constantes {
     public static final String TITULO_ASIGNACION_FALLIDA = "Asignacion fallida";
     public static final String CODIGO_TARIFA_BASE = "BASE";
     public static final String ESTADO_PAGADO = "PAGADO";
+    public static final String USUARIO_SIN_MEDIDOR = "Usuario sin medidor";
+    public static final String MENSAJE_ASIGNAR_MEDIDOR = "Debe asignar un medidor a este usuario para poder registrar lecturas";
     public static final int PARAM_PAGE = 1;
     public static final int PARAM_LIMIT = 1;
 }

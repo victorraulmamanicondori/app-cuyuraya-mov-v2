@@ -40,6 +40,7 @@ import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
 import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
+import com.eas.app.util.DialogUtils;
 import com.eas.app.viewmodel.UsuarioViewModel;
 import com.google.android.material.tabs.TabLayout;
 
@@ -456,11 +457,22 @@ public class RegistrarLecturaPorUbigeoFragment extends Fragment {
                 // Cambiar la fila seleccionada a color amarillo
                 row.setBackgroundColor(getResources().getColor(R.color.light_blue_400));
 
-                usuarioViewModel.setData(user);
-                String dniSeleccionado = user.getDni();
-                Log.i("SelectedDNI", "DNI seleccionado: " + dniSeleccionado);
+                Log.i("SelectedDNI", "DNI seleccionado: " + user.getDni());
 
-                cambiarAPrimeraPestana();
+                if (user.getCodigoMedidor() != null && !user.getCodigoMedidor().isEmpty()) {
+                    usuarioViewModel.setData(user);
+                    cambiarAPrimeraPestana();
+                } else {
+                    DialogUtils.showAlertDialog(
+                            getActivity(),
+                            Constantes.USUARIO_SIN_MEDIDOR,
+                            Constantes.MENSAJE_ASIGNAR_MEDIDOR,
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> dialog.dismiss(),
+                            null,
+                            null
+                    );
+                }
             });
 
             tableLayout.addView(row);
