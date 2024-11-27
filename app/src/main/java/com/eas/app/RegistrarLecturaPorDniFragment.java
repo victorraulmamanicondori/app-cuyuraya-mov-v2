@@ -120,6 +120,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
             txtDniUsuario.setText(usuarioResponse.getDni());
             lblNombreUsuario.setText(String.format("%s %s %s", usuarioResponse.getNombres(), usuarioResponse.getPaterno(), usuarioResponse.getMaterno()));
+            lblNombreUsuario.setVisibility(View.VISIBLE);
             txtCodigoMedidor.setText(usuarioResponse.getCodigoMedidor().trim());
 
             obtenerDatos(usuarioResponse.getCodigoMedidor(), Constantes.PARAM_PAGE, Constantes.PARAM_LIMIT);
@@ -256,6 +257,8 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
                     if (usuario.getCodigoMedidor() != null && !usuario.getCodigoMedidor().trim().isEmpty()) {
                         txtCodigoMedidor.setText(usuario.getCodigoMedidor().trim());
+
+                        obtenerDatos(usuario.getCodigoMedidor(), page, limit);
                     }
                 }
 
@@ -273,6 +276,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     }
 
     private void buscarLecturasPorCodigo() {
+
     }
 
     private void limpiarCampos() {
