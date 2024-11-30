@@ -24,4 +24,15 @@ public class Constantes {
     public static final String MENSAJE_ASIGNAR_MEDIDOR = "Debe asignar un medidor a este usuario para poder registrar lecturas";
     public static final int PARAM_PAGE = 1;
     public static final int PARAM_LIMIT = 1;
+
+    public static final String title = "Junta Administradora de Servicios de Saneamiento de Agua\nPotable de la comunidad campesina de CUYURAYA - HUANCANE";
+    public static final String subtitle = "Partida registral n°1109264 de fecha 29 de octubre del año 2012";
+    public static final String receiptInfo = "Recibo: 202408-1-1    Periodo: Agosto";
+
+    public static final String[] headerRow1 = {"Usuario", "Medidor Nro", "M3 Consumo", "Lectura Actual", "Lectura Anterior"};
+    public static final String[] dataRow1 = {"ALVA MAMANI IRMA ROSA", "1234556", "12334", "21323", "12312"};
+
+    public static final String[] headerRow2 = {"Periodo", "Fecha Límite de Pago", "Deuda Anterior", "Deuda Actual", "TOTAL A PAGAR"};
+    public static final String[] dataRow2 = {"01/08/2024", "20/08/2024", "S/. 10.50", "S/. 50.50", "S/. 120.50"};
+
 }

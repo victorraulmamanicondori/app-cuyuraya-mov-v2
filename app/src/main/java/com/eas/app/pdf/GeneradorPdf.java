@@ -1,70 +1,97 @@
 package com.eas.app.pdf;
 
 import android.os.Environment;
-import android.util.Log;
 
-import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
 public class GeneradorPdf {
 
-    public void generarReciboAgua(String nombreArchivo) {
+    public void imprimirRecibo(String title, String subtitle, String receiptInfo,
+                                String[] headerRow1, String[] dataRow1,
+                                String[] headerRow2, String[] dataRow2) {
         try {
-            // Ruta del archivo PDF
-            File pdfFile = new File(Environment.getExternalStorageDirectory(), nombreArchivo);
-            FileOutputStream fos = new FileOutputStream(pdfFile);
+            // Ruta donde se guardará el PDF
+            File pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "recibo_agua.pdf");
 
-            // Crear un documento PDF
-            PdfWriter writer = new PdfWriter(fos);
-            PdfDocument pdfDocument = new PdfDocument(writer);
-            Document document = new Document(pdfDocument);
+            // Crear PdfWriter y PdfDocument
+            PdfWriter writer = new PdfWriter(new FileOutputStream(pdfFile));
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
 
-            // Título del recibo
-            Paragraph title = new Paragraph("Recibo de Consumo de Agua")
-                    .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
-                    .setFontSize(18)
-                    .setFontColor(ColorConstants.BLUE);
-            document.add(title);
+            // Fuentes
+            PdfFont boldFont = PdfFontFactory.createFont(com.itextpdf.io.font.constants.StandardFonts.HELVETICA_BOLD);
+            PdfFont normalFont = PdfFontFactory.createFont(com.itextpdf.io.font.constants.StandardFonts.HELVETICA);
 
-            // Información del recibo
-            Paragraph info = new Paragraph("Cliente: Juan Pérez\nDirección: Calle Falsa 123\nPeriodo: Septiembre 2024\n\n")
-                    .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
-                    .setFontSize(12);
-            document.add(info);
+            // Título
+            Paragraph titleParagraph = new Paragraph(title)
+                    .setFont(boldFont)
+                    .setFontSize(16)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMarginBottom(10);
+            document.add(titleParagraph);
 
-            // Tabla de detalles de consumo
-            float[] columnWidths = {100f, 100f, 100f};
+            // Subtítulo
+            Paragraph subtitleParagraph = new Paragraph(subtitle)
+                    .setFont(normalFont)
+                    .setFontSize(12)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMarginBottom(20);
+            document.add(subtitleParagraph);
+
+            // Recibo y período
+            Paragraph receiptParagraph = new Paragraph(receiptInfo)
+                    .setFont(normalFont)
+                    .setFontSize(12)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMarginBottom(20);
+            document.add(receiptParagraph);
+
+            // Crear tabla
+            float[] columnWidths = {2, 2, 2, 2, 2};
             Table table = new Table(columnWidths);
-            table.addCell("Concepto");
-            table.addCell("Cantidad");
-            table.addCell("Precio");
-            table.addCell("Consumo de Agua");
-            table.addCell("20 m³");
-            table.addCell("$10.00");
-            table.addCell("Cargo Fijo");
-            table.addCell("1");
-            table.addCell("$5.00");
-            table.addCell("Total");
-            table.addCell("");
-            table.addCell("$15.00");
 
+            // Agregar primera fila de etiquetas
+            for (String header : headerRow1) {
+                table.addCell(new Cell().add(new Paragraph(header).setFont(boldFont)).setBackgroundColor(ColorConstants.LIGHT_GRAY));
+            }
+
+            // Agregar primera fila de datos
+            for (String data : dataRow1) {
+                table.addCell(new Cell().add(new Paragraph(data).setFont(normalFont)));
+            }
+
+            // Agregar segunda fila de etiquetas
+            for (String header : headerRow2) {
+                table.addCell(new Cell().add(new Paragraph(header).setFont(boldFont)).setBackgroundColor(ColorConstants.LIGHT_GRAY));
+            }
+
+            // Agregar segunda fila de datos
+            for (String data : dataRow2) {
+                table.addCell(new Cell().add(new Paragraph(data).setFont(normalFont)));
+            }
+
+            // Añadir tabla al documento
             document.add(table);
 
-            // Cerrar el documento
+            // Cerrar documento
             document.close();
-            writer.close();
+
+            System.out.println("PDF generado en: " + pdfFile.getAbsolutePath());
 
         } catch (Exception e) {
-            Log.e("GeneradorPdf", "Error en generar recibo pdf de agua", e);
+            e.printStackTrace();
         }
     }
 }

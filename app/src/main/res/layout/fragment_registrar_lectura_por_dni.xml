@@ -65,7 +65,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_vertical">
@@ -112,7 +112,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_vertical">
@@ -130,7 +130,7 @@
                 android:orientation="vertical">
                 <EditText
                     android:id="@+id/txtLecturaActual"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:autofillHints=""
                     android:paddingHorizontal="10dp"
@@ -150,7 +150,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -175,7 +175,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -200,7 +200,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -212,7 +212,7 @@
 
             <EditText
                 android:id="@+id/txtRecibo"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:autofillHints=""
                 android:paddingHorizontal="10dp"
@@ -225,7 +225,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -250,7 +250,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -275,7 +275,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -299,7 +299,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <CheckBox
@@ -363,7 +363,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
             <Button
                 android:id="@+id/btnNuevo"
                 android:layout_width="wrap_content"
@@ -372,7 +373,8 @@
                 android:backgroundTint="@color/buttonBackgroundColor"
                 android:textColor="@color/buttonTextColor"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="15dp"/>
 
             <Button
                 android:id="@+id/btnDetectarAnomalias"
@@ -380,8 +382,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detectar_anomalias"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="15dp"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
             <Button
                 android:id="@+id/btnRegistrarLectura"
                 android:layout_width="wrap_content"
@@ -390,7 +399,8 @@
                 android:backgroundTint="@color/buttonBackgroundColor"
                 android:text="@string/btn_registrar_lectura"
                 android:textColor="@color/buttonTextColor"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="15dp"/>
 
             <Button
                 android:id="@+id/btnImprimirRecibo"
@@ -400,7 +410,9 @@
                 android:backgroundTint="@color/buttonBackgroundColor"
                 android:text="@string/btn_imprimir_recibo"
                 android:textColor="@color/buttonTextColor"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="15dp"/>
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

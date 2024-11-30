@@ -29,6 +29,7 @@ import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.api.response.LecturaPaginadoResponse;
 import com.eas.app.api.response.UsuarioResponse;
+import com.eas.app.pdf.GeneradorPdf;
 import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
 import com.eas.app.util.DialogUtils;
@@ -113,6 +114,9 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
         Button registrarLecturaButton = view.findViewById(R.id.btnRegistrarLectura);
         registrarLecturaButton.setOnClickListener(v -> registrarLectura());
+
+        Button imprimirButton = view.findViewById(R.id.btnImprimirRecibo);
+        imprimirButton.setOnClickListener(v -> imprimirRecibo());
 
         usuarioViewModel = new ViewModelProvider(requireActivity()).get(UsuarioViewModel.class);
         usuarioViewModel.getData().observe(getViewLifecycleOwner(), data -> {
@@ -427,6 +431,11 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
             );
             Log.e("RegistrarLectura", "Excepción en registrar lectura", e);
         }
+    }
+
+    private void imprimirRecibo() {
+        GeneradorPdf generadorPdf = new GeneradorPdf();
+        generadorPdf.imprimirRecibo(Constantes.title, Constantes.subtitle, Constantes.receiptInfo, Constantes.headerRow1, Constantes.dataRow1, Constantes.headerRow2, Constantes.dataRow2);
     }
 
     private boolean validateFields() {
