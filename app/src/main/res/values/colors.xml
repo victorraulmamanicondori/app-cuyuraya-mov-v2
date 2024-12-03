@@ -29,4 +29,3 @@
     <color name="stepview_selected_number">#25448a</color>
     <color name="stepview_mark">@color/stepview_selected_number</color>
 </resources>
-

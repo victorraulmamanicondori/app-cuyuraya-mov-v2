@@ -1,12 +1,13 @@
 package com.eas.app;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
+import android.net.Uri;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,7 +20,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
@@ -29,7 +29,6 @@ import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.api.response.LecturaPaginadoResponse;
 import com.eas.app.api.response.UsuarioResponse;
-import com.eas.app.pdf.GeneradorPdf;
 import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
 import com.eas.app.util.DialogUtils;
@@ -434,8 +433,15 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     }
 
     private void imprimirRecibo() {
-        GeneradorPdf generadorPdf = new GeneradorPdf();
-        generadorPdf.imprimirRecibo(Constantes.title, Constantes.subtitle, Constantes.receiptInfo, Constantes.headerRow1, Constantes.dataRow1, Constantes.headerRow2, Constantes.dataRow2);
+        String url = Constantes.BASE_URL + "lecturas/recibo/1";
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getActivity(), "No se encontró una aplicación para abrir el PDF", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean validateFields() {

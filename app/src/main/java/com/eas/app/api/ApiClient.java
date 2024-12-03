@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.eas.app.util.Constantes;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,9 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 public class ApiClient {
-
-    private static final String BASE_URL = "http://104.251.212.105:9000/api/";
-    //private static final String BASE_URL = "http://10.0.2.2:9000/api/";
 
     public static Retrofit getClient(final String token) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -48,7 +47,7 @@ public class ApiClient {
 
         // Siempre recrea el cliente Retrofit si es necesario
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constantes.BASE_URL)
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create()) // Usa Gson para la conversión de JSON
                 .build();

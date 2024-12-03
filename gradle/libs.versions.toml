@@ -1,15 +1,14 @@
 [versions]
-agp = "8.5.2"
+agp = "8.5.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.9.2"
-constraintlayout = "2.1.4"
+activity = "1.9.3"
+constraintlayout = "2.2.0"
 retrofit2 = "2.11.0"
 converter-gson = "2.11.0"
-itext7 = "7.1.14"
 viewpager2 = "1.1.0"
 recyclerview = "1.3.2"
 recyclerviewSelection = "1.1.0"
@@ -24,10 +23,10 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
 converterGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converter-gson" }
-itext7Core = { group = "com.itextpdf", name = "itext7-core", version.ref = "itext7" }
 viewPager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 recyclerviewSelection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerviewSelection" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
