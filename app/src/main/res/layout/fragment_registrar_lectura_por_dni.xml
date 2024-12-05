@@ -197,6 +197,15 @@
                 android:maxLength="18"
                 android:inputType="number"
                 android:enabled="false"/>
+
+            <ImageButton
+                android:id="@+id/btnFechaLectura"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_calendar_range"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/btnSeleccionarFechaLectura"/>
         </LinearLayout>
 
         <LinearLayout

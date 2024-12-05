@@ -1,6 +1,7 @@
 package com.eas.app.api.response;
 
 public class UsuarioResponse {
+    private Integer idLectura;
     private String idUsuario;
     private String nombres;
     private String paterno;
@@ -23,6 +24,14 @@ public class UsuarioResponse {
     private String nombreComunidadCampesina;
     private String nombreComunidadNativa;
     private String codigoMedidor;
+
+    public Integer getIdLectura() {
+        return idLectura;
+    }
+
+    public void setIdLectura(Integer idLectura) {
+        this.idLectura = idLectura;
+    }
 
     public String getIdUsuario() {
         return idUsuario;

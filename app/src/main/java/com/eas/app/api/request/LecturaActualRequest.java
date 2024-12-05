@@ -1,14 +1,26 @@
 package com.eas.app.api.request;
 
 public class LecturaActualRequest {
+    private Integer idLectura;
+    private String dni;
     private String codigoMedidor;
     private String lecturaActual;
+    private String fechaLectura;
 
-    public LecturaActualRequest() {}
+    public Integer getIdLectura() {
+        return idLectura;
+    }
 
-    public LecturaActualRequest(String codigoMedidor, String lecturaActual) {
-        this.codigoMedidor = codigoMedidor;
-        this.lecturaActual = lecturaActual;
+    public void setIdLectura(Integer idLectura) {
+        this.idLectura = idLectura;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getCodigoMedidor() {
@@ -25,5 +37,13 @@ public class LecturaActualRequest {
 
     public void setLecturaActual(String lecturaActual) {
         this.lecturaActual = lecturaActual;
+    }
+
+    public String getFechaLectura() {
+        return fechaLectura;
+    }
+
+    public void setFechaLectura(String fechaLectura) {
+        this.fechaLectura = fechaLectura;
     }
 }

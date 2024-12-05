@@ -65,6 +65,9 @@ public interface BaseApiService {
     @POST("lecturas")
     Call<BaseResponse<LecturaActualResponse>> registrarLectura(@Body LecturaActualRequest lecturaActualRequest);
 
+    @POST("lecturas/borrador")
+    Call<BaseResponse<LecturaActualResponse>> borradorLectura(@Body LecturaActualRequest lecturaActualRequest);
+
     @GET("tipos-movimientos/rubro/{tipoRubro}")
     Call<BaseResponse<List<TipoMovimiento>>> getTiposMovimientos(@Path("tipoRubro") String tipoRubro);
 

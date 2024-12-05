@@ -123,6 +123,11 @@ public class BaseApi {
         makeApiCall(call, callback);
     }
 
+    public void borradorLectura(LecturaActualRequest lecturaActualRequest, BaseApiCallback<BaseResponse<LecturaActualResponse>> callback) {
+        Call<BaseResponse<LecturaActualResponse>> call = apiService.borradorLectura(lecturaActualRequest);
+        makeApiCall(call, callback);
+    }
+
     public void getTiposMovimientos(String tipoRubroIngreso, BaseApiCallback<BaseResponse<List<TipoMovimiento>>> callback) {
         Call<BaseResponse<List<TipoMovimiento>>> call = apiService.getTiposMovimientos(tipoRubroIngreso);
         makeApiCall(call, callback);

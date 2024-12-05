@@ -102,5 +102,6 @@
     <string name="nuevo">Nuevo</string>
     <string name="btnBuscar_desc">Buscar</string>
     <string name="usuario_no_encontrado">Usuario no está registrado</string>
+    <string name="btnSeleccionarFechaLectura">Seleccionar Fecha Lectura</string>
 
 </resources>

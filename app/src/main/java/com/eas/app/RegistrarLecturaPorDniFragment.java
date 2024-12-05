@@ -1,10 +1,12 @@
 package com.eas.app;
 
+import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.net.Uri;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,12 +34,17 @@ import com.eas.app.api.response.UsuarioResponse;
 import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
 import com.eas.app.util.DialogUtils;
+import com.eas.app.util.FechaUtil;
 import com.eas.app.viewmodel.UsuarioViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class RegistrarLecturaPorDniFragment extends Fragment {
 
+    private Integer idLecturaActual;
     private EditText txtDniUsuario;
     private EditText txtCodigoMedidor;
     private EditText txtLecturaActual;
@@ -57,6 +64,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     
     private ImageButton btnBuscarPorDni;
     private ImageButton btnBuscarPorCodigo;
+    private ImageButton btnFechaLectura;
     private ImageButton btnInicio;
     private ImageButton btnAtras;
     private ImageButton btnAdelante;
@@ -74,6 +82,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_registrar_lectura_por_dni, container, false);
 
+        idLecturaActual = null;
         txtDniUsuario = view.findViewById(R.id.txtDniUsuario);
         txtCodigoMedidor = view.findViewById(R.id.txtCodigoMedidor);
         txtLecturaActual = view.findViewById(R.id.txtLecturaActual);
@@ -96,6 +105,8 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         btnBuscarPorCodigo = view.findViewById(R.id.btnBuscarPorCodigo);
         btnBuscarPorCodigo.setOnClickListener(v -> buscarLecturasPorCodigo());
 
+        btnFechaLectura = view.findViewById(R.id.btnFechaLectura);
+
         btnInicio = view.findViewById(R.id.btnInicio);
         btnInicio.setOnClickListener(v -> irAlInicio());
 
@@ -112,15 +123,30 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         detectarAnomaliasButton.setOnClickListener(v -> detectarAnomaliasConsumo());
 
         Button registrarLecturaButton = view.findViewById(R.id.btnRegistrarLectura);
-        registrarLecturaButton.setOnClickListener(v -> registrarLectura());
+        registrarLecturaButton.setOnClickListener(v -> borradorLectura());
 
         Button imprimirButton = view.findViewById(R.id.btnImprimirRecibo);
         imprimirButton.setOnClickListener(v -> imprimirRecibo());
+
+        Button nuevoButton = view.findViewById(R.id.btnNuevo);
+        nuevoButton.setOnClickListener(v -> limpiarCampos());
+
+        // Establece la fecha actual por defecto
+        Calendar calendar = Calendar.getInstance();
+        int anio = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Mostrar fecha actual en el TextView
+        actualizarFechaLectura(anio, mes, dia);
+
+        btnFechaLectura.setOnClickListener(v -> mostrarDialogoSeleccionarFecha(anio, mes, dia));
 
         usuarioViewModel = new ViewModelProvider(requireActivity()).get(UsuarioViewModel.class);
         usuarioViewModel.getData().observe(getViewLifecycleOwner(), data -> {
             usuarioResponse = data;
 
+            idLecturaActual = usuarioResponse.getIdLectura();
             txtDniUsuario.setText(usuarioResponse.getDni());
             lblNombreUsuario.setText(String.format("%s %s %s", usuarioResponse.getNombres(), usuarioResponse.getPaterno(), usuarioResponse.getMaterno()));
             lblNombreUsuario.setVisibility(View.VISIBLE);
@@ -130,6 +156,24 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void mostrarDialogoSeleccionarFecha(int anio, int mes, int dia) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getActivity(),
+                (DatePicker view, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado) -> {
+                    // Actualiza el TextView con la fecha seleccionada
+                    actualizarFechaLectura(anioSeleccionado, mesSeleccionado, diaSeleccionado);
+                },
+                anio, mes, dia
+        );
+
+        datePickerDialog.show();
+    }
+
+    private void actualizarFechaLectura(int anio, int mes, int dia) {
+        String fechaFormateada = String.format("%02d/%02d/%04d", dia, mes + 1, anio);
+        txtFechaLectura.setText(fechaFormateada);
     }
 
     private void irAlInicio() {
@@ -184,6 +228,10 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                     setTotal(lecturasPaginado.getTotal());
 
                     if (lecturas != null && !lecturas.isEmpty()) {
+                        if (lecturas.get(0).getIdLectura() != null) {
+                            idLecturaActual = lecturas.get(0).getIdLectura();
+                        }
+
                         if (lecturas.get(0).getLecturaActual() != null) {
                             txtLecturaActual.setText(lecturas.get(0).getLecturaActual().toString());
                         }
@@ -193,7 +241,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                         }
 
                         if (lecturas.get(0).getFechaLectura() != null) {
-                            txtFechaLectura.setText(lecturas.get(0).getFechaLectura());
+                            txtFechaLectura.setText(FechaUtil.convertDateFormat2(lecturas.get(0).getFechaLectura()));
                         }
 
                         if (lecturas.get(0).getNumeroRecibo() != null) {
@@ -209,7 +257,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                         }
 
                         if (lecturas.get(0).getFechaLimitePago() != null) {
-                            txtFechaLimitePago.setText(lecturas.get(0).getFechaLimitePago());
+                            txtFechaLimitePago.setText(FechaUtil.convertDateFormat2(lecturas.get(0).getFechaLimitePago()));
                         }
 
                         if (Constantes.ESTADO_PAGADO.equals(lecturas.get(0).getEstado())) {
@@ -283,9 +331,25 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     }
 
     private void limpiarCampos() {
-        lblNombreUsuario.setText("");
-        lblNombreUsuario.setVisibility(View.GONE);
-        tvErrorDniUsuario.setVisibility(View.GONE);
+        idLecturaActual = null;
+        //txtDniUsuario.setText("");
+        //txtCodigoMedidor.setText("");
+        txtLecturaActual.setText("");
+
+        //lblNombreUsuario.setText("");
+        //lblNombreUsuario.setVisibility(View.GONE);
+        //tvErrorDniUsuario.setVisibility(View.GONE);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaActual = sdf.format(new Date());
+        txtFechaLectura.setText(fechaActual);
+
+        txtLecturaAnterior.setText("");
+        txtRecibo.setText("");
+        txtM3Consumidos.setText("");
+        txtMontoTotal.setText("");
+        txtFechaLimitePago.setText("");
+        chkPagado.setChecked(false);
     }
 
     private void detectarAnomaliasConsumo() {
@@ -369,7 +433,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         return mensaje;
     }
 
-    private void registrarLectura() {
+    private void borradorLectura() {
         if (!validateFields()) {
             return;
         }
@@ -378,14 +442,87 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
             String token = Almacenamiento.obtener(getActivity(), Constantes.KEY_ACCESS_TOKEN);
             BaseApi baseApi = new BaseApi(token);
 
+            String dni = txtDniUsuario.getText().toString().trim();
             String codigoMedidor = txtCodigoMedidor.getText().toString().trim();
             String lecturaActual = txtLecturaActual.getText().toString().trim();
+            String fechaLectura = txtFechaLectura.getText().toString().trim();
 
-            LecturaActualRequest lecturaActualRequest = new LecturaActualRequest(codigoMedidor, lecturaActual);
+            fechaLectura = FechaUtil.convertDateFormat(fechaLectura);
 
+            LecturaActualRequest lecturaActualRequest = new LecturaActualRequest();
+            lecturaActualRequest.setIdLectura(idLecturaActual);
+            lecturaActualRequest.setDni(dni);
+            lecturaActualRequest.setCodigoMedidor(codigoMedidor);
+            lecturaActualRequest.setLecturaActual(lecturaActual);
+            lecturaActualRequest.setFechaLectura(fechaLectura);
+
+            baseApi.borradorLectura(lecturaActualRequest, new BaseApiCallback<BaseResponse<LecturaActualResponse>>() {
+                @Override
+                public void onSuccess(BaseResponse<LecturaActualResponse> response) {
+                    LecturaActualResponse lecturaBorrador = response.getDatos();
+
+                    if (lecturaBorrador.getLecturaAnterior() != null) {
+                        txtLecturaAnterior.setText(lecturaBorrador.getLecturaAnterior().toString());
+                    }
+                    txtRecibo.setText(lecturaBorrador.getNumeroRecibo());
+                    txtM3Consumidos.setText(lecturaBorrador.getM3Consumido().toString());
+                    txtMontoTotal.setText(lecturaBorrador.getMontoPagar().toString());
+                    txtFechaLimitePago.setText(FechaUtil.convertDateFormat2(lecturaBorrador.getFechaLimitePago()));
+
+                    DialogUtils.showAlertDialog(
+                            getActivity(),
+                            Constantes.TITULO_REGISTRO_CONFIRMACION,
+                            response.getMensaje(),
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                                registrarLectura(baseApi, lecturaActualRequest);
+                            },
+                            Constantes.BOTON_TEXTO_CANCELAR,
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                            }
+                    );
+
+                    Log.d("RegistrarLectura", "Registro exitoso de la lectura");
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    DialogUtils.showAlertDialog(
+                            getActivity(),
+                            Constantes.TITULO_REGISTRO_FALLIDO,
+                            t.getMessage(),
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> dialog.dismiss(),
+                            null,
+                            null
+                    );
+                    Log.e("RegistrarLectura", "Error en registrar lectura: " + t.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            DialogUtils.showAlertDialog(
+                    getActivity(),
+                    Constantes.TITULO_REGISTRO_FALLIDO,
+                    e.getMessage(),
+                    Constantes.BOTON_TEXTO_ACEPTAR,
+                    (dialog, which) -> dialog.dismiss(),
+                    null,
+                    null
+            );
+            Log.e("RegistrarLectura", "Excepción en registrar lectura", e);
+        }
+    }
+
+    private void registrarLectura(BaseApi baseApi, LecturaActualRequest lecturaActualRequest) {
+        try {
             baseApi.registrarLectura(lecturaActualRequest, new BaseApiCallback<BaseResponse<LecturaActualResponse>>() {
                 @Override
                 public void onSuccess(BaseResponse<LecturaActualResponse> response) {
+                    LecturaActualResponse lectura = response.getDatos();
+                    idLecturaActual = lectura.getIdLectura();
+
                     DialogUtils.showAlertDialog(
                             getActivity(),
                             Constantes.TITULO_REGISTRO_EXITOSO,
@@ -393,8 +530,6 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                             Constantes.BOTON_TEXTO_ACEPTAR,
                             (dialog, which) -> {
                                 dialog.dismiss();
-                                txtCodigoMedidor.setText("");
-                                txtLecturaActual.setText("");
                             },
                             null,
                             null
@@ -417,8 +552,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                     Log.e("RegistrarLectura", "Error en registrar lectura: " + t.getMessage());
                 }
             });
-
-        } catch (Exception e) {
+        } catch(Exception e) {
             DialogUtils.showAlertDialog(
                     getActivity(),
                     Constantes.TITULO_REGISTRO_FALLIDO,
