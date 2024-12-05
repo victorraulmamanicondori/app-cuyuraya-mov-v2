@@ -138,7 +138,7 @@
                     android:textColorHint="@android:color/darker_gray"
                     android:hint="@string/ingrese_lectura_actual"
                     android:maxLength="18"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal"/>
 
                 <TextView
                     android:id="@+id/tvErrorLecturaActual"
@@ -170,7 +170,7 @@
                 android:textColorHint="@android:color/darker_gray"
                 android:hint="@string/ingrese_lectura_anterior"
                 android:maxLength="18"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:enabled="false"/>
         </LinearLayout>
 
