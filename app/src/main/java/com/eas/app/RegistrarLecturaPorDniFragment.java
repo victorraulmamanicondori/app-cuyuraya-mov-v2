@@ -82,7 +82,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_registrar_lectura_por_dni, container, false);
 
-        idLecturaActual = null;
+        idLecturaActual = 0;
         txtDniUsuario = view.findViewById(R.id.txtDniUsuario);
         txtCodigoMedidor = view.findViewById(R.id.txtCodigoMedidor);
         txtLecturaActual = view.findViewById(R.id.txtLecturaActual);
@@ -331,7 +331,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     }
 
     private void limpiarCampos() {
-        idLecturaActual = null;
+        idLecturaActual = 0;
         //txtDniUsuario.setText("");
         //txtCodigoMedidor.setText("");
         txtLecturaActual.setText("");
@@ -567,7 +567,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     }
 
     private void imprimirRecibo() {
-        String url = Constantes.BASE_URL + "lecturas/recibo/1";
+        String url = Constantes.BASE_URL + "lecturas/recibo/" + idLecturaActual;
 
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
