@@ -77,15 +77,6 @@ public class PrincipalActivity extends AppCompatActivity {
             }
         });
 
-        CardView cardGestionLecturas = findViewById(R.id.cardGestionLecturas);
-        cardGestionLecturas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PrincipalActivity.this, GestionLecturasActivity.class);
-                startActivity(intent);
-            }
-        });
-
         CardView cardReportes = findViewById(R.id.cardReportes);
         cardReportes.setOnClickListener(new View.OnClickListener() {
             @Override
