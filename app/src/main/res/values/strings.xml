@@ -54,7 +54,7 @@
     <string name="lbl_codigo_medidor">Código Medidor:</string>
     <string name="lectura_actual">Lectura Actual:</string>
     <string name="ingrese_lectura_actual">Ingrese lectura actual</string>
-    <string name="hint_ingrese_codigo_medidor">Ingrese código</string>
+    <string name="hint_ingrese_codigo_medidor">#######</string>
     <string name="btn_registrar_lectura">Guardar Lectura</string>
     <string name="btn_registrar_egreso">Registrar Egreso</string>
     <string name="btn_registrar_ingreso">Registrar Ingreso</string>
@@ -103,5 +103,9 @@
     <string name="btnBuscar_desc">Buscar</string>
     <string name="usuario_no_encontrado">Usuario no está registrado</string>
     <string name="btnSeleccionarFechaLectura">Seleccionar Fecha Lectura</string>
+    <string name="imprimir_padron_de_usuarios">Imprimir Padron de Usuarios</string>
+    <string name="imprimir_balance_por_usuario">Imprimir Balance por Usuario</string>
+    <string name="imprimir_pagos_de_recibos">Imprimir Pagos de Recibos</string>
+    <string name="imprimir_egresos">Imprimir Egresos</string>
 
 </resources>

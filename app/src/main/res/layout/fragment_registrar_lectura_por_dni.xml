@@ -91,7 +91,8 @@
                     android:textColorHint="@android:color/darker_gray"
                     android:hint="@string/hint_ingrese_codigo_medidor"
                     android:maxLength="255"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:enabled="false"/>
 
                 <TextView
                     android:id="@+id/tvErrorCodigoMedidor"
@@ -100,15 +101,6 @@
                     android:textColor="@android:color/holo_red_dark"
                     android:visibility="gone"/>
             </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/btnBuscarPorCodigo"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_magnify"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/btnBuscar_desc"/>
         </LinearLayout>
 
         <LinearLayout

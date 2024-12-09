@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="imprimir_padron_de_usuarios">Imprimir Padron de Usuarios</string>
+    <string name="imprimir_balance_por_usuario">Imprimir Balance por Usuario</string>
+    <string name="imprimir_pagos_de_recibos">Imprimir Pagos de Recibos</string>
+    <string name="imprimir_egresos">Imprimir Egresos</string>
+</resources>

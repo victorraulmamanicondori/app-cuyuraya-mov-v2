@@ -102,9 +102,6 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         btnBuscarPorDni = view.findViewById(R.id.btnBuscarPorDni);
         btnBuscarPorDni.setOnClickListener(v -> buscarLecturasPorDni());
 
-        btnBuscarPorCodigo = view.findViewById(R.id.btnBuscarPorCodigo);
-        btnBuscarPorCodigo.setOnClickListener(v -> buscarLecturasPorCodigo());
-
         btnFechaLectura = view.findViewById(R.id.btnFechaLectura);
 
         btnInicio = view.findViewById(R.id.btnInicio);
@@ -324,10 +321,6 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         } catch (Exception e) {
             Log.e("RegistrarLecturaPorDni", "Excepción en obtener usuario", e);
         }
-    }
-
-    private void buscarLecturasPorCodigo() {
-
     }
 
     private void limpiarCampos() {
