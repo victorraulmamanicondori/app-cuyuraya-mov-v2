@@ -8,24 +8,36 @@
     <color name="secondaryTextColor">#1D1D1D</color> <!-- Texto secundario oscuro -->
     <color name="editTextBackgroundColor">#E0F2F1</color> <!-- Fondo claro para EditText -->
     <color name="editTextTextColor">#004D40</color> <!-- Texto oscuro para EditText -->
-    <color name="buttonBackgroundColor">#fff084</color> <!-- Fondo de botón verde agua oscuro -->
-    <color name="buttonTextColor">#0052c2</color> <!-- Texto blanco para botones -->
-    <color name="errorColor">#B00020</color>
-    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="buttonBackgroundColor">#fff084</color> <!-- Fondo de botón -->
+    <color name="buttonTextColor">#0052c2</color> <!-- Texto para botones -->
+    <color name="errorColor">#B00020</color> <!-- Rojo oscuro para errores -->
+    <color name="light_blue_400">#FF29B6F6</color> <!-- Azul claro -->
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
-    <color name="gray_600">#FF757575</color> <!-- Rojo oscuro para errores -->
+    <color name="gray_600">#FF757575</color>
+    <color name="gray">#D7D7D7</color> <!-- Gris claro -->
+    <color name="white">#FFFFFF</color> <!-- Blanco -->
+    <color name="black">#000000</color> <!-- Negro -->
+    <color name="registrarCardBackgroundColor">#F2FF00</color>
+    <color name="asignarMedidorCardBackgroundColor">#FFFFFF</color>
+    <color name="registrarLecturaCardBackgroundColor">#17E4F7</color>
+    <color name="registrarEgresoCardBackgroundColor">#FF9CB3</color>
+    <color name="registrarIngresoCardBackgroundColor">#F2F9D8</color>
+    <color name="gestionLecturasCardBackgroundColor">#D0B687</color>
+    <color name="reportesCardBackgroundColor">#A6D8E7</color>
+    <color name="tarifaCardBackgroundColor">#EF883E</color>
 
-    <color name="gray">#D7D7D7</color>
-    <color name="white">#FFFFFF</color>
+    <color name="imageButtonIconColor">#000000</color> <!-- Negro para el ícono -->
+    <color name="imageButtonBackgroundColor">#FFFFFF</color> <!-- Blanco para el fondo -->
 
-    <color name="stepview_line_done">@android:color/white</color>
-    <color name="stepview_line_next">#26ffffff</color>
-    <color name="stepview_text_next">#40ffffff</color>
-    <color name="stepview_text_done">#40ffffff</color>
-    <color name="stepview_text_selected">@android:color/white</color>
-    <color name="stepview_circle_done">@android:color/white</color>
-    <color name="stepview_circle_selected">@android:color/white</color>
+    <!-- StepView Colors -->
+    <color name="stepview_line_done">#000000</color> <!-- Negro para contrastar -->
+    <color name="stepview_line_next">#FFBDBDBD</color> <!-- Gris claro -->
+    <color name="stepview_text_next">#FF757575</color> <!-- Gris más oscuro -->
+    <color name="stepview_text_done">#FF000000</color> <!-- Texto negro -->
+    <color name="stepview_text_selected">#25448a</color> <!-- Azul -->
+    <color name="stepview_circle_done">#000000</color>
+    <color name="stepview_circle_selected">#0052c2</color>
     <color name="stepview_selected_number">#25448a</color>
     <color name="stepview_mark">@color/stepview_selected_number</color>
 </resources>

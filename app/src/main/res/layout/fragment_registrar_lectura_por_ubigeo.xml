@@ -180,7 +180,7 @@
                     android:layout_height="48dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_page_first"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="@drawable/image_button_background"
                     android:contentDescription="@string/btnInicio_desc"
                     android:layout_marginHorizontal="15dp"/>
 
@@ -190,7 +190,7 @@
                     android:layout_height="48dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_chevron_left"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="@drawable/image_button_background"
                     android:contentDescription="@string/btnAtras_desc"
                     android:layout_marginHorizontal="15dp"/>
 
@@ -200,7 +200,7 @@
                     android:layout_height="48dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_chevron_right"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="@drawable/image_button_background"
                     android:contentDescription="@string/btnAdelante_desc"
                     android:layout_marginHorizontal="15dp"/>
 
@@ -210,7 +210,7 @@
                     android:layout_height="48dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_page_last"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="@drawable/image_button_background"
                     android:contentDescription="@string/btnFinal_desc"
                     android:layout_marginHorizontal="15dp"/>
             </TableRow>

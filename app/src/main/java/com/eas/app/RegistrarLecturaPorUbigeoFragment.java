@@ -1,5 +1,6 @@
 package com.eas.app;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -499,6 +500,7 @@ public class RegistrarLecturaPorUbigeoFragment extends Fragment {
         textView.setPadding(8, 8, 8, 8);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(16);
+        textView.setTextColor(Color.BLACK);
         textView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         return textView;
     }

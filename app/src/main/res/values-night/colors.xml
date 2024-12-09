@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#28B463</color> <!-- Verde agua oscuro -->
+    <color name="primaryLightColor">#00BFA5</color> <!-- Verde agua claro -->
+    <color name="primaryDarkColor">#004D40</color> <!-- Verde agua muy oscuro -->
+    <color name="accentColor">#009688</color> <!-- Verde agua acentuado -->
+    <color name="backgroundColor">#121212</color> <!-- Negro para fondo oscuro -->
+    <color name="secondaryTextColor">#000</color> <!-- Texto secundario claro -->
+    <color name="editTextBackgroundColor">#263238</color> <!-- Fondo oscuro para EditText -->
+    <color name="editTextTextColor">#E0E0E0</color> <!-- Texto claro para EditText -->
+    <color name="buttonBackgroundColor">#455A64</color> <!-- Fondo de botón oscuro -->
+    <color name="buttonTextColor">#FFFFFF</color> <!-- Texto claro para botones -->
+    <color name="errorColor">#CF6679</color> <!-- Rojo para errores -->
+    <color name="light_blue_400">#29B6F6</color> <!-- Azul claro -->
+    <color name="light_blue_600">#039BE5</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray">#B0BEC5</color> <!-- Gris claro -->
+    <color name="white">#E0E0E0</color> <!-- Blanco tenue -->
+    <color name="black">#000000</color> <!-- Negro -->
+    <color name="registrarCardBackgroundColor">#F2FF00</color>
+    <color name="asignarMedidorCardBackgroundColor">#FFFFFF</color>
+    <color name="registrarLecturaCardBackgroundColor">#17E4F7</color>
+    <color name="registrarEgresoCardBackgroundColor">#FF9CB3</color>
+    <color name="registrarIngresoCardBackgroundColor">#F2F9D8</color>
+    <color name="gestionLecturasCardBackgroundColor">#D0B687</color>
+    <color name="reportesCardBackgroundColor">#A6D8E7</color>
+    <color name="tarifaCardBackgroundColor">#EF883E</color>
+
+    <color name="imageButtonIconColor">#FFFFFF</color> <!-- Blanco para el ícono -->
+    <color name="imageButtonBackgroundColor">#1D1D1D</color> <!-- Gris oscuro para el fondo -->
+
+    <!-- StepView Colors -->
+    <color name="stepview_line_done">#E0E0E0</color> <!-- Blanco tenue -->
+    <color name="stepview_line_next">#757575</color> <!-- Gris medio -->
+    <color name="stepview_text_next">#BDBDBD</color> <!-- Gris claro -->
+    <color name="stepview_text_done">#FFFFFF</color> <!-- Texto blanco -->
+    <color name="stepview_text_selected">#29B6F6</color> <!-- Azul claro -->
+    <color name="stepview_circle_done">#E0E0E0</color>
+    <color name="stepview_circle_selected">#039BE5</color>
+    <color name="stepview_selected_number">#29B6F6</color>
+    <color name="stepview_mark">@color/stepview_selected_number</color>
+</resources>
+
+
+
+

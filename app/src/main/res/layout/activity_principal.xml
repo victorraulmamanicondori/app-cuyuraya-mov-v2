@@ -27,7 +27,7 @@
                 android:focusable="true"
                 app:cardElevation="4dp"
                 app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@drawable/card_background_selector">
+                app:cardBackgroundColor="@color/registrarCardBackgroundColor">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -47,6 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/registrar_usuario"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -64,7 +65,7 @@
                 app:cardCornerRadius="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@drawable/card_background_selector">
+                app:cardBackgroundColor="@color/asignarMedidorCardBackgroundColor">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -84,6 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/asignar_medidor"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -107,7 +109,7 @@
                 app:cardCornerRadius="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@drawable/card_background_selector">
+                app:cardBackgroundColor="@color/registrarLecturaCardBackgroundColor">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -127,6 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/registrar_lectura"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -144,7 +147,7 @@
                 app:cardCornerRadius="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@drawable/card_background_selector">
+                app:cardBackgroundColor="@color/registrarEgresoCardBackgroundColor">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -164,6 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/registrar_egreso"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -187,7 +191,7 @@
                 app:cardCornerRadius="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@drawable/card_background_selector">
+                app:cardBackgroundColor="@color/registrarIngresoCardBackgroundColor">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -207,6 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/registrar_ingreso"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -224,7 +229,7 @@
                 app:cardCornerRadius="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@drawable/card_background_selector">
+                app:cardBackgroundColor="@color/gestionLecturasCardBackgroundColor">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -244,6 +249,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gestion_de_lecturas"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -267,7 +273,7 @@
                 app:cardCornerRadius="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@drawable/card_background_selector">
+                app:cardBackgroundColor="@color/reportesCardBackgroundColor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -288,6 +294,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="8dp"
                         android:text="@string/reportes"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -304,7 +311,7 @@
                 app:cardCornerRadius="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@drawable/card_background_selector">
+                app:cardBackgroundColor="@color/tarifaCardBackgroundColor">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -316,7 +323,7 @@
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/ic_print"
+                        android:src="@drawable/ic_calculator"
                         android:scaleType="fitCenter"
                         android:contentDescription="@string/tarifas" />
 
@@ -325,6 +332,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tarifas"
                         android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:paddingTop="8dp" />
