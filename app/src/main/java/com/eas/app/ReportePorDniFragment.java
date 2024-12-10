@@ -1,5 +1,8 @@
 package com.eas.app;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -99,5 +102,14 @@ public class ReportePorDniFragment extends Fragment {
     }
 
     private void imprimirEgresos() {
+        String url = Constantes.BASE_URL + "cajas/reporte/" + Constantes.TIPO_RUBRO_EGRESO.toUpperCase();
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getActivity(), "No se encontró una aplicación para abrir el PDF", Toast.LENGTH_SHORT).show();
+        }
     }
 }
