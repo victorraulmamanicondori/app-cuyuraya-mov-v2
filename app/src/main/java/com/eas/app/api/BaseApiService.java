@@ -98,4 +98,7 @@ public interface BaseApiService {
 
     @GET("lecturas/medidor/{codigoMedidor}")
     Call<BaseResponse<LecturaPaginadoResponse>> listarLecturasPorMedidor(@Path("codigoMedidor") String codigoMedidor, @Query("page") int page, @Query("limit") int limit);
+
+    @GET("lecturas/pagar/{idLectura}")
+    Call<BaseResponse<String>> registrarRegistrarPago(@Path("idLectura") Integer idLectura);
 }

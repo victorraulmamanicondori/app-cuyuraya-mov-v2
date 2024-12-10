@@ -176,5 +176,10 @@ public class BaseApi {
         Call<BaseResponse<LecturaPaginadoResponse>> call = apiService.listarLecturasPorMedidor(codigoMedidor, page, limit);
         makeApiCall(call, callback);
     }
+
+    public void registrarRegistrarPago(Integer idLectura, BaseApiCallback<BaseResponse<String>> callback) {
+        Call<BaseResponse<String>> call = apiService.registrarRegistrarPago(idLectura);
+        makeApiCall(call, callback);
+    }
 }
 

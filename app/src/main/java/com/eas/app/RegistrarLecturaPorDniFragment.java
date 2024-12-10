@@ -45,6 +45,7 @@ import java.util.List;
 public class RegistrarLecturaPorDniFragment extends Fragment {
 
     private Integer idLecturaActual;
+    private String estadoActual;
     private EditText txtDniUsuario;
     private EditText txtCodigoMedidor;
     private EditText txtLecturaActual;
@@ -63,12 +64,13 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     private TextView tvErrorLecturaActual;
     
     private ImageButton btnBuscarPorDni;
-    private ImageButton btnBuscarPorCodigo;
     private ImageButton btnFechaLectura;
     private ImageButton btnInicio;
     private ImageButton btnAtras;
     private ImageButton btnAdelante;
     private ImageButton btnFinal;
+
+    private Button registrarLecturaButton;
 
     private UsuarioViewModel usuarioViewModel;
     private UsuarioResponse usuarioResponse;
@@ -119,7 +121,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         Button detectarAnomaliasButton = view.findViewById(R.id.btnDetectarAnomalias);
         detectarAnomaliasButton.setOnClickListener(v -> detectarAnomaliasConsumo());
 
-        Button registrarLecturaButton = view.findViewById(R.id.btnRegistrarLectura);
+        registrarLecturaButton = view.findViewById(R.id.btnRegistrarLectura);
         registrarLecturaButton.setOnClickListener(v -> borradorLectura());
 
         Button imprimirButton = view.findViewById(R.id.btnImprimirRecibo);
@@ -127,6 +129,8 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
         Button nuevoButton = view.findViewById(R.id.btnNuevo);
         nuevoButton.setOnClickListener(v -> limpiarCampos());
+
+        chkPagado.setOnClickListener(v -> pagarRecibo());
 
         // Establece la fecha actual por defecto
         Calendar calendar = Calendar.getInstance();
@@ -153,6 +157,61 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void pagarRecibo() {
+        try {
+            String token = Almacenamiento.obtener(requireActivity(), Constantes.KEY_ACCESS_TOKEN);
+            BaseApi baseApi = new BaseApi(token);
+
+            baseApi.registrarRegistrarPago(idLecturaActual, new BaseApiCallback<BaseResponse<String>>() {
+                @Override
+                public void onSuccess(BaseResponse<String> response) {
+                    String idPagoRecibo = response.getDatos();
+
+                    DialogUtils.showAlertDialog(
+                            getActivity(),
+                            Constantes.TITULO_REGISTRO_EXITOSO,
+                            response.getMensaje(),
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> {
+                                dialog.dismiss();
+
+                                desactivarCampos();
+                            },
+                            null,
+                            null
+                    );
+
+                    Log.d("RegistrarLectura", "Registro exitoso del recibo:" + idPagoRecibo);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    DialogUtils.showAlertDialog(
+                            getActivity(),
+                            Constantes.TITULO_REGISTRO_FALLIDO,
+                            t.getMessage(),
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> dialog.dismiss(),
+                            null,
+                            null
+                    );
+                    Log.e("RegistrarLectura", "Error en registrar pago de recibo: " + t.getMessage());
+                }
+            });
+        } catch(Exception e) {
+            DialogUtils.showAlertDialog(
+                    getActivity(),
+                    Constantes.TITULO_REGISTRO_FALLIDO,
+                    e.getMessage(),
+                    Constantes.BOTON_TEXTO_ACEPTAR,
+                    (dialog, which) -> dialog.dismiss(),
+                    null,
+                    null
+            );
+            Log.e("RegistrarLectura", "Excepción en registrar pago de recibo", e);
+        }
     }
 
     private void mostrarDialogoSeleccionarFecha(int anio, int mes, int dia) {
@@ -257,10 +316,14 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                             txtFechaLimitePago.setText(FechaUtil.convertDateFormat2(lecturas.get(0).getFechaLimitePago()));
                         }
 
-                        if (Constantes.ESTADO_PAGADO.equals(lecturas.get(0).getEstado())) {
+                        estadoActual = lecturas.get(0).getEstado();
+
+                        if (Constantes.ESTADO_PAGADO.equals(estadoActual)) {
                             chkPagado.setChecked(true);
+                            desactivarCampos();
                         } else {
                             chkPagado.setChecked(false);
+                            activarCampos();
                         }
                     }
                 }
@@ -275,6 +338,24 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
             Toast.makeText(requireActivity(), "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
             Log.e("RegistrarLecturaPorDni", "Error:" + ex.getMessage());
         }
+    }
+
+    private void activarCampos() {
+        txtDniUsuario.setEnabled(true);
+        btnBuscarPorDni.setEnabled(true);
+        txtLecturaActual.setEnabled(true);
+        btnFechaLectura.setEnabled(true);
+        chkPagado.setEnabled(true);
+        registrarLecturaButton.setEnabled(true);
+    }
+
+    private void desactivarCampos() {
+        txtDniUsuario.setEnabled(false);
+        btnBuscarPorDni.setEnabled(false);
+        txtLecturaActual.setEnabled(false);
+        btnFechaLectura.setEnabled(false);
+        chkPagado.setEnabled(false);
+        registrarLecturaButton.setEnabled(false);
     }
 
     private void buscarLecturasPorDni() {
@@ -325,13 +406,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
     private void limpiarCampos() {
         idLecturaActual = 0;
-        //txtDniUsuario.setText("");
-        //txtCodigoMedidor.setText("");
         txtLecturaActual.setText("");
-
-        //lblNombreUsuario.setText("");
-        //lblNombreUsuario.setVisibility(View.GONE);
-        //tvErrorDniUsuario.setVisibility(View.GONE);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fechaActual = sdf.format(new Date());
@@ -343,6 +418,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         txtMontoTotal.setText("");
         txtFechaLimitePago.setText("");
         chkPagado.setChecked(false);
+        activarCampos();
     }
 
     private void detectarAnomaliasConsumo() {
