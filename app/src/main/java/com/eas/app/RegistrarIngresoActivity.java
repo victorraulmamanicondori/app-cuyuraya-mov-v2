@@ -56,7 +56,7 @@ public class RegistrarIngresoActivity extends AppCompatActivity {
         Button btnRegistrarIngreso = findViewById(R.id.btnRegistrarIngreso);
         btnRegistrarIngreso.setOnClickListener(v -> registrarIngreso());
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.ingresoLayout), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
