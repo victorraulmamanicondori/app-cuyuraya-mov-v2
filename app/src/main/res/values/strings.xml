@@ -39,7 +39,7 @@
     <string name="contrasenia">Contraseña:</string>
     <string name="ingrese_contrasenia">Ingrese contraseña</string>
     <string name="registrar_usuario">Registrar Usuario</string>
-    <string name="registrar_lectura">Registrar Lectura</string>
+    <string name="registrar_lectura">Registrar Lectura y Recibo</string>
     <string name="asignar_medidor">Asignar Medidor</string>
     <string name="registrar_egreso">Registrar Egreso</string>
     <string name="registrar_ingreso">Registrar Ingreso</string>

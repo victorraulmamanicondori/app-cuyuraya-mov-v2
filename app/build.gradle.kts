@@ -23,6 +23,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            applicationIdSuffix = "eas_app"
+            versionNameSuffix = "v1.0.0"
         }
     }
     compileOptions {
