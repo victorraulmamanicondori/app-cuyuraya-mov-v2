@@ -376,15 +376,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_marginHorizontal="15dp"/>
-
-            <Button
-                android:id="@+id/btnDetectarAnomalias"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/detectar_anomalias"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginHorizontal="15dp"/>
         </LinearLayout>
 
         <LinearLayout

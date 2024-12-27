@@ -117,9 +117,6 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
         btnFinal = view.findViewById(R.id.btnFinal);
         btnFinal.setOnClickListener(v -> irAlFinal());
-        
-        Button detectarAnomaliasButton = view.findViewById(R.id.btnDetectarAnomalias);
-        detectarAnomaliasButton.setOnClickListener(v -> detectarAnomaliasConsumo());
 
         registrarLecturaButton = view.findViewById(R.id.btnRegistrarLectura);
         registrarLecturaButton.setOnClickListener(v -> borradorLectura());
@@ -419,73 +416,6 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         txtFechaLimitePago.setText("");
         chkPagado.setChecked(false);
         activarCampos();
-    }
-
-    private void detectarAnomaliasConsumo() {
-        if (txtCodigoMedidor.getText().toString().trim().isEmpty()) {
-            tvErrorCodigoMedidor.setText(R.string.este_campo_es_obligatorio);
-            tvErrorCodigoMedidor.setVisibility(View.VISIBLE);
-
-            DialogUtils.showAlertDialog(
-                    getActivity(),
-                    Constantes.TITULO_ADVERTENCIA,
-                    Constantes.CAMPO_OBLIGATORIO_DETECTOR_ANOMALIAS,
-                    Constantes.BOTON_TEXTO_ACEPTAR,
-                    (dialog, which) -> dialog.dismiss(),
-                    null,
-                    null
-            );
-
-            return;
-        }
-
-        try {
-            String token = Almacenamiento.obtener(getActivity(), Constantes.KEY_ACCESS_TOKEN);
-            BaseApi baseApi = new BaseApi(token);
-
-            String codigoMedidor = txtCodigoMedidor.getText().toString().trim();
-
-            baseApi.detectarAnomalias(codigoMedidor, new BaseApiCallback<BaseResponse<List<AnomaliaResponse>>>() {
-                @Override
-                public void onSuccess(BaseResponse<List<AnomaliaResponse>> response) {
-                    StringBuilder mensaje = getListaAnomalias(response);
-
-                    DialogUtils.showAlertDialog(
-                            getActivity(),
-                            Constantes.TITULO_INFORMATION,
-                            mensaje.toString(),
-                            Constantes.BOTON_TEXTO_ACEPTAR,
-                            (dialog, which) -> dialog.dismiss(),
-                            null,
-                            null
-                    );
-                }
-
-                @Override
-                public void onError(Throwable t) {
-                    DialogUtils.showAlertDialog(
-                            getActivity(),
-                            Constantes.TITULO_ERROR,
-                            t.getMessage(),
-                            Constantes.BOTON_TEXTO_ACEPTAR,
-                            (dialog, which) -> dialog.dismiss(),
-                            null,
-                            null
-                    );
-                }
-            });
-
-        } catch (Exception e) {
-            DialogUtils.showAlertDialog(
-                    getActivity(),
-                    Constantes.TITULO_ERROR,
-                    e.getMessage(),
-                    Constantes.BOTON_TEXTO_ACEPTAR,
-                    (dialog, which) -> dialog.dismiss(),
-                    null,
-                    null
-            );
-        }
     }
 
     private static @NonNull StringBuilder getListaAnomalias(BaseResponse<List<AnomaliaResponse>> response) {
