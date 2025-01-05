@@ -96,10 +96,6 @@ public class AsignarPorDniFragment extends Fragment {
                                 tvUsuario.setText(infoUsuario);
                                 etDNIUsuario.setEnabled(true);
 
-                                if (usuario.getCodigoMedidor() != null && !usuario.getCodigoMedidor().trim().isEmpty()) {
-                                    etCodigoMedidor.setText(usuario.getCodigoMedidor().trim());
-                                }
-
                                 Log.d("AsignarMedidor", infoUsuario);
                             }
 

@@ -107,5 +107,12 @@
     <string name="imprimir_balance_por_usuario">Imprimir Balance por Usuario</string>
     <string name="imprimir_pagos_de_recibos">Imprimir Pagos de Recibos</string>
     <string name="imprimir_egresos">Imprimir Egresos</string>
+    <string name="btnCancelar">Cancelar</string>
+    <string name="btnRegistrar">Registrar</string>
+    <string name="hint_codigo_del_medidor">Código del medidor</string>
+    <string name="lblIngreseCodigoMedidor">Ingrese el código del medidor:</string>
+    <string name="lblAsignarMedidor">Asignar medidor</string>
+    <string name="lblDeseaEliminarAsignacionMedidor">¿Desea eliminar asignación del medidor?</string>
+    <string name="btnEliminarAsignacionMedidor">Eliminar Asignacion Medidor</string>
 
 </resources>

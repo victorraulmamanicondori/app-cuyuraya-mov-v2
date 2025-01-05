@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import com.eas.app.api.BaseApiCallback;
 import com.eas.app.api.BaseApi;
 import com.eas.app.api.request.AsignarMedidorRequest;
+import com.eas.app.api.request.DesasignarMedidorRequest;
 import com.eas.app.api.request.UbigeoRequest;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
@@ -460,6 +461,10 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                 EditText editTextMedidor = dialogView.findViewById(R.id.editTextMedidor);
                 Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
                 Button btnRegistrar = dialogView.findViewById(R.id.btnRegistrar);
+                EditText editTextMedidorAsignado = dialogView.findViewById(R.id.editTextMedidorAsignado);
+                Button btnEliminarAsignacion = dialogView.findViewById(R.id.btnEliminarAsignacion);
+
+                editTextMedidorAsignado.setText(user.getCodigoMedidor());
 
                 // Configurar el diálogo
                 AlertDialog alertDialog = builder.create();
@@ -480,11 +485,75 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                     }
                 });
 
+                // Configurar el boton Eliminar
+                btnEliminarAsignacion.setOnClickListener(eliminarView -> {
+                    String codigoMedidor = editTextMedidorAsignado.getText().toString();
+                    if (!codigoMedidor.isEmpty()) {
+                        eliminarAsignacionMedidor(codigoMedidor, user.getDni(), alertDialog);
+                    }
+                });
+
                 // Mostrar el diálogo
                 alertDialog.show();
             });
 
             tableLayout.addView(row);
+        }
+    }
+
+    private void eliminarAsignacionMedidor(String codigoMedidor, String dni, AlertDialog alertDialog) {
+        try {
+            DesasignarMedidorRequest request = new DesasignarMedidorRequest(codigoMedidor, dni);
+
+            baseApi.desasignarMedidor(request, new BaseApiCallback<BaseResponse<String>>() {
+                @Override
+                public void onSuccess(BaseResponse<String> response) {
+                    if (response.getCodigo() == 200) {
+                        DialogUtils.showAlertDialog(
+                                getActivity(),
+                                Constantes.TITULO_DESASIGNACION_EXISTOSA,
+                                response.getMensaje(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> {
+                                    dialog.dismiss();
+                                    getUserData();
+                                },
+                                null,
+                                null
+                        );
+                    } else {
+                        DialogUtils.showAlertDialog(
+                                getActivity(),
+                                Constantes.TITULO_DESASIGNACION_FALLIDA,
+                                response.getMensaje(),
+                                Constantes.BOTON_TEXTO_ACEPTAR,
+                                (dialog, which) -> dialog.dismiss(),
+                                null,
+                                null
+                        );
+                        Log.e("DesignarMedidor", "Error en desasignar medidor: " + response.getMensaje());
+                    }
+
+                    alertDialog.dismiss();
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    DialogUtils.showAlertDialog(
+                            getActivity(),
+                            Constantes.TITULO_DESASIGNACION_FALLIDA,
+                            t.getMessage(),
+                            Constantes.BOTON_TEXTO_ACEPTAR,
+                            (dialog, which) -> dialog.dismiss(),
+                            null,
+                            null
+                    );
+                    Log.e("DesasignarMedidor", "Error en desasignar medidor: " + t.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Error en desasignar medidor: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("DesasignarMedidor", "Excepción en desasignar medidor", e);
         }
     }
 
@@ -496,8 +565,6 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                 @Override
                 public void onSuccess(BaseResponse<AsignarMedidorResponse> response) {
                     if (response.getCodigo() == 200) {
-                        user.setCodigoMedidor(codigoMedidor);
-                        loadPage(currentPage);
 
                         DialogUtils.showAlertDialog(
                                 getActivity(),
@@ -506,6 +573,7 @@ public class AsignacionPorUbigeoFragment extends Fragment {
                                 Constantes.BOTON_TEXTO_ACEPTAR,
                                 (dialog, which) -> {
                                     dialog.dismiss();
+                                    getUserData();
                                 },
                                 null,
                                 null

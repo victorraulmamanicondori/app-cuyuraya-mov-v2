@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.eas.app.api.request.AsignarMedidorRequest;
+import com.eas.app.api.request.DesasignarMedidorRequest;
 import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.request.MovimientoCajaRequest;
@@ -138,11 +139,6 @@ public class BaseApi {
         makeApiCall(call, callback);
     }
 
-    public void detectarAnomalias(String codigoMedidor, BaseApiCallback<BaseResponse<List<AnomaliaResponse>>> callback) {
-        Call<BaseResponse<List<AnomaliaResponse>>> call = apiService.detectarAnomalias(codigoMedidor);
-        makeApiCall(call, callback);
-    }
-
     public void getUsuario(String dni, BaseApiCallback<BaseResponse<UsuarioResponse>> callback) {
         Call<BaseResponse<UsuarioResponse>> call = apiService.getUsuario(dni);
         makeApiCall(call, callback);
@@ -179,6 +175,11 @@ public class BaseApi {
 
     public void registrarRegistrarPago(Integer idLectura, BaseApiCallback<BaseResponse<String>> callback) {
         Call<BaseResponse<String>> call = apiService.registrarRegistrarPago(idLectura);
+        makeApiCall(call, callback);
+    }
+
+    public void desasignarMedidor(DesasignarMedidorRequest request, BaseApiCallback<BaseResponse<String>> callback) {
+        Call<BaseResponse<String>> call = apiService.desasignarMedidor(request);
         makeApiCall(call, callback);
     }
 }

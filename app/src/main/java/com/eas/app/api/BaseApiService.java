@@ -1,6 +1,7 @@
 package com.eas.app.api;
 
 import com.eas.app.api.request.AsignarMedidorRequest;
+import com.eas.app.api.request.DesasignarMedidorRequest;
 import com.eas.app.api.request.LecturaActualRequest;
 import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.request.MovimientoCajaRequest;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -74,9 +76,6 @@ public interface BaseApiService {
     @POST("cajas")
     Call<BaseResponse<MovimientoCajaResponse>> registrarMovimientoCaja(@Body MovimientoCajaRequest movimientoCajaRequest);
 
-    @GET("medidores/detectar-anomalias/{codigoMedidor}")
-    Call<BaseResponse<List<AnomaliaResponse>>> detectarAnomalias(@Path("codigoMedidor") String codigoMedidor);
-
     @PUT("usuarios/resetear-contrasena")
     Call<BaseResponse<String>> resetearContrasena(@Body ResetearContrasenaRequest resetearContrasenaRequest);
 
@@ -101,4 +100,7 @@ public interface BaseApiService {
 
     @GET("lecturas/pagar/{idLectura}")
     Call<BaseResponse<String>> registrarRegistrarPago(@Path("idLectura") Integer idLectura);
+
+    @POST("medidores/desasignar")
+    Call<BaseResponse<String>> desasignarMedidor(@Body DesasignarMedidorRequest request);
 }

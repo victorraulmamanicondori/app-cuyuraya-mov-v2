@@ -39,4 +39,6 @@ public class Constantes {
     public static final String[] headerRow2 = {"Periodo", "Fecha Límite de Pago", "Deuda Anterior", "Deuda Actual", "TOTAL A PAGAR"};
     public static final String[] dataRow2 = {"01/08/2024", "20/08/2024", "S/. 10.50", "S/. 50.50", "S/. 120.50"};
 
+    public static final String TITULO_DESASIGNACION_FALLIDA = "Desasignacion fallida";
+    public static final String TITULO_DESASIGNACION_EXISTOSA = "Desasignacion exitosa";
 }

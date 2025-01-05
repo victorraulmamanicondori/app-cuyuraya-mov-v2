@@ -9,7 +9,7 @@
         android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Asignar medidor"
+        android:text="@string/lblAsignarMedidor"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/dialogMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingrese el código del medidor:"
+        android:text="@string/lblIngreseCodigoMedidor"
         android:layout_marginTop="8dp"/>
 
     <EditText
@@ -25,7 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:hint="Código del medidor" />
+        android:maxLength="255"
+        android:inputType="text"
+        android:digits="0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:hint="@string/hint_codigo_del_medidor" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,13 +41,47 @@
             android:id="@+id/btnCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancelar" />
+            android:text="@string/btnCancelar" />
 
         <Button
             android:id="@+id/btnRegistrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registrar"
+            android:text="@string/btnRegistrar"
             android:layout_marginStart="8dp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tituloEliminarAsignacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblDeseaEliminarAsignacionMedidor"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextMedidorAsignado"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:autofillHints=""
+        android:maxLength="255"
+        android:inputType="text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:enabled="false"
+        android:hint="@string/hint_codigo_del_medidor" />
+
+    <Button
+        android:id="@+id/btnEliminarAsignacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/buttonBackgroundColor"
+        android:textColor="@color/buttonTextColor"
+        android:text="@string/btnEliminarAsignacionMedidor"
+        android:layout_gravity="end"
+        android:gravity="end"/>
 </LinearLayout>
