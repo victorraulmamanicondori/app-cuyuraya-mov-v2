@@ -11,7 +11,6 @@ import com.eas.app.api.request.LoginRequest;
 import com.eas.app.api.request.MovimientoCajaRequest;
 import com.eas.app.api.request.ResetearContrasenaRequest;
 import com.eas.app.api.request.UbigeoRequest;
-import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.AsignarMedidorResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;

@@ -5,7 +5,7 @@ public class Constantes {
     public static final String KEY_ACCESS_TOKEN = "accessToken";
     public static final String KEY_REFRESH_TOKEN = "refreshToken";
     public static final String TITULO_REGISTRO_EXITOSO = "Registro exitoso";
-    public static final String TITULO_REGISTRO_CONFIRMACION = "Confirma Registrar Lectura?";
+    public static final String TITULO_REGISTRO_CONFIRMACION = "BORRADOR: Confirmar para Registrar";
     public static final String TITULO_REGISTRO_FALLIDO = "Registro fallido";
     public static final String BOTON_TEXTO_ACEPTAR = "Aceptar";
     public static final String BOTON_TEXTO_CANCELAR = "Cancelar";

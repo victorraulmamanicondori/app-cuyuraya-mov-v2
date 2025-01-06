@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.net.Uri;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,11 +28,12 @@ import android.widget.TextView;
 import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
 import com.eas.app.api.request.LecturaActualRequest;
-import com.eas.app.api.response.AnomaliaResponse;
 import com.eas.app.api.response.BaseResponse;
 import com.eas.app.api.response.LecturaActualResponse;
 import com.eas.app.api.response.LecturaPaginadoResponse;
 import com.eas.app.api.response.UsuarioResponse;
+import com.eas.app.componentes.SpinnerItem;
+import com.eas.app.model.Departamento;
 import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
 import com.eas.app.util.DialogUtils;
@@ -38,6 +41,7 @@ import com.eas.app.util.FechaUtil;
 import com.eas.app.viewmodel.UsuarioViewModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,8 +51,9 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     private Integer idLecturaActual;
     private String estadoActual;
     private EditText txtDniUsuario;
-    private EditText txtCodigoMedidor;
     private EditText txtLecturaActual;
+    private Spinner spinnerCodigoMedidor;
+    private String txtCodigoMedidor;
 
     private EditText txtLecturaAnterior;
     private EditText txtFechaLectura;
@@ -86,7 +91,24 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
         idLecturaActual = 0;
         txtDniUsuario = view.findViewById(R.id.txtDniUsuario);
-        txtCodigoMedidor = view.findViewById(R.id.txtCodigoMedidor);
+        spinnerCodigoMedidor = view.findViewById(R.id.spinnerMedidor);
+        spinnerCodigoMedidor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                limpiarCampos();
+                SpinnerItem medidorSeleccionado = (SpinnerItem) parent.getSelectedItem();
+                if (medidorSeleccionado != null) {
+                    txtCodigoMedidor = medidorSeleccionado.getCodigo();
+
+                    obtenerDatos(txtCodigoMedidor, Constantes.PARAM_PAGE, Constantes.PARAM_LIMIT);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                txtCodigoMedidor = "";
+            }
+        });
         txtLecturaActual = view.findViewById(R.id.txtLecturaActual);
         txtLecturaAnterior = view.findViewById(R.id.txtLecturaAnterior);
         txtFechaLectura = view.findViewById(R.id.txtFechaLectura);
@@ -148,7 +170,24 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
             txtDniUsuario.setText(usuarioResponse.getDni());
             lblNombreUsuario.setText(String.format("%s %s %s", usuarioResponse.getNombres(), usuarioResponse.getPaterno(), usuarioResponse.getMaterno()));
             lblNombreUsuario.setVisibility(View.VISIBLE);
-            txtCodigoMedidor.setText(usuarioResponse.getCodigoMedidor().trim());
+
+            List<SpinnerItem> medidores = new ArrayList<>();
+            medidores.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
+
+            if (usuarioResponse.getCodigoMedidor() != null && !usuarioResponse.getCodigoMedidor().trim().isEmpty()) {
+                String medidoresAsignados[] = usuarioResponse.getCodigoMedidor().split(",");
+
+                for (String medidorAsignado : medidoresAsignados) {
+                    medidores.add(new SpinnerItem(medidorAsignado.trim(), medidorAsignado.trim()));
+                }
+            }
+
+            ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, medidores);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerCodigoMedidor.setAdapter(adapter);
+
+            spinnerCodigoMedidor.setSelection(1);
+            txtCodigoMedidor = usuarioResponse.getCodigoMedidor();
 
             obtenerDatos(usuarioResponse.getCodigoMedidor(), Constantes.PARAM_PAGE, Constantes.PARAM_LIMIT);
         });
@@ -230,27 +269,35 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
     }
 
     private void irAlInicio() {
-        setPage(total);
-        obtenerDatos(txtCodigoMedidor.getText().toString().trim(), total, limit);
+        if (txtCodigoMedidor != null && !txtCodigoMedidor.isEmpty()) {
+            setPage(total);
+            obtenerDatos(txtCodigoMedidor, total, limit);
+        }
     }
 
     private void irAtras() {
-        if (page < total) {
+        Log.d("irAtras", "Codigo Medidor:" + txtCodigoMedidor);
+        Log.d("irAtras", "Page:" + page);
+        Log.d("irAtras", "Total:" + total);
+
+        if (txtCodigoMedidor != null && !txtCodigoMedidor.isEmpty() && page < total) {
             setPage(page + 1);
-            obtenerDatos(txtCodigoMedidor.getText().toString().trim(), page, limit);
+            obtenerDatos(txtCodigoMedidor, page, limit);
         }
     }
 
     private void irAdelante() {
-        if (page > 1) {
+        if (txtCodigoMedidor != null && !txtCodigoMedidor.isEmpty() && page > 1) {
             setPage(page - 1);
-            obtenerDatos(txtCodigoMedidor.getText().toString().trim(), page, limit);
+            obtenerDatos(txtCodigoMedidor, page, limit);
         }
     }
 
     private void irAlFinal() {
-        setPage(1);
-        obtenerDatos(txtCodigoMedidor.getText().toString().trim(), page, limit);
+        if (txtCodigoMedidor != null && !txtCodigoMedidor.isEmpty()) {
+            setPage(1);
+            obtenerDatos(txtCodigoMedidor, page, limit);
+        }
     }
 
     private void setPage(int page) {
@@ -267,6 +314,10 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
 
     private void obtenerDatos(String codigoMedidor, int page, int limit) {
         try {
+            if (codigoMedidor == null || codigoMedidor.trim().isEmpty()) {
+                return;
+            }
+
             String token = Almacenamiento.obtener(requireActivity(), Constantes.KEY_ACCESS_TOKEN);
             BaseApi baseApi = new BaseApi(token);
 
@@ -382,9 +433,22 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
                     lblNombreUsuario.setVisibility(View.VISIBLE);
 
                     if (usuario.getCodigoMedidor() != null && !usuario.getCodigoMedidor().trim().isEmpty()) {
-                        txtCodigoMedidor.setText(usuario.getCodigoMedidor().trim());
+                        List<SpinnerItem> medidores = new ArrayList<>();
+                        medidores.add(new SpinnerItem("", Constantes.ITEM_SELECCIONE));
 
-                        obtenerDatos(usuario.getCodigoMedidor(), page, limit);
+                        if (usuario.getCodigoMedidor() != null && !usuario.getCodigoMedidor().trim().isEmpty()) {
+                            String medidoresAsignados[] = usuario.getCodigoMedidor().split(",");
+
+                            for (String medidorAsignado : medidoresAsignados) {
+                                medidores.add(new SpinnerItem(medidorAsignado.trim(), medidorAsignado.trim()));
+                            }
+                        }
+
+                        ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, medidores);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerCodigoMedidor.setAdapter(adapter);
+
+                        // obtenerDatos(usuario.getCodigoMedidor(), page, limit);
                     }
                 }
 
@@ -418,20 +482,6 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
         activarCampos();
     }
 
-    private static @NonNull StringBuilder getListaAnomalias(BaseResponse<List<AnomaliaResponse>> response) {
-        List<AnomaliaResponse> anomalias = response.getDatos();
-        StringBuilder mensaje = new StringBuilder("El medidor tiene las siguientes anomalias:");
-
-        if (anomalias != null && !anomalias.isEmpty()) {
-            for (int i = 0; i < 5 && i < anomalias.size(); i++) {
-                mensaje.append(anomalias.get(i).getDate()).append(": ").append(anomalias.get(i).getValue()).append("\n");
-            }
-        } else {
-            mensaje = new StringBuilder(Constantes.SIN_ANOMALIAS);
-        }
-        return mensaje;
-    }
-
     private void borradorLectura() {
         if (!validateFields()) {
             return;
@@ -442,7 +492,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
             BaseApi baseApi = new BaseApi(token);
 
             String dni = txtDniUsuario.getText().toString().trim();
-            String codigoMedidor = txtCodigoMedidor.getText().toString().trim();
+            String codigoMedidor = txtCodigoMedidor;
             String lecturaActual = txtLecturaActual.getText().toString().trim();
             String fechaLectura = txtFechaLectura.getText().toString().trim();
 
@@ -590,7 +640,7 @@ public class RegistrarLecturaPorDniFragment extends Fragment {
             isValid = false;
         }
 
-        if (txtCodigoMedidor.getText().toString().trim().isEmpty()) {
+        if (txtCodigoMedidor != null &&txtCodigoMedidor.trim().isEmpty()) {
             tvErrorCodigoMedidor.setText(R.string.este_campo_es_obligatorio);
             tvErrorCodigoMedidor.setVisibility(View.VISIBLE);
             isValid = false;
