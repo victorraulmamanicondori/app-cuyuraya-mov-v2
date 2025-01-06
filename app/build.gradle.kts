@@ -23,7 +23,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            applicationIdSuffix = "eas_app"
+            applicationIdSuffix = ".eas_app"
             versionNameSuffix = "v1.0.0"
         }
     }
@@ -44,6 +44,12 @@ dependencies {
     implementation(libs.viewPager2)
     implementation(libs.recyclerview)
     implementation(libs.recyclerviewSelection)
+    implementation(libs.poi) {
+        exclude(group = "org.apache.xmlbeans", module = "xmlbeans")
+    }
+    implementation(libs.poiOoxmlSchemas) {
+        exclude(group = "org.apache.xmlbeans", module = "xmlbeans")
+    }
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

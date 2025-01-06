@@ -41,4 +41,5 @@ public class Constantes {
 
     public static final String TITULO_DESASIGNACION_FALLIDA = "Desasignacion fallida";
     public static final String TITULO_DESASIGNACION_EXISTOSA = "Desasignacion exitosa";
+    public static final String CODIGO = "Código";
 }

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cargaDatos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:orientation="vertical"
+    tools:context=".CargaDatosActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/lblCargaDatosDepartamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/departamento"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinCargaDatosDepartamento"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@color/gray_400"
+            android:paddingHorizontal="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/lblCargaDatosProvincia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/provincia"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <Spinner
+            android:id="@+id/spinCargaDatosProvincia"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@color/gray_400"
+            android:paddingHorizontal="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/lblCargaDatosDistrito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/distrito"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Spinner
+                android:id="@+id/spinCargaDatosDistrito"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="@color/gray_400"
+                android:paddingHorizontal="10dp"/>
+            <TextView
+                android:id="@+id/lblCargaDatosCodigoDistrito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/lblCargaDatosCentroPoblado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/centroPoblado"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Spinner
+                android:id="@+id/spinCargaDatosCentroPoblado"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:paddingHorizontal="10dp"
+                android:background="@color/gray_400"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/lblCargaDatosCodigoCentroPoblado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/lblCargaDatosComunidadCampesina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comunidadParcialidad"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Spinner
+                android:id="@+id/spinCargaDatosComunidadCampesina"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:paddingHorizontal="10dp"
+                android:background="@color/gray_400"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/lblCargaDatosCodigoComunidadCampensina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/lblCargaDatosComunidadNativa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comunidadNativa"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Spinner
+                android:id="@+id/spinCargaDatosComunidadNativa"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingHorizontal="10dp"
+                android:background="@color/gray_400"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/lblCargaDatosCodigoComunidadNativa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSeleccionarArchivo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/seleccionar_archivo_excel"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primaryColor" />
+
+    <TextView
+        android:id="@+id/tvNombreArchivoSeleccionado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/archivo_no_seleccionado"
+        android:layout_marginTop="5dp" />
+</LinearLayout>

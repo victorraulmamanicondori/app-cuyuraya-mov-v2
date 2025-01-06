@@ -94,5 +94,14 @@ public class PrincipalActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        CardView cardCargaDatos = findViewById(R.id.cardCargaDatos);
+        cardCargaDatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PrincipalActivity.this, CargaDatosActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

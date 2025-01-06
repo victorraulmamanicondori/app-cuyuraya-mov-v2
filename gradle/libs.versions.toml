@@ -12,6 +12,9 @@ converter-gson = "2.11.0"
 viewpager2 = "1.1.0"
 recyclerview = "1.3.2"
 recyclerviewSelection = "1.1.0"
+poi = "3.17"
+poi-ooxml-schemas = "3.17"
+
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -26,7 +29,8 @@ converterGson = { group = "com.squareup.retrofit2", name = "converter-gson", ver
 viewPager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 recyclerviewSelection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerviewSelection" }
-
+poi = { group = "org.apache.poi", name = "poi", version.ref = "poi" }
+poiOoxmlSchemas = { group = "org.apache.poi", name = "poi-ooxml-schemas", version.ref = "poi-ooxml-schemas" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
