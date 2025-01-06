@@ -114,5 +114,6 @@
     <string name="lblAsignarMedidor">Asignar medidor</string>
     <string name="lblDeseaEliminarAsignacionMedidor">¿Desea eliminar asignación del medidor?</string>
     <string name="btnEliminarAsignacionMedidor">Eliminar Asignacion Medidor</string>
+    <string name="cargaDatos">Carga de Datos</string>
 
 </resources>

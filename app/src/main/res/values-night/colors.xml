@@ -26,6 +26,7 @@
     <color name="gestionLecturasCardBackgroundColor">#D0B687</color>
     <color name="reportesCardBackgroundColor">#A6D8E7</color>
     <color name="tarifaCardBackgroundColor">#EF883E</color>
+    <color name="cargaDatosCardBackgroundColor">#E5E7E9</color>
 
     <color name="imageButtonIconColor">#FFFFFF</color> <!-- Blanco para el ícono -->
     <color name="imageButtonBackgroundColor">#1D1D1D</color> <!-- Gris oscuro para el fondo -->
