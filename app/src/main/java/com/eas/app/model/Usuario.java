@@ -1,5 +1,7 @@
 package com.eas.app.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Usuario {
@@ -8,9 +10,7 @@ public class Usuario {
     private String nombres;
     private String paterno;
     private String materno;
-    private String telefono;
     private String direccion;
-    private String numeroContrato;
     private String codigoDepartamento;
     private String codigoProvincia;
     private String codigoDistrito;
@@ -19,6 +19,9 @@ public class Usuario {
     private String codigoComunidadNativa;
     private String clave;
     private String estado;
+    private String codigoMedidor;
+    private Integer fila;
+    private List<String> errores = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -60,28 +63,12 @@ public class Usuario {
         this.materno = materno;
     }
 
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public String getNumeroContrato() {
-        return numeroContrato;
-    }
-
-    public void setNumeroContrato(String numeroContrato) {
-        this.numeroContrato = numeroContrato;
     }
 
     public String getCodigoDepartamento() {
@@ -148,6 +135,30 @@ public class Usuario {
         this.estado = estado;
     }
 
+    public String getCodigoMedidor() {
+        return codigoMedidor;
+    }
+
+    public void setCodigoMedidor(String codigoMedidor) {
+        this.codigoMedidor = codigoMedidor;
+    }
+
+    public Integer getFila() {
+        return fila;
+    }
+
+    public void setFila(Integer fila) {
+        this.fila = fila;
+    }
+
+    public List<String> getErrores() {
+        return errores;
+    }
+
+    public void setErrores(List<String> errores) {
+        this.errores = errores;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -169,16 +180,16 @@ public class Usuario {
                 ", nombres='" + nombres + '\'' +
                 ", paterno='" + paterno + '\'' +
                 ", materno='" + materno + '\'' +
-                ", telefono='" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", numeroContrato='" + numeroContrato + '\'' +
                 ", codigoDepartamento='" + codigoDepartamento + '\'' +
                 ", codigoProvincia='" + codigoProvincia + '\'' +
                 ", codigoDistrito='" + codigoDistrito + '\'' +
                 ", codigoCentroPoblado='" + codigoCentroPoblado + '\'' +
                 ", codigoComunidadCampesina='" + codigoComunidadCampesina + '\'' +
                 ", codigoComunidadNativa='" + codigoComunidadNativa + '\'' +
+                ", clave='" + clave + '\'' +
                 ", estado='" + estado + '\'' +
+                ", codigoMedidor='" + codigoMedidor + '\'' +
                 '}';
     }
 }

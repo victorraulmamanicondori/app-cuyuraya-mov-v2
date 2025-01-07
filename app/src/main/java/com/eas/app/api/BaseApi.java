@@ -181,5 +181,10 @@ public class BaseApi {
         Call<BaseResponse<String>> call = apiService.desasignarMedidor(request);
         makeApiCall(call, callback);
     }
+
+    public void guardarUsuarios(List<Usuario> usuarios, BaseApiCallback<BaseResponse<List<Usuario>>> baseApiCallback) {
+        Call<BaseResponse<List<Usuario>>> call = apiService.guardarUsuarios(usuarios);
+        makeApiCall(call, baseApiCallback);
+    }
 }
 

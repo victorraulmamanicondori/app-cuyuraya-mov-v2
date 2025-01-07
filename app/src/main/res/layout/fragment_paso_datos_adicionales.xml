@@ -8,32 +8,6 @@
     tools:context=".PasoDatosPersonalesFragment">
 
     <TextView
-        android:id="@+id/lblTelefono"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/telefono"
-        app:layout_constraintBottom_toTopOf="@id/txtTelefono"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtTelefono"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:paddingHorizontal="10dp"
-        android:background="@drawable/edittext_background"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        android:hint="@string/ingrese_telefono"
-        android:maxLength="20"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@id/lblDireccion"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblTelefono" />
-
-    <TextView
         android:id="@+id/lblDireccion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@id/txtDireccion"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtTelefono" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <EditText
         android:id="@+id/txtDireccion"
@@ -67,31 +41,6 @@
         app:layout_constraintTop_toBottomOf="@id/txtDireccion"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/lblNumeroContrato"/>
-
-    <TextView
-        android:id="@+id/lblNumeroContrato"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/numero_contrato"
-        app:layout_constraintBottom_toTopOf="@id/txtNumeroContrato"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvErrorDireccion" />
-
-    <EditText
-        android:id="@+id/txtNumeroContrato"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:paddingHorizontal="10dp"
-        android:background="@drawable/edittext_background"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        android:hint="@string/ingrese_numero_contrato"
-        android:maxLength="255"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblNumeroContrato" />
+        app:layout_constraintBottom_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

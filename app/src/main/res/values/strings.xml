@@ -117,5 +117,6 @@
     <string name="cargaDatos">Carga de Datos</string>
     <string name="seleccionar_archivo_excel">Seleccione Archivo Excel</string>
     <string name="archivo_no_seleccionado" />
+    <string name="btnGuardarUsuarios">Guardar Usuarios</string>
 
 </resources>

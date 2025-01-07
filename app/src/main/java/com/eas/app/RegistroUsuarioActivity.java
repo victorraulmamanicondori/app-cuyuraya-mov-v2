@@ -54,23 +54,13 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                     && !((PasoUbigeoFragment) currentFragment).validateFields()) {
                 stepView.done(false);
                 return;
-            } /*else if (currentFragment instanceof PasoCredencialesFragment
-                    && !((PasoCredencialesFragment) currentFragment).validateFields()) {
-                stepView.done(false);
-            }*/
+            }
 
             if (currentStep < stepView.getStepCount() - 1) {
                 currentStep++;
                 stepView.go(currentStep, true);
                 loadFragment(currentStep);
             } else {
-                /*PasoCredencialesFragment pasoCredencialesFragment = (PasoCredencialesFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.fragment_container);
-
-                if (pasoCredencialesFragment != null) {
-                    pasoCredencialesFragment.recolectarDatos();
-                }*/
-
                 PasoUbigeoFragment pasoUbigeoFragment = (PasoUbigeoFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fragment_container);
 
@@ -96,7 +86,6 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         steps.add(getString(R.string.datos_personales));
         steps.add(getString(R.string.datos_adicionales));
         steps.add(getString(R.string.ubigeo));
-        // steps.add(getString(R.string.credenciales));
 
         stepView.setSteps(steps);
 
@@ -113,9 +102,6 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             case 2:
                 fragment = new PasoUbigeoFragment();
                 break;
-            /*case 3:
-                fragment = new PasoCredencialesFragment();
-                break;*/
             default:
                 fragment = new PasoDatosPersonalesFragment();
                 break;

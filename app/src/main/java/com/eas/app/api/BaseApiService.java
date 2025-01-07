@@ -101,4 +101,7 @@ public interface BaseApiService {
 
     @POST("medidores/desasignar")
     Call<BaseResponse<String>> desasignarMedidor(@Body DesasignarMedidorRequest request);
+
+    @POST("usuarios/carga-masiva")
+    Call<BaseResponse<List<Usuario>>> guardarUsuarios(@Body List<Usuario> usuarios);
 }

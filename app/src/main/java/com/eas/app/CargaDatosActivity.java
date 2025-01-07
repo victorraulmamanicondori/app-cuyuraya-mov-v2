@@ -1,5 +1,6 @@
 package com.eas.app;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,12 +17,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.eas.app.api.BaseApi;
 import com.eas.app.api.BaseApiCallback;
+import com.eas.app.api.response.BaseResponse;
 import com.eas.app.componentes.SpinnerItem;
 import com.eas.app.model.CentroPoblado;
 import com.eas.app.model.ComunidadCampesina;
@@ -29,15 +32,26 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
+import com.eas.app.model.TipoMovimiento;
+import com.eas.app.model.Usuario;
 import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +85,8 @@ public class CargaDatosActivity extends AppCompatActivity {
                 }
             });
 
+    List<Usuario> usuarios = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,9 +106,12 @@ public class CargaDatosActivity extends AppCompatActivity {
         lblCargaDatosCodigoComunidadNativa = findViewById(R.id.lblCargaDatosCodigoComunidadNativa);
 
         tvNombreArchivoSeleccionado = findViewById(R.id.tvNombreArchivoSeleccionado);
-        Button btnSeleccionarArchivo = findViewById(R.id.btnSeleccionarArchivo);
 
+        Button btnSeleccionarArchivo = findViewById(R.id.btnSeleccionarArchivo);
         btnSeleccionarArchivo.setOnClickListener(v -> abrirSelectorDeArchivos());
+
+        Button btnGuardarUsuarios = findViewById(R.id.btnGuardarUsuarios);
+        btnGuardarUsuarios.setOnClickListener(v -> guardarUsuarios());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cargaDatos), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -422,22 +441,174 @@ public class CargaDatosActivity extends AppCompatActivity {
 
     private void leerDatosExcel(Uri uri) {
         try (InputStream inputStream = getContentResolver().openInputStream(uri)) {
-            Workbook workbook = new HSSFWorkbook(inputStream); // Para archivos XLS
-            Sheet sheet = workbook.getSheet("USUARIOS"); // Especifica la hoja
-            StringBuilder xlsData = new StringBuilder();
+            assert inputStream != null;
+            Workbook workbook = new HSSFWorkbook(inputStream);  // Solo para archivos .xls
+            Sheet sheet = workbook.getSheet("USUARIOS");
 
-            for (Row row : sheet) {
-                for (int cn = 0; cn < row.getLastCellNum(); cn++) {
-                    xlsData.append(row.getCell(cn).toString()).append(" ");
-                }
-                xlsData.append("\n");
+            if (sheet == null) {
+                tvNombreArchivoSeleccionado.setText("No se encontró la hoja 'USUARIOS'.");
+                return;
             }
 
-            Log.d("Excel:", xlsData.toString());
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) continue;  // Omitir encabezado
+
+                String nombres = obtenerValorCelda(row.getCell(1));
+                String paterno = obtenerValorCelda(row.getCell(2));
+                String materno = obtenerValorCelda(row.getCell(3));
+                String numeroPredio = obtenerValorCelda(row.getCell(4));
+                String tmpDni = obtenerValorCelda(row.getCell(5));
+                String dni = tmpDni != null ? tmpDni.replace("O", "0") : null;
+                String codigoMedidor = obtenerValorCelda(row.getCell(6));
+                String direccion = obtenerValorCelda(row.getCell(7));
+
+                // Log.d("Usuario", "Nombres: " + nombres + ", Paterno: " + paterno + ", Materno: " + materno + ", predio: " + numeroPredio + ", DNI: " + dni + ", codigoMedidor: " + codigoMedidor + ", direccion: " + direccion + ", codDistrito: " + codDistrito + ", codCentroPoblado: " + codCentroPoblado + ", codComunidadCampesina: " + codComunidadCampesina + ", codComunidadNativa: " + codComunidadNativa);
+
+                Usuario usuario = new Usuario();
+                usuario.setNombres(nombres);
+                usuario.setPaterno(paterno);
+                usuario.setMaterno(materno);
+                usuario.setDni(dni);
+                usuario.setDireccion(direccion);
+                if (codigoMedidor != null) {
+                    usuario.setCodigoMedidor(codigoMedidor);
+                } else if (numeroPredio != null) {
+                    usuario.setCodigoMedidor(numeroPredio);
+                }
+                SpinnerItem distritoSeleccionado = (SpinnerItem) spinCargaDatosDistrito.getSelectedItem();
+                SpinnerItem centroPobladoSeleccionado = (SpinnerItem) spinCargaDatosCentroPoblado.getSelectedItem();
+                SpinnerItem comunidadCampesinaSeleccionado = (SpinnerItem) spinCargaDatosComunidadCampesina.getSelectedItem();
+                SpinnerItem comunidadNativaSeleccionado = (SpinnerItem) spinCargaDatosComunidadNativa.getSelectedItem();
+
+                if (distritoSeleccionado != null && !distritoSeleccionado.getCodigo().isEmpty()) {
+                    usuario.setCodigoDistrito(distritoSeleccionado.getCodigo());
+                }
+                if (centroPobladoSeleccionado != null && !centroPobladoSeleccionado.getCodigo().isEmpty()) {
+                    usuario.setCodigoCentroPoblado(centroPobladoSeleccionado.getCodigo());
+                }
+                if (comunidadCampesinaSeleccionado != null && !comunidadCampesinaSeleccionado.getCodigo().isEmpty()) {
+                    usuario.setCodigoComunidadCampesina(comunidadCampesinaSeleccionado.getCodigo());
+                }
+                if (comunidadNativaSeleccionado != null && !comunidadNativaSeleccionado.getCodigo().isEmpty()) {
+                    usuario.setCodigoComunidadNativa(comunidadNativaSeleccionado.getCodigo());
+                }
+                usuario.setFila(row.getRowNum());
+
+                usuarios.add(usuario);
+            }
             workbook.close();
         } catch (Exception e) {
             e.printStackTrace();
-            tvNombreArchivoSeleccionado.setText("Error al leer el archivo.");
+            tvNombreArchivoSeleccionado.setText("Error al leer el archivo XLS.");
+        }
+    }
+
+    private String obtenerValorCelda(Cell cell) {
+        if (cell == null) return null;
+
+        switch (cell.getCellTypeEnum()) {
+            case STRING:
+                return cell.getStringCellValue().trim();
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getDateCellValue().toString();
+                } else {
+                    return String.valueOf((long) cell.getNumericCellValue());
+                }
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+            case FORMULA:
+                return cell.getCellFormula();
+            default:
+                return null;
+        }
+    }
+
+    private void guardarUsuarios() {
+        if (usuarios == null || usuarios.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Seleccione un archivo XLS", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        SpinnerItem distritoSeleccionado = (SpinnerItem) spinCargaDatosDistrito.getSelectedItem();
+        if (distritoSeleccionado == null || distritoSeleccionado.getCodigo().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Seleccione Distrito y/o Centro Poblado, Comuidad Campesina y Comuidad Nativa", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String token = Almacenamiento.obtener(getApplicationContext(), Constantes.KEY_ACCESS_TOKEN);
+        BaseApi baseApi = new BaseApi(token);
+
+        baseApi.guardarUsuarios(usuarios, new BaseApiCallback<BaseResponse<List<Usuario>>>() {
+            @Override
+            public void onSuccess(BaseResponse<List<Usuario>> result) {
+                List<Usuario> usuarios = result.getDatos();
+
+                Toast.makeText(getApplicationContext(), "Se guardo usuarios desde excel", Toast.LENGTH_LONG).show();
+
+                /*String url = Constantes.BASE_URL + "usuarios/reporte-carga-masiva";
+
+                new Thread(() -> {
+                    try {
+                        // Serializar la lista de usuarios a JSON
+                        Gson gson = new Gson();
+                        String jsonUsuarios = gson.toJson(usuarios, new TypeToken<List<Usuario>>() {}.getType());
+
+                        // Establecer conexión HTTP
+                        URL serverUrl = new URL(url);
+                        HttpURLConnection connection = (HttpURLConnection) serverUrl.openConnection();
+                        connection.setRequestMethod("POST");
+                        connection.setDoOutput(true);
+                        connection.setRequestProperty("Content-Type", "application/json");
+
+                        // Enviar datos en la petición
+                        try (OutputStream os = connection.getOutputStream()) {
+                            os.write(jsonUsuarios.getBytes("UTF-8"));
+                            os.flush();
+                        }
+
+                        // Leer la respuesta
+                        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                            InputStream inputStream = connection.getInputStream();
+                            File pdfFile = new File(getExternalFilesDir(null), "reporte.pdf");
+                            try (FileOutputStream outputStream = new FileOutputStream(pdfFile)) {
+                                byte[] buffer = new byte[4096];
+                                int bytesRead;
+                                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                    outputStream.write(buffer, 0, bytesRead);
+                                }
+                            }
+
+                            // Abrir el archivo PDF
+                            abrirPDF(pdfFile);
+                        } else {
+                            runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Error al generar el reporte", Toast.LENGTH_SHORT).show());
+                        }
+                        connection.disconnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Error en la conexión", Toast.LENGTH_SHORT).show());
+                    }
+                }).start();*/
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error al guardar usuarios" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void abrirPDF(File pdfFile) {
+        Uri pdfUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", pdfFile);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(pdfUri, "application/pdf");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No se encontró una aplicación para abrir el PDF", Toast.LENGTH_SHORT).show();
         }
     }
 }
