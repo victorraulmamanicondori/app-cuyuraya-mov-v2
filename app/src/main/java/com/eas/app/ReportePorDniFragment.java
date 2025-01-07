@@ -30,8 +30,6 @@ public class ReportePorDniFragment extends Fragment {
     private TextView lblNombreUsuarioReporte;
     private TextView tvErrorDniUsuarioReporte;
     private ImageButton btnBuscarPorDniReporte;
-    private Button btnImprimirBalanceUsuario;
-    private Button btnImprimirPagosRecibos;
     private Button btnImprimirEgresos;
 
     @Override
@@ -43,13 +41,9 @@ public class ReportePorDniFragment extends Fragment {
         lblNombreUsuarioReporte = view.findViewById(R.id.lblNombreUsuarioReporte);
         tvErrorDniUsuarioReporte = view.findViewById(R.id.tvErrorDniUsuarioReporte);
         btnBuscarPorDniReporte = view.findViewById(R.id.btnBuscarPorDniReporte);
-        btnImprimirBalanceUsuario = view.findViewById(R.id.btnImprimirBalanceUsuario);
-        btnImprimirPagosRecibos = view.findViewById(R.id.btnImprimirPagosRecibos);
         btnImprimirEgresos = view.findViewById(R.id.btnImprimirEgresos);
 
         btnBuscarPorDniReporte.setOnClickListener(v -> buscarUsuarioPorDni());
-        btnImprimirBalanceUsuario.setOnClickListener(v -> imprimirBalanceUsuario());
-        btnImprimirPagosRecibos.setOnClickListener(v -> imprimirPagosRecibos());
         btnImprimirEgresos.setOnClickListener(v -> imprimirEgresos());
 
         return view;
@@ -93,12 +87,6 @@ public class ReportePorDniFragment extends Fragment {
         } catch (Exception e) {
             Log.e("ReportePorDni", "Excepción en obtener usuario", e);
         }
-    }
-
-    private void imprimirBalanceUsuario() {
-    }
-
-    private void imprimirPagosRecibos() {
     }
 
     private void imprimirEgresos() {

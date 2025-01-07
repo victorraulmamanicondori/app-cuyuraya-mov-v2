@@ -26,7 +26,6 @@ public class Constantes {
     public static final int PARAM_PAGE = 1;
     public static final int PARAM_LIMIT = 1;
 
-    //public static final String BASE_URL = "http://104.251.212.105:9000/api/";
     public static final String BASE_URL = "http://10.0.2.2:9000/api/";
 
     public static final String title = "Junta Administradora de Servicios de Saneamiento de Agua\nPotable de la comunidad campesina de CUYURAYA - HUANCANE";

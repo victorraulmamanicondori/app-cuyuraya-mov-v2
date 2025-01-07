@@ -69,27 +69,6 @@
             android:orientation="vertical"
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal">
-            <Button
-                android:id="@+id/btnImprimirBalanceUsuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/imprimir_balance_por_usuario"
-                android:backgroundTint="@color/buttonBackgroundColor"
-                android:textColor="@color/buttonTextColor"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginHorizontal="15dp"/>
-
-            <Button
-                android:id="@+id/btnImprimirPagosRecibos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/imprimir_pagos_de_recibos"
-                android:backgroundTint="@color/buttonBackgroundColor"
-                android:textColor="@color/buttonTextColor"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginHorizontal="15dp"/>
 
             <Button
                 android:id="@+id/btnImprimirEgresos"

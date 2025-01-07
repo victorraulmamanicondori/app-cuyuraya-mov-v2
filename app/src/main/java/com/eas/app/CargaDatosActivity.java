@@ -1,10 +1,8 @@
 package com.eas.app;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +15,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -32,12 +29,9 @@ import com.eas.app.model.ComunidadNativa;
 import com.eas.app.model.Departamento;
 import com.eas.app.model.Distrito;
 import com.eas.app.model.Provincia;
-import com.eas.app.model.TipoMovimiento;
 import com.eas.app.model.Usuario;
 import com.eas.app.util.Almacenamiento;
 import com.eas.app.util.Constantes;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -46,12 +40,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -545,51 +534,6 @@ public class CargaDatosActivity extends AppCompatActivity {
                 List<Usuario> usuarios = result.getDatos();
 
                 Toast.makeText(getApplicationContext(), "Se guardo usuarios desde excel", Toast.LENGTH_LONG).show();
-
-                /*String url = Constantes.BASE_URL + "usuarios/reporte-carga-masiva";
-
-                new Thread(() -> {
-                    try {
-                        // Serializar la lista de usuarios a JSON
-                        Gson gson = new Gson();
-                        String jsonUsuarios = gson.toJson(usuarios, new TypeToken<List<Usuario>>() {}.getType());
-
-                        // Establecer conexión HTTP
-                        URL serverUrl = new URL(url);
-                        HttpURLConnection connection = (HttpURLConnection) serverUrl.openConnection();
-                        connection.setRequestMethod("POST");
-                        connection.setDoOutput(true);
-                        connection.setRequestProperty("Content-Type", "application/json");
-
-                        // Enviar datos en la petición
-                        try (OutputStream os = connection.getOutputStream()) {
-                            os.write(jsonUsuarios.getBytes("UTF-8"));
-                            os.flush();
-                        }
-
-                        // Leer la respuesta
-                        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                            InputStream inputStream = connection.getInputStream();
-                            File pdfFile = new File(getExternalFilesDir(null), "reporte.pdf");
-                            try (FileOutputStream outputStream = new FileOutputStream(pdfFile)) {
-                                byte[] buffer = new byte[4096];
-                                int bytesRead;
-                                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                                    outputStream.write(buffer, 0, bytesRead);
-                                }
-                            }
-
-                            // Abrir el archivo PDF
-                            abrirPDF(pdfFile);
-                        } else {
-                            runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Error al generar el reporte", Toast.LENGTH_SHORT).show());
-                        }
-                        connection.disconnect();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Error en la conexión", Toast.LENGTH_SHORT).show());
-                    }
-                }).start();*/
             }
 
             @Override
@@ -597,18 +541,5 @@ public class CargaDatosActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Error al guardar usuarios" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private void abrirPDF(File pdfFile) {
-        Uri pdfUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", pdfFile);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(pdfUri, "application/pdf");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, "No se encontró una aplicación para abrir el PDF", Toast.LENGTH_SHORT).show();
-        }
     }
 }
