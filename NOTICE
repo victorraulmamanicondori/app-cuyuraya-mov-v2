@@ -1,0 +1,73 @@
+### NOTICE
+
+**Sistema de Gestión de Agua Potable Rural**  
+**Derechos de Autor (c) Victor Raul Mamani Condori, 2025**  
+
+Este proyecto incluye software de código abierto desarrollado por terceros, utilizado 
+bajo sus respectivas licencias. A continuación, se proporciona una lista de las librerías 
+utilizadas y enlaces a sus licencias.
+
+---
+
+### Librerías y Licencias
+
+1. **JUnit**  
+   - **Descripción**: Framework para pruebas unitarias en Java.  
+   - **Licencia**: Eclipse Public License 1.0  
+   - **Enlace**: [https://junit.org/junit4/license.html](https://junit.org/junit4/license.html)
+
+2. **AndroidX Test Ext JUnit**  
+   - **Descripción**: Extensión de JUnit para pruebas en Android.  
+   - **Licencia**: Apache License 2.0  
+   - **Enlace**: [https://developer.android.com/license](https://developer.android.com/license)
+
+3. **Espresso Core**  
+   - **Descripción**: Framework para pruebas de interfaz de usuario en Android.  
+   - **Licencia**: Apache License 2.0  
+   - **Enlace**: [https://developer.android.com/license](https://developer.android.com/license)
+
+4. **AndroidX AppCompat**  
+   - **Descripción**: Compatibilidad retroactiva para elementos modernos de UI.  
+   - **Licencia**: Apache License 2.0  
+   - **Enlace**: [https://developer.android.com/license](https://developer.android.com/license)
+
+5. **Material Design Components**  
+   - **Descripción**: Implementación de Material Design en Android.  
+   - **Licencia**: Apache License 2.0  
+   - **Enlace**: [https://github.com/material-components/material-components-android/blob/master/LICENSE](https://github.com/material-components/material-components-android/blob/master/LICENSE)
+
+6. **AndroidX Activity**  
+   - **Descripción**: Mejora de la gestión de actividades en Android.  
+   - **Licencia**: Apache License 2.0  
+   - **Enlace**: [https://developer.android.com/license](https://developer.android.com/license)
+
+7. **ConstraintLayout**  
+   - **Descripción**: Layout avanzado para interfaces de usuario en Android.  
+   - **Licencia**: Apache License 2.0  
+   - **Enlace**: [https://developer.android.com/license](https://developer.android.com/license)
+
+8. **Retrofit 2**  
+   - **Descripción**: Cliente HTTP para interactuar con APIs RESTful.  
+   - **Licencia**: Apache License 2.0  
+   - **Enlace**: [https://github.com/square/retrofit/blob/master/LICENSE.txt](https://github.com/square/retrofit/blob/master/LICENSE.txt)
+
+9. **Gson Converter**  
+   - **Descripción**: Adaptador de Retrofit para convertir JSON a objetos Java.  
+   - **Licencia**: Apache License 2.0  
+   - **Enlace**: [https://github.com/square/retrofit/blob/master/LICENSE.txt](https://github.com/square/retrofit/blob/master/LICENSE.txt)
+
+10. **ViewPager2**  
+    - **Descripción**: Widget para vistas deslizables en Android.  
+    - **Licencia**: Apache License 2.0  
+    - **Enlace**: [https://developer.android.com/license](https://developer.android.com/license)
+
+11. **RecyclerView**  
+    - **Descripción**: Lista eficiente y reutilizable en Android.  
+    - **Licencia**: Apache License 2.0  
+    - **Enlace**: [https://developer.android.com/license](https://developer.android.com/license)
+
+12. **Apache POI**  
+    - **Descripción**: Librería para trabajar con archivos Microsoft Office.  
+    - **Licencia**: Apache License 2.0  
+    - **Enlace**: [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0)
+

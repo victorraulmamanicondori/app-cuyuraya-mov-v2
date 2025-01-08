@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Sistema de Gestión de Agua Potable Rural
+Copyright (c) Victor Raul Mamani Condori, 2025
+
+Este archivo está protegido bajo los términos de la Licencia de Uso y Distribución.
+Consulta el archivo LICENSE en el directorio raíz del proyecto para más detalles.
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
