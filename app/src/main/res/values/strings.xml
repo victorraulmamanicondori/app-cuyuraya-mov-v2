@@ -118,5 +118,6 @@
     <string name="seleccionar_archivo_excel">Seleccione Archivo Excel</string>
     <string name="archivo_no_seleccionado" />
     <string name="btnGuardarUsuarios">Guardar Usuarios</string>
+    <string name="imprimir_ingresos">Imprimir Ingresos</string>
 
 </resources>

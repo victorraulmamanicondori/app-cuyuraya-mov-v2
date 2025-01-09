@@ -29,7 +29,7 @@ public class Usuario {
     private String estado;
     private String codigoMedidor;
     private Integer fila;
-    private List<String> errores = new ArrayList<>();
+    private List<String> errores;
 
     public Integer getId() {
         return id;
@@ -165,39 +165,5 @@ public class Usuario {
 
     public void setErrores(List<String> errores) {
         this.errores = errores;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Usuario)) return false;
-        Usuario usuario = (Usuario) o;
-        return Objects.equals(dni, usuario.dni);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(dni);
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", dni='" + dni + '\'' +
-                ", nombres='" + nombres + '\'' +
-                ", paterno='" + paterno + '\'' +
-                ", materno='" + materno + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", codigoDepartamento='" + codigoDepartamento + '\'' +
-                ", codigoProvincia='" + codigoProvincia + '\'' +
-                ", codigoDistrito='" + codigoDistrito + '\'' +
-                ", codigoCentroPoblado='" + codigoCentroPoblado + '\'' +
-                ", codigoComunidadCampesina='" + codigoComunidadCampesina + '\'' +
-                ", codigoComunidadNativa='" + codigoComunidadNativa + '\'' +
-                ", clave='" + clave + '\'' +
-                ", estado='" + estado + '\'' +
-                ", codigoMedidor='" + codigoMedidor + '\'' +
-                '}';
     }
 }

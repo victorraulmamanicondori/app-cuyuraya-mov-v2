@@ -11,10 +11,12 @@ package com.eas.app;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +72,10 @@ public class CargaDatosActivity extends AppCompatActivity {
 
     private TextView tvNombreArchivoSeleccionado;
 
+    private ProgressBar progressBar;
+    Button btnSeleccionarArchivo;
+    Button btnGuardarUsuarios;
+
     // ActivityResultLauncher reemplaza startActivityForResult
     private final ActivityResultLauncher<Intent> seleccionarArchivoLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -104,10 +110,12 @@ public class CargaDatosActivity extends AppCompatActivity {
 
         tvNombreArchivoSeleccionado = findViewById(R.id.tvNombreArchivoSeleccionado);
 
-        Button btnSeleccionarArchivo = findViewById(R.id.btnSeleccionarArchivo);
+        progressBar = findViewById(R.id.progressBar);
+
+        btnSeleccionarArchivo = findViewById(R.id.btnSeleccionarArchivo);
         btnSeleccionarArchivo.setOnClickListener(v -> abrirSelectorDeArchivos());
 
-        Button btnGuardarUsuarios = findViewById(R.id.btnGuardarUsuarios);
+        btnGuardarUsuarios = findViewById(R.id.btnGuardarUsuarios);
         btnGuardarUsuarios.setOnClickListener(v -> guardarUsuarios());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cargaDatos), (v, insets) -> {
@@ -533,21 +541,36 @@ public class CargaDatosActivity extends AppCompatActivity {
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);  // Muestra el ProgressBar
+        btnSeleccionarArchivo.setEnabled(false);
+        btnGuardarUsuarios.setEnabled(false);
+
         String token = Almacenamiento.obtener(getApplicationContext(), Constantes.KEY_ACCESS_TOKEN);
         BaseApi baseApi = new BaseApi(token);
 
-        baseApi.guardarUsuarios(usuarios, new BaseApiCallback<BaseResponse<List<Usuario>>>() {
-            @Override
-            public void onSuccess(BaseResponse<List<Usuario>> result) {
-                List<Usuario> usuarios = result.getDatos();
+        try {
+            baseApi.guardarUsuarios(usuarios, new BaseApiCallback<BaseResponse<List<Usuario>>>() {
+                @Override
+                public void onSuccess(BaseResponse<List<Usuario>> result) {
+                    progressBar.setVisibility(View.GONE);  // Oculta el ProgressBar
+                    btnSeleccionarArchivo.setEnabled(true);
+                    btnGuardarUsuarios.setEnabled(true);
+                    List<Usuario> usuarios = result.getDatos();
 
-                Toast.makeText(getApplicationContext(), "Se guardo usuarios desde excel", Toast.LENGTH_LONG).show();
-            }
+                    Toast.makeText(getApplicationContext(), "Se guardo usuarios desde excel", Toast.LENGTH_LONG).show();
+                }
 
-            @Override
-            public void onError(Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error al guardar usuarios" + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void onError(Throwable t) {
+                    progressBar.setVisibility(View.GONE);  // Oculta el ProgressBar
+                    btnSeleccionarArchivo.setEnabled(true);
+                    btnGuardarUsuarios.setEnabled(true);
+                    Toast.makeText(getApplicationContext(), "Error al guardar usuarios" + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch(Exception ex) {
+            Toast.makeText(getApplicationContext(), "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("CargaDatos", "Error:" + ex.getMessage());
+        }
     }
 }

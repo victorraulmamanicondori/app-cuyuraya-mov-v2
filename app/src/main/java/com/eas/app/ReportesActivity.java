@@ -33,12 +33,12 @@ public class ReportesActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Reporte por DNI");
-                    tab.setContentDescription("Reporte por DNI");
+                    tab.setText("Ingresos y Egresos");
+                    tab.setContentDescription("Ingresos y Egresos");
                     break;
                 case 1:
-                    tab.setText("Reporte por Ubigeo");
-                    tab.setContentDescription("Reporte por Ubigeo");
+                    tab.setText("Padron Usuarios");
+                    tab.setContentDescription("Padron Usuarios");
                     break;
             }
         }).attach();

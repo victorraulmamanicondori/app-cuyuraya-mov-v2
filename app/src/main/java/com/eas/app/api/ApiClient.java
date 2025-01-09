@@ -22,11 +22,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
 
     public static Retrofit getClient(final String token) {
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)  // Tiempo de espera para conexión
+                .writeTimeout(120, TimeUnit.SECONDS)   // Tiempo de espera para escribir
+                .readTimeout(120, TimeUnit.SECONDS);   // Tiempo de espera para leer
 
         if (token != null && !token.isEmpty()) {
             // Interceptor para añadir el token en la cabecera Authorization
